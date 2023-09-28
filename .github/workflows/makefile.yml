@@ -1,0 +1,36 @@
+name: Makefile CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      name: clone go-metabuild
+      with:
+        path: go-metabuild
+    - uses: actions/checkout@v3
+      name: clone go-magicdict
+      with:
+        repository: metux/go-magicdict
+        path: go-magicdict
+        ref: wip/doc
+    - uses: actions/checkout@v3
+      name: clone zlib
+      with:
+        repository: oss-qm/zlib
+        path: zlib
+        ref: wip/metabuild
+    - name: build
+      run: make
+      working-directory: go-metabuild
+    - name: Archive build results
+      uses: actions/upload-artifact@v3
+      with:
+        name: results
+        path: ./*

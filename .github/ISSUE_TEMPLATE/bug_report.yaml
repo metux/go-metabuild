@@ -1,0 +1,33 @@
+name: Bug report
+description: Create a bug report to help improve go-metabuild
+labels: kind/unconfirmed-bug-claim
+body:
+  - type: markdown
+    attributes:
+      value: |
+        If you are reporting a new issue, make sure that we do not have any duplicates
+        already open. You can ensure this by searching the issue list for this
+        repository. If there is a duplicate, please close your issue and add a comment
+        to the existing issue instead.
+
+  - type: textarea
+    attributes:
+      label: Description
+      description: |
+        Briefly describe the problem you are having in a few paragraphs.
+    validations:
+      required: false
+
+  - type: textarea
+    attributes:
+      label: Steps to reproduce the issue
+      value: |
+        1.
+        2.
+        3.
+
+  - type: textarea
+    attributes:
+      label: Describe the results you received and expected
+    validations:
+      required: false

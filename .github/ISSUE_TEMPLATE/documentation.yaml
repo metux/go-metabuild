@@ -1,0 +1,22 @@
+name: Documentation request
+description: Missing documentation
+labels: kind/documentation
+body:
+  - type: textarea
+    attributes:
+      label: Which aspect needs to be documented
+      description: |
+        A clear and concise description of what the problem is.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Propoasal for documentation text
+      description:
+
+  - type: textarea
+    attributes:
+      label: Additional context
+      description: |
+        Add any other context about the feature request here.
