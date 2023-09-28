@@ -1,0 +1,184 @@
+# TODO
+# --> the current one will be linked to a fixed place, where it can be referenced anywhere else
+# --> add c/defines@host / c/defines@build (FeaturedStrList ?)
+# --> target: cflags, ldflags, ... automatically load for host/build
+
+package:      zlib1g
+version:      1.3.0.1
+maintainer:   Enrico Weigelt, metux IT consult <info@metux.net>
+homepage:     http://www.zlib.net
+section:      libs
+name:         Zlib compression library
+description:  |
+ zlib is a library implementing the deflate
+ compression method found in gzip and PKZIP.
+
+# srcdir: ../zlib
+
+configure:
+    checks:
+        # using list instead of struct, so we can define the order
+        - type:           target-distro
+        - type:           c/compiler
+          mandatory:      true
+        - c/header:       unistd.h
+          mandatory:      false
+          yes/c/defines:  HAVE_UNISTD_H
+        - c/function:     fseeko
+          yes/c/defines:  HAVE_FSEEKO
+          mandatory:      true
+        - c/type:         size_t
+          c/header:       [stdio.h, stdlib.h]
+          yes/c/defines:  HAVE_SIZE_T
+        - c/type:         off64_t
+          c/header:       sys/types.h
+        - c/function:     strerror
+          yes/c/defines:  HAVE_STRERROR
+        - c/function:     vsnprintf
+          c/header:       [stdio.h, stdarg.h]
+          yes/c/defines:  HAVE_VSNPRINTF
+        - c/type:         size_t
+          c/header:       [stdio.h, stdlib.h]
+          yes/c/defines:  HAVE_SIZE_T
+
+objects:
+    zlib:
+        type:           c/library
+        mapfile:        zlib.map
+        version:        1
+        libname:        z
+        c/defines:      ${buildconf::host::flags::c/defines}
+        pkgconf:
+            name:        zlib
+            description: ZLib compression library
+
+        source:
+            - adler32.c
+            - crc32.c
+            - deflate.c
+            - infback.c
+            - inffast.c
+            - inflate.c
+            - inftrees.c
+            - trees.c
+            - zutil.c
+
+        source@feature/gz=y:
+            - compress.c
+            - uncompr.c
+            - gzclose.c
+            - gzlib.c
+            - gzread.c
+            - gzwrite.c
+
+        source@platform=mingw32: zlib1.rc
+
+        headers:
+            pub:
+                # directly into /usr/include
+                subdir: /
+                source:
+                    - zlib.h
+                    - zconf.h
+            priv:
+                install: false
+                source:
+                    - crc32.h
+                    - deflate.h
+                    - gzguts.h
+                    - inffast.h
+                    - inffixed.h
+                    - inflate.h
+                    - inftrees.h
+                    - trees.h
+                    - zutil.h
+
+    example:
+        type:           c/executable
+        c/defines:      ${buildconf::host::flags::c/defines}
+        source:         test/example.c
+        link/static:    zlib
+        install:        false
+
+    minizip.1:
+        type:           doc/man
+        c/defines:      ${buildconf::host::flags::c/defines}
+        source:         contrib/minizip/${@@PARENT::@@KEY}
+        man/section:    1
+
+    miniunzip.1:
+        type:           doc/man
+        source:         contrib/minizip/${@@PARENT::@@KEY}
+        man/section:    1
+
+    minigzip:
+        type:           c/executable
+        c/defines:      ${buildconf::host::flags::c/defines}
+        source:         test/minigzip.c
+        link/static:    zlib
+
+    example64:
+        type:           c/executable
+        c/defines:      ["${buildconf::host::flags::c/defines}", _FILE_OFFSET_BITS=64]
+        source:         test/example.c
+        link/static:    zlib
+        install:        false
+
+    minigzip64:
+        type:           c/executable
+        source:         test/minigzip.c
+        c/defines:      ["${buildconf::host::flags::c/defines}", _FILE_OFFSET_BITS=64]
+        link/static:    zlib
+
+    examplesh:
+        type:           c/executable
+        source:         test/example.c
+        c/defines:      ${buildconf::host::flags::c/defines}
+        link/shared:    zlib
+        install:        false
+
+    minigzipsh:
+        type:           c/executable
+        source:         test/minigzip.c
+        c/defines:      ${buildconf::host::flags::c/defines}
+        link/static:    zlib
+
+    example64sh:
+        type:           c/executable
+        source:         test/example.c
+        c/defines:      ["${buildconf::host::flags::c/defines}", _FILE_OFFSET_BITS=64]
+        link/shared:    zlib
+        install:        false
+
+    minigzip64sh:
+        type:           c/executable
+        source:         test/minigzip.c
+        c/defines:      ["${buildconf::host::flags::c/defines}", _FILE_OFFSET_BITS=64]
+        link/shared:    zlib
+
+features:
+    pedantic:
+        type:    bool
+        description: be very pedantic (eg. make many things const)
+        default: y
+        set@y:
+            ## should also support host/build
+            c/defines:      ZLIB_CONST
+            c/flags:        pedantic
+    debug:
+        type:    bool
+        default: n
+        set@y:
+            ## should also support host/build
+            c/defines:      ZLIB_DEBUG
+
+    # FIXME: make it possible to build w/o it
+    gz:
+        type:    bool
+        default: y
+
+distro:
+    _default_:
+        packages:
+            data:
+                skip: true

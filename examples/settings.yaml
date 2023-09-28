@@ -1,0 +1,378 @@
+---
+distro:
+    _default_:
+        packages:
+            main:
+                description: |
+                  ${name} -- main package
+                  ${description}
+                homepage:    ${homepage}
+                maintainer:  ${maintainer}
+                multiarch:   no
+                origin:      ${origin}
+                version:     ${version}
+                section:     ${section}
+            lib:
+                description: |
+                  ${name} -- (runtime library)
+                  ${description}
+                  This package includes the shared library.
+                homepage:    ${homepage}
+                maintainer:  ${maintainer}
+                multiarch:   same
+                origin:      ${origin}
+                version:     ${version}
+                section:     ${section}
+            dev:
+                description: |
+                  ${name} -- development package
+                  ${description}
+                  This package contains the development files (eg. includes, pkgconfig, static lib, ...)
+                homepage:    ${homepage}
+                maintainer:  ${maintainer}
+                multiarch:   no
+                origin:      ${origin}
+                version:     ${version}
+                section:     ${section}
+            prog:
+                description: |
+                  ${name} -- utility programs
+                  ${description}
+                  This package contains the command line or daemon programs
+                homepage:    ${homepage}
+                maintainer:  ${maintainer}
+                multiarch:   no
+                origin:      ${origin}
+                version:     ${version}
+                section:     ${section}
+            prog-man:
+                description: |
+                  ${name} -- manpages for utility programs
+                  ${description}
+                  This package contains the program manuals.
+                homepage:    ${homepage}
+                maintainer:  ${maintainer}
+                multiarch:   no
+                origin:      ${origin}
+                version:     ${version}
+                section:     ${section}
+            doc:
+                description: |
+                  ${name} -- documentation
+                  ${description}
+                  This package contains the documentation.
+                homepage:    ${homepage}
+                maintainer:  ${maintainer}
+                multiarch:   no
+                origin:      ${origin}
+                version:     ${version}
+                section:     ${section}
+            data:
+                description: |
+                  ${name} -- data
+                  ${description}
+                  This package contains the data files.
+                homepage:    ${homepage}
+                maintainer:  ${maintainer}
+                multiarch:   no
+                origin:      ${origin}
+                version:     ${version}
+                section:     ${section}
+
+    debian:
+        dev-suffix:   -dev
+        doc-suffix:   -doc
+        data-suffix:  -data
+        prog-suffix:  -prog
+        lib-suffix:   -libs
+
+        arch:         ${buildconf::@targetdistarch}
+        targetsys:    ${buildconf::@targetdistarch}-gnu-linux
+
+        package:      ${package}
+
+        pkg-format:   deb
+        platform:     ${platform::linux}
+
+        install-dirs:
+            prefix:         /usr
+            exec-prefix:    ${buildconf::@targetdist::install-dirs::prefix}
+            localstatedir:  /var
+            sysconfdir:     /etc
+            bindir:         ${buildconf::@targetdist::install-dirs::prefix}/bin
+            bootbindir:     /bin
+            libdir:         ${buildconf::@targetdist::install-dirs::prefix}/lib/${buildconf::@targetdist::targetsys}
+            bootlibdir:     /lib/${buildconf::@targetdist::targetsys}
+            pkgconfigdir:   ${buildconf::@targetdist::install-dirs::libdir}/pkgconfig
+            datadir:        ${buildconf::@targetdist::install-dirs::prefix}/share
+            localedir:      ${buildconf::@targetdist::install-dirs::datadir}/locale
+            sharedlibdir:   ${buildconf::@targetdist::install-dirs::sharedlibdir}
+            mandir:         ${buildconf::@targetdist::install-dirs::datadir}/man
+            docdir:         ${buildconf::@targetdist::install-dirs::datadir}/doc
+            pixmapdir:      ${buildconf::@targetdist::install-dirs::datadir}/pixmaps
+            includedir:     ${buildconf::@targetdist::install-dirs::prefix}/include
+            fdo-appdir:     ${buildconf::@targetdist::install-dirs::datadir}/applications
+
+        depends:
+            libc-dev: libc6-dev | libc-dev
+            libc:     libc6:${@buildconf::@targetdistarch}
+
+        packages:
+            # fixme: should we have aliasing ?
+            main:
+                arch:           ${buildconf::@targetdistarch}
+                bugs:           ${distro::_default_::packages::main::bugs}
+                description:    ${distro::_default_::packages::main::description}
+                homepage:       ${distro::_default_::packages::main::homepage}
+                local-depend:   [ prog, lib, doc ]
+                maintainer:     ${distro::_default_::packages::main::maintainer}
+                multiarch:      ${distro::_default_::packages::main::multiarch}
+                name:           ${buildconf::@targetdist::package}
+                origin:         ${distro::_default_::packages::main::origin}
+                pkg-depend:
+                priority:       ${distro::_default_::packages::main::priority}
+                section:        ${distro::_default_::packages::main::section}
+                skip:           ${distro::_default_::packages::main::skip}
+                template:       ${distro::_default_::packages::main}
+                version:        ${distro::_default_::packages::main::version}
+            lib:
+                arch:           ${buildconf::@targetdistarch}
+                bugs:           ${distro::_default_::packages::lib::bugs}
+                description:    ${distro::_default_::packages::lib::description}
+                homepage:       ${distro::_default_::packages::lib::homepage}
+                local-depend:
+                maintainer:     ${distro::_default_::packages::lib::maintainer}
+                multiarch:      ${distro::_default_::packages::lib::multiarch}
+                name:           ${buildconf::@targetdist::package}${buildconf::@targetdist::lib-suffix}
+                origin:         ${distro::_default_::packages::lib::origin}
+                pkg-depend:     ${distro::debian::depends::libc}
+                priority:       ${distro::_default_::packages::lib::priority}
+                section:        ${distro::_default_::packages::lib::section}
+                skip:           ${distro::_default_::packages::lib::skip}
+                template:       ${distro::_default_::packages::lib}
+                version:        ${distro::_default_::packages::lib::version}
+            dev:
+                arch:           ${buildconf::@targetdistarch}
+                bugs:           ${distro::_default_::packages::dev::bugs}
+                description:    ${distro::_default_::packages::dev::description}
+                homepage:       ${distro::_default_::packages::dev::homepage}
+                local-depend:   [ lib ]
+                maintainer:     ${distro::_default_::packages::dev::maintainer}
+                multiarch:      ${distro::_default_::packages::dev::multiarch}
+                name:           ${buildconf::@targetdist::package}${buildconf::@targetdist::dev-suffix}
+                origin:         ${distro::_default_::packages::dev::origin}
+                pkg-depend:     ${distro::debian::depends::libc-dev}
+                priority:       ${distro::_default_::packages::dev::priority}
+                section:        ${distro::_default_::packages::dev::section}
+                skip:           ${distro::_default_::packages::dev::skip}
+                template:       ${distro::_default_::packages::dev}
+                version:        ${distro::_default_::packages::dev::version}
+            prog:
+                arch:           ${buildconf::@targetdistarch}
+                bugs:           ${distro::_default_::packages::prog::bugs}
+                description:    ${distro::_default_::packages::prog::description}
+                homepage:       ${distro::_default_::packages::prog::homepage}
+                local-depend:   [ lib, data ]
+                maintainer:     ${distro::_default_::packages::prog::maintainer}
+                multiarch:      ${distro::_default_::packages::prog::multiarch}
+                name:           ${buildconf::@targetdist::package}${buildconf::@targetdist::prog-suffix}
+                origin:         ${distro::_default_::packages::prog::origin}
+                pkg-depend:
+                priority:       ${distro::_default_::packages::prog::priority}
+                section:        ${distro::_default_::packages::prog::section}
+                skip:           ${distro::_default_::packages::prog::skip}
+                template:       ${distro::_default_::packages::prog}
+                version:        ${distro::_default_::packages::prog::version}
+            doc:
+                arch:           all
+                bugs:           ${distro::_default_::packages::doc::bugs}
+                description:    ${distro::_default_::packages::doc::description}
+                homepage:       ${distro::_default_::packages::doc::homepage}
+                local-depend:
+                maintainer:     ${distro::_default_::packages::doc::maintainer}
+                multiarch:      ${distro::_default_::packages::doc::multiarch}
+                name:           ${buildconf::@targetdist::package}${buildconf::@targetdist::doc-suffix}
+                origin:         ${distro::_default_::packages::doc::origin}
+                pkg-depend:
+                priority:       ${distro::_default_::packages::doc::priority}
+                section:        ${distro::_default_::packages::doc::section}
+                skip:           ${distro::_default_::packages::doc::skip}
+                template:       ${distro::_default_::packages::doc}
+                version:        ${distro::_default_::packages::doc::version}
+            data:
+                arch:           all
+                bugs:           ${distro::_default_::packages::data::bugs}
+                description:    ${distro::_default_::packages::data::description}
+                homepage:       ${distro::_default_::packages::data::homepage}
+                local-depend:
+                maintainer:     ${distro::_default_::packages::data::maintainer}
+                multiarch:      ${distro::_default_::packages::data::multiarch}
+                name:           ${buildconf::@targetdist::package}${buildconf::@targetdist::data-suffix}
+                origin:         ${distro::_default_::packages::data::origin}
+                pkg-depend:
+                priority:       ${distro::_default_::packages::data::priority}
+                section:        ${distro::_default_::packages::data::section}
+                skip:           ${distro::_default_::packages::data::skip}
+                template:       ${distro::_default_::packages::data}
+                version:        ${distro::_default_::packages::data::version}
+
+platform:
+    linux:
+        pkg:
+            libc/math:
+                pkgspec:        libc/math
+                pkg:            libc/math
+                version:        0
+                shared/cflags:
+                shared/ldflags: -lm
+                static/cflags:
+                static/ldflags: -lm
+
+        targets:
+            # beware: these are copied over as raw values into c/library targets
+            # thus magic references here are relative to the individual target entries
+
+            c/library:
+                ## defaults that may be overwritten
+                libname:              ${@@PARENT::@@KEY}
+                install:              true
+                abi:                  1
+
+                ## fixme: pkg-config needs this ... really the right place ?
+                name:                 ${@@PARENT::libname}
+
+                description:          ${description}
+                version:              ${version}
+
+                # *pathname* of the locally built (non-installed) static library
+                static/libfile:       ${@@PARENT::static::name}
+
+            c/library/pkgconf:
+                install:              ${@@PARENT::@@PARENT::install}
+                install/dir:          ${buildconf::install-dirs::pkgconfigdir}
+                install/package:      dev
+                install/perm:         0644
+
+                file:                 ${@@PARENT::name}.pc
+                version:              ${@@PARENT::@@PARENT::version}
+                name:                 ${@@PARENT::@@PARENT::libname}
+                libdir:               ${@@PARENT::@@PARENT::shared::install/dir}
+                sharedlibdir:         ${@@PARENT::@@PARENT::shared::install/dir}
+                description:          ${@@PARENT::@@PARENT::description}
+                prefix:               ${buildconf::install-dirs::prefix}
+                exec-prefix:          ${buildconf::install-dirs::exec-prefix}
+                includedir:           ${buildconf::install-dirs::includedir}
+                archive:              ${@@PARENT::libdir}/${@@PARENT::@@PARENT::static::name}
+                libname:              ${@@PARENT::@@PARENT::libname}
+
+            c/library/shared:
+                install:              ${@@PARENT::@@PARENT::install}
+                install/dir:          ${buildconf::install-dirs::libdir}
+                install/package:      lib
+                install/perm:         0644
+
+                name:                 lib${@@PARENT::@@PARENT::libname}.so.${@@PARENT::@@PARENT::abi}
+                file:                 ${@@PARENT::name}
+
+            c/library/devlink:
+                install:              ${@@PARENT::@@PARENT::install}
+                install/dir:          ${buildconf::install-dirs::libdir}
+                install/package:      dev
+                install/perm:         0644
+
+                name:                 lib${@@PARENT::@@PARENT::libname}.so
+                target:               ${@@PARENT::@@PARENT::shared::file}
+                file:                 ${@@PARENT::name}
+
+            c/library/static:
+                install:              ${@@PARENT::@@PARENT::install}
+                install/dir:          ${buildconf::install-dirs::libdir}
+                install/package:      dev
+                install/perm:         0644
+
+                name:                 lib${@@PARENT::@@PARENT::libname}.a
+                file:                 ${@@PARENT::name}
+
+            c/header:
+                install:              ${@@PARENT::@@PARENT::install}
+                install/dir:          ${buildconf::install-dirs::includedir}/${@@PARENT::install/subdir}
+                install/package:      dev
+                install/perm:         0664
+
+            c/executable:
+                install:              ${@@PARENT::@@PARENT::install}
+                install/dir:          ${buildconf::install-dirs::bindir}/${@@PARENT::install/subdir}
+                install/package:      prog
+                install/perm:         0755
+
+                name:                 ${@@PARENT::@@KEY}
+                file:                 ${@@PARENT::name}
+
+            data/misc:
+                install:              ${@@PARENT::@@PARENT::install}
+                install/dir:          ${buildconf::install-dirs::datadir}
+                install/package:      data
+                install/perm:         0664
+
+            data/pixmaps:
+                install:              ${@@PARENT::@@PARENT::install}
+                install/dir:          ${buildconf::install-dirs::pixmapdir}
+                install/package:      data
+                install/perm:         0664
+
+            data/desktop:
+                install:              ${@@PARENT::@@PARENT::install}
+                install/dir:          ${buildconf::install-dirs::fdo-appdir}
+                install/package:      data
+                install/perm:         0664
+                file:                 ${@@PARENT::@@KEY}
+                desktop/type:         Application
+                desktop/name:         ${shortname}
+                desktop/genericname:  ${name}
+                desktop/comment:      ${description}
+                desktop/icon-file:    ${buildconf::install-dirs::pixmapdir}/${@@PARENT::desktop/icon}
+                desktop/terminal:     false
+
+            i18n/po:
+                install:              ${@@PARENT::@@PARENT::install}
+                install/dir:          ${buildconf::install-dirs::localedir}
+                install/package:      data
+                install/perm:         0664
+                i18n/category:        LC_MESSAGES
+                i18n/domain:          ${package}
+                name:                 ${@@PARENT::domain}.mo
+
+            doc/man:
+                install:              ${@@PARENT::@@PARENT::install}
+                install/dir:          ${buildconf::install-dirs::mandir}
+                install/package:      doc
+                install/perm:         0664
+                man/compress:         gz
+
+            doc/misc:
+                install:              ${@@PARENT::@@PARENT::install}
+                install/dir:          ${buildconf::install-dirs::docdir}
+                install/package:      doc
+                install/perm:         0664
+                install/subdir:       ${package}
+                compress:             gz
+
+buildconf:
+    install-dirs:
+        prefix:         ${buildconf::@targetdist::install-dirs::prefix}
+        exec-prefix:    ${buildconf::@targetdist::install-dirs::exec-prefix}
+        localstatedir:  ${buildconf::@targetdist::install-dirs::localstatedir}
+        sysconfdir:     ${buildconf::@targetdist::install-dirs::sysconfdir}
+        bindir:         ${buildconf::@targetdist::install-dirs::bindir}
+        bootbindir:     ${buildconf::@targetdist::install-dirs::bootbindir}
+        libdir:         ${buildconf::@targetdist::install-dirs::libdir}
+        sharedlibdir:   ${buildconf::@targetdist::install-dirs::sharedlibdir}
+        bootlibdir:     ${buildconf::@targetdist::install-dirs::bootlibdir}
+        pkgconfigdir:   ${buildconf::@targetdist::install-dirs::pkgconfigdir}
+        datadir:        ${buildconf::@targetdist::install-dirs::datadir}
+        localedir:      ${buildconf::@targetdist::install-dirs::localedir}
+        mandir:         ${buildconf::@targetdist::install-dirs::mandir}
+        docdir:         ${buildconf::@targetdist::install-dirs::docdir}
+        includedir:     ${buildconf::@targetdist::install-dirs::includedir}
+        pixmapdir:      ${buildconf::@targetdist::install-dirs::pixmapdir}
+        fdo-appdir:     ${buildconf::@targetdist::install-dirs::fdo-appdir}

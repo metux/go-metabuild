@@ -1,0 +1,23 @@
+* autodeps:
+    * minimal versions for shared objects
+    * configurable ?
+
+* checks:
+    * progs
+    * some standard tools ? --> msgfmt
+
+* features
+    * write to config(s)
+    * dependencies
+
+* packaging:
+    - clean duplicate dependencies (drop w/o versions and keep w/ versions)
+    - deps w/ versions to internal packages (maybe w/ minver attr ?)
+
+* debian:
+    * automatic docs + copyright + changelog
+    * dh_installchangelogs
+    * dh_shlibdeps --> write and process shlibdeps files ?
+
+* arch independent pkgconfig
+    --> eg. macro packages
