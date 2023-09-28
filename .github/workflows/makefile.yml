@@ -26,6 +26,12 @@ jobs:
         repository: oss-qm/zlib
         path: zlib
         ref: wip/metabuild
+    - uses: actions/checkout@v3
+      name: clone lincity
+      with:
+        repository: oss-qm/lincity
+        path: lincity
+        ref: master
     - name: build
       run: make
       working-directory: go-metabuild

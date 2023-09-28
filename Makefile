@@ -2,6 +2,7 @@
 my_path := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
 test_zlib_path := ../zlib
+test_lincity_path := ../lincity
 
 all: test test-zlib
 
@@ -24,6 +25,9 @@ test-autoconf:
 
 test-zlib: build
 	cd $(test_zlib_path)    && $(my_path)/bin/metabuild -conf $(my_path)/examples/pkg/zlib.yaml    -global $(my_path)/examples/settings.yaml
+
+test-lincity: build
+	cd $(test_lincity_path) && $(my_path)/bin/metabuild -conf $(my_path)/examples/pkg/lincity.yaml -global $(my_path)/examples/settings.yaml
 
 build:
 	@rm -Rf bin

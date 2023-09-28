@@ -1,0 +1,232 @@
+# TODO
+#
+# * move it under /usr/games
+# * executable xlincity & lincity (symlink)
+# * fixme: data-locales --> symlink
+
+package:      lincity
+version:      1.13.1
+maintainer:   Enrico Weigelt, metux IT consult <info@metux.net>
+homepage:     http://lincity.sourceforge.net
+shortname:    Lincity
+name:         City simulation game
+license:      GPLv2
+description:  |
+ Clone of the classic SimCity
+
+# srcdir: ../lincity
+
+configure:
+    generate:
+        - config.h:       config.h
+          template:       config.h.template
+          marker:         /*@@CONFIG_INSERTED_HERE@@*/
+    checks:
+        # using list instead of struct, so we can define the order
+        - type:           target-distro
+        - type:           c/compiler
+          mandatory:      true
+        - c/header:       dirent.h
+          yes/c/defines:  HAVE_DIRENT_H
+        - c/header:       stdlib.h
+          mandatory:      true
+        - c/header:       sys/stat.h
+          mandatory:      true
+        - c/function:     gettimeofday
+          mandatory:      true
+        - c/function:     popen
+          yes/c/defines:  HAVE_POPEN
+        - c/header:       stdint.h
+          yes/c/defines:  HAVE_STDINT_H
+        - c/header:       strings.h
+          yes/c/defines:  HAVE_STRINGS_H
+        - c/header:       string.h
+          yes/c/defines:  HAVE_STRING_H
+        - c/header:       sys/dir.h
+          yes/c/defines:  HAVE_SYS_DIR_H
+        - c/header:       sys/ndir.h
+          yes/c/defines:  HAVE_SYS_NDIR_H
+        - c/header:       sys/time.h
+          yes/c/defines:  HAVE_SYS_TIME_H
+        - c/header:       unistd.h
+          yes/c/defines:  HAVE_UNISTD_H
+        - pkg-config:     x11
+          id:             x11
+          mandatory:      true
+        - pkg-config:     xext
+          id:             xext
+          mandatory:      true
+        - pkg-config:     zlib
+          id:             zlib
+          mandatory:      true
+        - pkg-config:     libpng
+          id:             libpng
+          mandatory:      true
+
+misc:
+    c/defines:
+        - HAVE_CONFIG_H
+        - DEFAULT_LIBDIR="${buildconf::@targetdist::install-dirs::datadir}/${package}"
+        - LC_X11=1
+        - VERSION="${version}"
+        - ${buildconf::host::flags::c/defines}
+    c/cflags:
+        - -Wall
+
+objects:
+    lincitymodules:
+        type:               c/library
+        install:            false
+        skip/shared:        true
+        skip/pkgconf:       true
+        include-dirs:       [ ., ./modules ]
+        c/defines:          ${misc::c/defines}
+        c/cflags:           ${misc::c/cflags}
+        source/dir:         modules
+        source:             "*.c"
+
+    lincityengine:
+        type:               c/library
+        c/defines:          ${misc::c/defines}
+        c/cflags:           ${misc::c/cflags}
+        skip/shared:        true
+        skip/pkgconf:       true
+        link/static:        lincitymodules
+        install:            false
+        source:
+            - lclib.c
+            - power.c
+            - ldsvguts.c
+            - engine.c
+            - transport.c
+            - market.c
+            - simulate.c
+            - shrtypes.c
+            - lintypes.c
+            - readpng.c
+            - timer.c
+            - fileutil.c
+            - shrglobs.c
+            - stats.c
+
+    lincitygui:
+        type:               c/library
+        pkgconf-import:     [x11, xext, zlib, libpng, libc/math]
+        link/static:        [lincityengine, lincitymodules]
+        skip/shared:        true
+        skip/pkgconf:       true
+        c/defines:          ${misc::c/defines}
+        c/ldflags:          ${misc::c/ldflags}
+        c/cflags:           ${misc::c/cflags}
+        install:            false
+        source:
+            - lcx11.c
+            - ldsvgui.c
+            - splash.c
+            - lchelp.c
+            - main.c
+            - mouse.c
+            - mps.c
+            - screen.c
+            - pixmap.c
+            - cliglobs.c
+            - geometry.c
+            - pbar.c
+            - module_buttons.c
+            - dialbox.c
+
+    lincity:
+        type:               c/executable
+        pkgconf-import:     [x11, xext, zlib, libpng, libc/math]
+        c/ldflags:          ${misc::c/ldflags}
+        c/cflags:           ${misc::c/cflags}
+
+        ## FIXME: order really matters here. need lincitymodules twice since circular dependency
+        link/static:        [lincitygui, lincitymodules, lincityengine, lincitymodules]
+
+    lincity.desktop:
+        type:               data/desktop
+        desktop/categories: Application;Game;StrategyGame
+        desktop/exec:       lincity
+        desktop/tryexec:    ${buildconf::install-dirs::bindir}/lincity
+
+    data/main:
+        type:               data/misc
+        install/subdir:     lincity
+        source:             colour.pal
+
+    data/opening:
+        type:               data/misc
+        install/subdir:     lincity/opening
+        source:             "*"
+        source/dir:         opening
+
+    data/messages:
+        type:               data/misc
+        install/subdir:     lincity/messages
+        source:             "*.mes"
+        source/dir:         messages
+
+    data/icons:
+        type:               data/misc
+        install/subdir:     lincity/icons
+        source:             "*.csi"
+        source/dir:         icons
+
+    data/pixmap:
+        type:               data/pixmaps
+        source:             debian/lincity.xpm
+
+    data/help:
+        type:               data/misc
+        install/subdir:     lincity/help
+        source:             "*.hlp"
+        source/dir:         help
+
+    po:
+        type:               i18n/po
+        source/dir:         po
+        i18n/linguas:       [it, pt_BR, sv, ca]
+
+    doc/misc:
+        type:               doc/misc
+        source:
+            - Acknowledgements
+            - README
+            - TODO
+            - CHANGES
+            - COPYING
+            - COPYRIGHT
+
+    doc/lincity.6:
+        type:               doc/man
+        source:             lincity.6
+        man/section:        6
+        man/alias:          xlincity
+
+features:
+    gzip:
+        type:     bool
+        default:  y
+        set@y:
+            c/defines:      HAVE_GZIP=1
+    nls:
+        type:     bool
+        default:  y
+        set@y:
+            c/defines:      [ENABLE_NLS, PACKAGE="lincity"]
+
+# currently really broken
+#    svgalib:
+#        type:     bool
+#        default:  n
+#        set@y:
+#            c/defines:      SVGALIB=1
+
+distro:
+    _default_:
+        packages:
+            dev:
+                skip: true
+            lib:
+                skip: true
