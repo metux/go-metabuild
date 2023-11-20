@@ -9,7 +9,8 @@ import (
 )
 
 const (
-	LangC = base.LangC
+	LangC   = base.LangC
+	LangCxx = base.LangCxx
 )
 
 type (
@@ -23,6 +24,7 @@ type (
 var (
 	ParseMachine   = base.ParseMachine
 	DetectCC       = probe.DetectCC
+	DetectCXX      = probe.DetectCXX
 	PkgConfigQuery = base.PkgConfigQuery
 )
 

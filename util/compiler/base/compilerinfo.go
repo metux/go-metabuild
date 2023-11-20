@@ -8,7 +8,8 @@ import (
 )
 
 const (
-	LangC = "C"
+	LangC   = "C"
+	LangCxx = "C++"
 )
 
 const (
@@ -19,6 +20,7 @@ const (
 const (
 	ErrNoUsableCompiler = util.Error("CC no usable compiler")
 	ErrCrossMissingCC   = util.Error("when crosscompiling, either HOST_CC must be set or CROSS_COMPILE set to target toolchain prefix")
+	ErrCrossMissingCXX  = util.Error("when crosscompiling, either HOST_CXX must be set or CROSS_COMPILE set to target toolchain prefix")
 )
 
 type CompilerInfo struct {
