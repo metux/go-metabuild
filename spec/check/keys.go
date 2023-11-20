@@ -8,11 +8,12 @@ type Key = api.Key
 
 const (
 	// types
-	KeyCHeader   = Key("c/header")
-	KeyCFunction = Key("c/function")
-	KeyCType     = Key("c/type")
-	KeyCCompiler = Key("c/compiler")
-	KeyPkgConfig = Key("pkg-config")
+	KeyCHeader     = Key("c/header")
+	KeyCFunction   = Key("c/function")
+	KeyCType       = Key("c/type")
+	KeyCCompiler   = Key("c/compiler")
+	KeyCXXCompiler = Key("c++/compiler")
+	KeyPkgConfig   = Key("pkg-config")
 
 	KeyCDefines = Key("c/defines")
 	KeyCLDFlags = Key("c/ldflags")

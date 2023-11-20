@@ -21,6 +21,8 @@ func mkProbe(chk Check) ProbeInterface {
 		return MakeProbePkgConfig(chk)
 	case check.KeyCCompiler:
 		return MakeProbeCCompiler(chk)
+	case check.KeyCXXCompiler:
+		return MakeProbeCXXCompiler(chk)
 	case check.KeyTargetDistro:
 		return MakeProbeTargetDistro(chk)
 	}
