@@ -11,6 +11,15 @@ const (
 	TypeCLibraryPkgconf = Key("c/library/pkgconf")
 	TypeCLibraryDevlink = Key("c/library/devlink")
 
+	/* C++ */
+	TypeCxxExecutable     = Key("c++/executable")
+	TypeCxxHeader         = Key("c++/header")
+	TypeCxxLibrary        = Key("c++/library")
+	TypeCxxLibraryStatic  = Key("c++/library/static")
+	TypeCxxLibraryShared  = Key("c++/library/shared")
+	TypeCxxLibraryPkgconf = Key("c++/library/pkgconf")
+	TypeCxxLibraryDevlink = Key("c++/library/devlink")
+
 	/* data files */
 	TypeDataMisc    = Key("data/misc")
 	TypeDataPixmaps = Key("data/pixmaps")

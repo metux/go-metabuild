@@ -19,6 +19,12 @@ func CreateBuilder(o target.TargetObject, id string) (jobs.Job, error) {
 	case string(target.TypeCLibrary):
 		return c.MakeBuilderCLibrary(o, id), nil
 
+	/* C++ */
+	case string(target.TypeCxxExecutable):
+		return c.MakeBuilderCExecutable(o, id), nil
+	case string(target.TypeCxxLibrary):
+		return c.MakeBuilderCLibrary(o, id), nil
+
 	/* data files */
 	case string(target.TypeDataMisc):
 		return data.MakeDataMisc(o, id), nil

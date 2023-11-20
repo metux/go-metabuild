@@ -1,6 +1,8 @@
 package c
 
 import (
+	"fmt"
+
 	"github.com/metux/go-metabuild/engine/builder/base"
 	"github.com/metux/go-metabuild/spec"
 	"github.com/metux/go-metabuild/spec/target"
@@ -24,11 +26,27 @@ func (b *BuilderCLibrary) JobPrepare(id jobs.JobId) error {
 	ci := b.BuildConf.CompilerInfo(b.ForBuild(), b.CompilerLang())
 	jobdep := b.JobDepends()
 
+	tShared := target.TypeCLibraryShared
+	tStatic := target.TypeCLibraryStatic
+	tDevlink := target.TypeCLibraryDevlink
+	tPkgconf := target.TypeCLibraryPkgconf
+
+	switch lang := b.CompilerLang(); lang {
+	case compiler.LangC:
+	case compiler.LangCxx:
+		tShared = target.TypeCxxLibraryShared
+		tStatic = target.TypeCxxLibraryStatic
+		tDevlink = target.TypeCxxLibraryDevlink
+		tPkgconf = target.TypeCxxLibraryPkgconf
+	default:
+		panic(fmt.Sprintf("unsupported lang: %s", lang))
+	}
+
 	// we NEED to initialize them all, but only add them if not skipped
-	b.subShared = &BuilderCLibraryShared{b.mksub("shared", target.TypeCLibraryShared, ci, cdefs, jobdep)}
-	b.subStatic = &BuilderCLibraryStatic{b.mksub("static", target.TypeCLibraryStatic, ci, cdefs, jobdep)}
-	b.subDevlink = &BuilderCLibraryDevlink{b.mksub("devlink", target.TypeCLibraryDevlink, ci, cdefs, jobdep)}
-	b.subPkgconfig = &BuilderCLibraryPkgConfig{b.mksub("pkgconf", target.TypeCLibraryPkgconf, ci, cdefs, jobdep)}
+	b.subShared = &BuilderCLibraryShared{b.mksub("shared", tShared, ci, cdefs, jobdep)}
+	b.subStatic = &BuilderCLibraryStatic{b.mksub("static", tStatic, ci, cdefs, jobdep)}
+	b.subDevlink = &BuilderCLibraryDevlink{b.mksub("devlink", tDevlink, ci, cdefs, jobdep)}
+	b.subPkgconfig = &BuilderCLibraryPkgConfig{b.mksub("pkgconf", tPkgconf, ci, cdefs, jobdep)}
 
 	libname := b.RequiredEntryStr(target.KeyLibName)
 	pkgname := b.RequiredEntryStr(target.KeyPkgName)
@@ -67,11 +85,20 @@ func (b BuilderCLibrary) JobSub() ([]jobs.Job, error) {
 		jobs = append(jobs, b.subPkgconfig)
 	}
 
+	t := target.TypeCHeader
+	switch lang := b.CompilerLang(); lang {
+	case compiler.LangC:
+	case compiler.LangCxx:
+		t = target.TypeCxxHeader
+	default:
+		panic(fmt.Sprintf("unsupported lang: %s", lang))
+	}
+
 	cdefs := b.CDefines()
 	ci := b.BuildConf.CompilerInfo(b.ForBuild(), b.CompilerLang())
 	jobdep := b.JobDepends()
 	for _, h := range b.EntryKeys("headers") {
-		jobs = append(jobs, BuilderCLibraryHeaders{b.mksub(target.KeyHeaders.Append(h), target.TypeCHeader, ci, cdefs, jobdep)})
+		jobs = append(jobs, BuilderCLibraryHeaders{b.mksub(target.KeyHeaders.Append(h), t, ci, cdefs, jobdep)})
 	}
 	return jobs, nil
 }

@@ -312,6 +312,86 @@ platform:
                 name:                 ${@@PARENT::@@KEY}
                 file:                 ${@@PARENT::name}
 
+            c++/library:
+                ## defaults that may be overwritten
+                compiler/lang:        C
+                libname:              ${@@PARENT::@@KEY}
+                install:              true
+                abi:                  1
+
+                ## fixme: pkg-config needs this ... really the right place ?
+                name:                 ${@@PARENT::libname}
+
+                description:          ${description}
+                version:              ${version}
+
+                # *pathname* of the locally built (non-installed) static library
+                static/libfile:       ${@@PARENT::static::name}
+
+            c++/library/pkgconf:
+                install:              ${@@PARENT::@@PARENT::install}
+                install/dir:          ${buildconf::install-dirs::pkgconfigdir}
+                install/package:      dev
+                install/perm:         0644
+
+                file:                 ${@@PARENT::name}.pc
+                version:              ${@@PARENT::@@PARENT::version}
+                name:                 ${@@PARENT::@@PARENT::libname}
+                libdir:               ${@@PARENT::@@PARENT::shared::install/dir}
+                sharedlibdir:         ${@@PARENT::@@PARENT::shared::install/dir}
+                description:          ${@@PARENT::@@PARENT::description}
+                prefix:               ${buildconf::install-dirs::prefix}
+                exec-prefix:          ${buildconf::install-dirs::exec-prefix}
+                includedir:           ${buildconf::install-dirs::includedir}
+                archive:              ${@@PARENT::libdir}/${@@PARENT::@@PARENT::static::name}
+                libname:              ${@@PARENT::@@PARENT::libname}
+
+            c++/library/shared:
+                compiler/lang:        ${@@PARENT::@@PARENT::compiler/lang}
+                install:              ${@@PARENT::@@PARENT::install}
+                install/dir:          ${buildconf::install-dirs::libdir}
+                install/package:      lib
+                install/perm:         0644
+
+                name:                 lib${@@PARENT::@@PARENT::libname}.so.${@@PARENT::@@PARENT::abi}
+                file:                 ${@@PARENT::name}
+
+            c++/library/devlink:
+                install:              ${@@PARENT::@@PARENT::install}
+                install/dir:          ${buildconf::install-dirs::libdir}
+                install/package:      dev
+                install/perm:         0644
+
+                name:                 lib${@@PARENT::@@PARENT::libname}.so
+                target:               ${@@PARENT::@@PARENT::shared::file}
+                file:                 ${@@PARENT::name}
+
+            c++/library/static:
+                compiler/lang:        ${@@PARENT::@@PARENT::compiler/lang}
+                install:              ${@@PARENT::@@PARENT::install}
+                install/dir:          ${buildconf::install-dirs::libdir}
+                install/package:      dev
+                install/perm:         0644
+
+                name:                 lib${@@PARENT::@@PARENT::libname}.a
+                file:                 ${@@PARENT::name}
+
+            c++/header:
+                install:              ${@@PARENT::@@PARENT::install}
+                install/dir:          ${buildconf::install-dirs::includedir}/${@@PARENT::install/subdir}
+                install/package:      dev
+                install/perm:         0664
+
+            c++/executable:
+                compiler/lang:        C++
+                install:              ${@@PARENT::@@PARENT::install}
+                install/dir:          ${buildconf::install-dirs::bindir}/${@@PARENT::install/subdir}
+                install/package:      prog
+                install/perm:         0755
+
+                name:                 ${@@PARENT::@@KEY}
+                file:                 ${@@PARENT::name}
+
             data/misc:
                 install:              ${@@PARENT::@@PARENT::install}
                 install/dir:          ${buildconf::install-dirs::datadir}
