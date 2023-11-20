@@ -1,0 +1,383 @@
+package: xfwm4
+version: 4.18.0.0
+
+## FIXME: manpages -- not in upstream, debian added them on their own
+
+configure:
+    # dont really use it, but needs to be present since it's included
+    generate:
+        - config.h: config.h
+
+    checks:
+        - type:         target-distro
+          mandatory:    true
+        - type:         c/compiler
+          mandatory:    true
+        - c/header:     [errno.h, fcntl.h, math.h, memory.h, signal.h, stdarg.h,
+                         stdio.h, stdlib.h, string.h, sys/stat.h, sys/time.h,
+                         sys/types.h, sys/wait.h, time.h, unistd.h]
+          mandatory:    true
+        - pkg-config:   gtk+-3.0 >= 3.24.0
+          id:           GTK
+          mandatory:    true
+        - pkg-config:   libxfce4util-1.0 >= 4.8.0
+          id:           LIBXFCE4UTIL
+          mandatory:    true
+        - pkg-config:   libxfce4ui-2 >= 4.12.0
+          id:           LIBXFCE4UI
+          mandatory:    true
+        - pkg-config:   libxfce4kbd-private-3 >= 4.12.0
+          id:           LIBXFCE4KBD_PRIVATE
+          mandatory:    true
+        - pkg-config:   libxfconf-0 >= 4.13.0
+          id:           LIBXFCONF
+          mandatory:    true
+        - pkg-config:   libwnck-3.0 => 3.14
+          id:           LIBWNCK
+          mandatory:    true
+        - pkg-config:   xinerama
+          id:           XINERAMA
+          mandatory:    true
+        - pkg-config:   x11
+          id:           X11
+          mandatory:    true
+        - pkg-config:   xres
+          id:           XRES
+          yes/c/define: HAVE_XRES
+        - pkg-config:   xext
+          id:           XEXT
+        - pkg-config:   xi
+          id:           XI2
+        - pkg-config:   epoxy >= 1.0
+          id:           EPOXY
+        - pkg-config:   libstartup-notification-1.0 >= 0.5
+          id:           STARTUP_NOTIFICATION
+        - pkg-config:   xrender
+          id:           XRENDER
+        - pkg-config:   xrandr
+          id:           RANDR
+        - pkg-config:   xpresent presentproto >= 1.1
+          id:           XPRESENT
+        - pkg-config:   xcomposite >= 0.2 xfixes xdamage
+          id:           XCOMPOSITE
+
+features:
+    xi2:
+        pkgconf/require: XI2
+        default: n
+        set@y:
+            sym: HAVE_XI2
+            pkg: XI2
+    epoxy:
+        pkgconf/require: EPOXY
+        default: n
+        set@y:
+            sym: HAVE_EPOXY
+            pkg: EPOXY
+    startup_notification:
+        pkgconf/require: STARTUP_NOTIFICATION
+        default: n
+        set@y:
+            sym: [HAVE_STARTUP_NOTIFICATION, HAVE_LIBSTARTUP_NOTIFICATION]
+            pkg: STARTUP_NOTIFICATION
+    xsync:
+        pkgconf/require: XEXT
+        default: n
+        set@y:
+            sym: HAVE_XSYNC
+            pkg: XEXT
+    xrender:
+        pkgconf/require: XRENDER
+        default: n
+        set@y:
+            sym: HAVE_RENDER
+            pkg: XRENDER
+    randr:
+        pkgconf/require: RANDR
+        default: n
+        set@y:
+            sym: HAVE_RANDR
+            pkg: RANDR
+    xpresent:
+        pkgconf/require: XPRESENT
+        default: n
+        set@y:
+            sym: HAVE_PRESENT_EXTENSION
+            pkg: XPRESENT
+    window-policies:
+        default: n
+        set@y:
+            sym: ENABLE_WINDOW_POLICIES
+            src: policy.c
+    window-fences:
+        depends: winodow-policies
+        default: n
+        set@y:
+            sym: [ENABLE_WINDOW_FENCES, ENABLE_WINDOW_POLICIES]
+            src: fences.c
+
+    ## FIXME: currently broken features
+    compositor:
+        pkgconf/require: [XCOMPOSITE]
+        default: n
+        set@y:
+            sym: [HAVE_COMPOSITOR, _GNU_SOURCE]
+            pkg: XCOMPOSITE
+    poswin:
+        default: n
+        set@y:
+            sym: SHOW_POSITION
+
+i18n:
+    linguas: [am, ar, ast, be, be@tarask, bg, bn, ca, cs, da, de, el, en_AU,
+              en_CA, en_GB, eo, es, et, eu, fa_IR, fi, fr, gl, he, hr, hu,
+              hy_AM, hye, id, ie, is, it, ja, ka, kk, ko, lt, lv, ms, nb, nl,
+              nn, oc, pa, pl, pt, pt_BR, ro, ru, si, sk, sl, sq, sr, sv, te,
+              th, tr, ug, uk, ur, ur_PK, vi, zh_CN, zh_HK, zh_TW]
+
+c/defines:
+    - PACKAGE="${package}"
+    - PACKAGE_NAME="${package}"
+    - GETTEXT_PACKAGE="${package}"
+    - PACKAGE_STRING="${package} ${version}"
+    - DATADIR="${buildconf::install-dirs::datadir}/${package}"
+    - PACKAGE_DATADIR="${buildconf::install-dirs::datadir}/${package}"
+    - LOCALEDIR="${buildconf::install-dirs::localedir}"
+    - PACKAGE_LOCALE_DIR="${buildconf::install-dirs::localedir}"
+    - WNCK_I_KNOW_THIS_IS_UNSTABLE
+    - VERSION="${version}"
+    - REVISION=""
+    - HELPERDIR="${helperdir}"
+    - G_LOG_DOMAIN="${package}"
+    - ${fflags::sym}
+
+helperdir:  ${buildconf::install-dirs::libdir}
+helperpath: ${helperdir}/xfce4/xfwm4
+fflags:     ${buildconf::host::flags}
+
+targets:
+    # FIXME: install into helper_path_prefix/xfce4/xfwm4
+    helper-dialog/helper-dialog:
+        type:               c/executable
+        install/dir:        ${helperpath}
+        source:             helper-dialog/helper-dialog.c
+        c/defines:          ${c/defines}
+        pkgconf/import:     [GTK, LIBXFCE4UTIL, X11]
+
+    settings-dialogs/workspace-resource:
+        type:               gen/glib-resource
+        name:               workspace-resource
+        source:             workspace.gresource.xml
+        source/dir:         settings-dialogs
+        install:            false
+
+    # FIXME: add a multi-file mode
+    # FIXME: automatically substitue resource/name
+    settings-dialogs/xfwm4-workspace-dialog:
+        type:               gen/xdt-csource
+        resource/name:      workspace_dialog_ui
+        source:             ${@@PARENT::@@KEY}.glade
+        output/c/header:    ${@@PARENT::@@KEY}_ui.h
+        install:            false
+
+    settings-dialogs/xfwm4-tweaks-dialog:
+        type:               gen/xdt-csource
+        resource/name:      tweaks_dialog_ui
+        source:             ${@@PARENT::@@KEY}.glade
+        output/c/header:    ${@@PARENT::@@KEY}_ui.h
+        install:            false
+
+    settings-dialogs/xfwm4-dialog:
+        type:               gen/xdt-csource
+        resource/name:      xfwm4_dialog_ui
+        source:             ${@@PARENT::@@KEY}.glade
+        output/c/header:    ${@@PARENT::@@KEY}_ui.h
+        install:            false
+
+    xfwm-common:
+        type:               c/library
+        install:            false
+        source:             [xfwm-common.c, xfconf-util.c]
+        source/dir:         common
+        pkgconf/import:     [GTK, LIBXFCONF]
+        include-dirs:       .
+        skip/pkgconf:       true
+        skip/shared:        true
+        c/ldflags:          -Wl,-no-undefined
+        headers:
+            priv:
+                source:     [xfwm-common.h, xfconf-util.h, core-c.h, list.h]
+
+    settings-dialogs/xfwm4-settings:
+        type:               c/executable
+        pkgconf/import:     [LIBXFCE4KBD_PRIVATE]
+        source:             [xfwm4-settings.c, range-debouncer.c]
+        source/dir:         settings-dialogs
+        include-dirs:       .
+        c/defines:          ${c/defines}
+        link/static:        xfwm-common
+        headers:
+            install:        false
+            priv:
+                source:     [xfwm4-settings.h, xfwm4-dialog_ui.h, range-debouncer.h]
+
+    settings-dialogs/xfwm4-tweaks-settings:
+        type:               c/executable
+        pkgconf/import:     [LIBXFCE4KBD_PRIVATE]
+        source:             [tweaks-settings.c, range-debouncer.c]
+        source/dir:         settings-dialogs
+        include-dirs:       .
+        c/defines:          ${c/defines}
+        link/static:        xfwm-common
+        install/package:    main
+        headers:
+            install:        false
+            priv:
+                source:     [xfwm4-tweaks-dialog_ui.h, range-debouncer.h]
+
+    settings-dialogs/xfwm4-workspace-settings:
+        type:               c/executable
+        pkgconf/import:     [LIBXFCE4UI, LIBXFCONF, LIBWNCK]
+        source:             [workspace-settings.c, workspace-resource.c]
+        source/dir:         settings-dialogs
+        include-dirs:       .
+        c/defines:          ${c/defines}
+        link/static:        xfwm-common
+        install/package:    main
+        headers:
+            install:        false
+            priv:
+                source:     [xfwm4-workspace-dialog_ui.h, workspace-resource.h]
+
+    po:
+        type:               i18n/po
+
+    desktop:
+        type:               i18n/desktop
+        source:             [xfce-wm-settings, xfce-wmtweaks-settings, xfce-workspaces-settings]
+        source/dir:         settings-dialogs
+
+    xfwm4:
+        type:               c/executable
+        source:             [client.c, compositor.c, cycle.c, device.c, display.c,
+                             event_filter.c, events.c, focus.c, frame.c, hints.c,
+                             icons.c, keyboard.c, main.c, menu.c, misc.c, moveresize.c,
+                             mypixmap.c, mywindow.c, netwm.c, parserc.c, placement.c,
+                             poswin.c, screen.c, session.c, settings.c, stacking.c,
+                             spinning_cursor.c, startup_notification.c, tabwin.c,
+                             terminate.c, transients.c, ui_style.c, wireframe.c,
+                             workspaces.c, xsync.c, "${fflags::src}"]
+        source/dir:         src
+        c/defines:          ${c/defines}
+        c/ldflags:          ${fflags::libs}
+        headers:
+            install:        false
+            priv:
+                source:     [client.h, compositor.h, cycle.h, device.h, display.h,
+                             event_filter.h, events.h, fences.h, focus.h, frame.h,
+                             hints.h, icons.h, keyboard.h, menu.h, misc.h, moveresize.h,
+                             mypixmap.h, mywindow.h, netwm.h, parserc.h, placement.h,
+                             policy.h, poswin.h, screen.h, session.h, settings.h,
+                             spinning_cursor.h, stacking.h, startup_notification.h,
+                             tabwin.h, terminate.h, transients.h, ui_style.h,
+                             wireframe.h, workspaces.h, xsync.h, xpm-color-table.h]
+        pkgconf/import:     ["${fflags::pkg}", X11, XEXT, LIBXFCE4KBD_PRIVATE,
+                             XINERAMA, libc/math]
+        link/static:        xfwm-common
+        include-dirs:       .
+        install/package:    main
+
+    icons/128x128/apps:
+        type:               data/misc
+        install/subdir:     icons/hicolor/128x128/apps
+        source:             "*.png"
+        source/dir:         icons/128x128
+
+    icons/16x16/apps:
+        type:               data/misc
+        install/subdir:     icons/hicolor/16x16/apps
+        source:             "*.png"
+        source/dir:         icons/16x16
+
+    icons/22x22/actions:
+        type:               data/misc
+        install/subdir:     icons/hicolor/22x22/actions
+        source:             "*.png"
+        source/dir:         icons/22x22
+
+    icons/48x48/apps:
+        type:               data/misc
+        install/subdir:     icons/hicolor/48x48/apps
+        source:             "*.png"
+        source/dir:         icons/48x48
+
+    icons/scalable/apps:
+        type:               data/misc
+        install/subdir:     icons/hicolor/scalable/apps
+        source:             [org.xfce.xfwm4-tweaks.svg, org.xfce.workspaces.svg,
+                             org.xfce.xfwm4.svg, xfwm4-default.svg]
+        source/dir:         icons/scalable
+
+    icons/scalable/actions:
+        type:               data/misc
+        install/subdir:     icons/hicolor/scalable/actions
+        source:             xfce-wm-*.svg
+        source/dir:         icons/scalable
+
+    themes/daloa:
+        type:               data/misc
+        install/subdir:     themes/Daloa/xfwm4
+        source:             [README, themerc, "*.xpm", "*.png"]
+        source/dir:         icons/scalable
+        source/dir:         ${@@PARENT::@@KEY}
+
+    themes/default:
+        type:               data/misc
+        install/subdir:     themes/Default/xfwm4
+        source:             [README, themerc, "*.xpm", "*.png"]
+        source/dir:         ${@@PARENT::@@KEY}
+
+    themes/default-hdpi:
+        type:               data/misc
+        install/subdir:     themes/Default-hdpi/xfwm4
+        source:             [README, themerc, "*.xpm", "*.png"]
+        source/dir:         ${@@PARENT::@@KEY}
+
+    themes/default-xhdpi:
+        type:               data/misc
+        install/subdir:     themes/Default-xhdpi/xfwm4
+        source:             [README, themerc, "*.xpm", "*.png"]
+        source/dir:         ${@@PARENT::@@KEY}
+
+    themes/kokodi:
+        type:               data/misc
+        install/subdir:     themes/Kokodi/xfwm4
+        source:             [README, themerc, "*.xpm", "*.png"]
+        source/dir:         ${@@PARENT::@@KEY}
+
+    themes/moheli:
+        type:               data/misc
+        install/subdir:     themes/Moheli/xfwm4
+        source:             [README, themerc, "*.xpm", "*.png"]
+        source/dir:         ${@@PARENT::@@KEY}
+
+    xfwm-defaults:
+        type:               data/misc
+        install/subdir:     xfwm4
+        source:             defaults/defaults
+
+    docs:
+        type:               doc/misc
+        source:             [NEWS, NOTES, README.md, TODO, AUTHORS, COMPOSITOR, COPYING]
+
+distro:
+    _default_:
+        packages:
+            dev:
+                skip: true
+            lib:
+                skip: true
+            doc:
+                skip: true
+            prog:
+                skip: true

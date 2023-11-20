@@ -1,8 +1,9 @@
 
 my_path := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
-test_zlib_path := ../zlib
+test_zlib_path    := ../zlib
 test_lincity_path := ../lincity
+test_xfwm4_path   := ../xfwm4
 
 all: test test-zlib
 
@@ -23,11 +24,18 @@ test-specobj:
 test-autoconf:
 	@go test -timeout 10s -v ./engine/autoconf/...  || (echo "======= TEST FAILED =======" ; false)
 
+define RUNTEST
+	cd $(1) && $(my_path)/bin/metabuild -conf $(my_path)/examples/pkg/$(strip $(2)).yaml -global $(my_path)/examples/settings.yaml build
+endef
+
 test-zlib: build
-	cd $(test_zlib_path)    && $(my_path)/bin/metabuild -conf $(my_path)/examples/pkg/zlib.yaml    -global $(my_path)/examples/settings.yaml build
+	$(call RUNTEST, $(test_zlib_path), zlib)
 
 test-lincity: build
-	cd $(test_lincity_path) && $(my_path)/bin/metabuild -conf $(my_path)/examples/pkg/lincity.yaml -global $(my_path)/examples/settings.yaml build
+	$(call RUNTEST, $(test_lincity_path), lincity)
+
+test-xfwm4: build
+	$(call RUNTEST, $(test_xfwm4_path), xfwm4)
 
 build:
 	@rm -Rf bin
