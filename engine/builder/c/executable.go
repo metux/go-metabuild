@@ -10,7 +10,7 @@ type BuilderCExecutable struct {
 }
 
 func (b BuilderCExecutable) JobRun() error {
-	ci := b.BuildConf.CompilerInfo(b.ForBuild(), compiler.LangC)
+	ci := b.BuildConf.CompilerInfo(b.ForBuild(), b.CompilerLang())
 
 	fn := b.OutputFile()
 

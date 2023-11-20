@@ -84,6 +84,10 @@ func (o TargetObject) PackageId(scope string) string {
 	return id
 }
 
+func (o TargetObject) CompilerLang() string {
+	return o.RequiredEntryStr(KeyCompilerLang)
+}
+
 func (o TargetObject) Type() string {
 	return o.EntryStr(KeyType)
 }

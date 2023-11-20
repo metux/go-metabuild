@@ -21,7 +21,7 @@ func (b *BuilderCLibrary) JobPrepare(id jobs.JobId) error {
 	b.LoadTargetDefaults(spec.Key(b.Type()))
 
 	cdefs := b.CDefines()
-	ci := b.BuildConf.CompilerInfo(b.ForBuild(), compiler.LangC)
+	ci := b.BuildConf.CompilerInfo(b.ForBuild(), b.CompilerLang())
 	jobdep := b.JobDepends()
 
 	// we NEED to initialize them all, but only add them if not skipped
@@ -68,7 +68,7 @@ func (b BuilderCLibrary) JobSub() ([]jobs.Job, error) {
 	}
 
 	cdefs := b.CDefines()
-	ci := b.BuildConf.CompilerInfo(b.ForBuild(), compiler.LangC)
+	ci := b.BuildConf.CompilerInfo(b.ForBuild(), b.CompilerLang())
 	jobdep := b.JobDepends()
 	for _, h := range b.EntryKeys("headers") {
 		jobs = append(jobs, BuilderCLibraryHeaders{b.mksub(target.KeyHeaders.Append(h), target.TypeCHeader, ci, cdefs, jobdep)})
