@@ -9,28 +9,49 @@ import (
 	E "github.com/metux/go-metabuild/engine"
 )
 
-func main() {
-	var defaults string
-	var conf string
+var (
+	argDefaults string
+	argConf     string
+	args        []string
+)
 
-	flag.StringVar(&defaults, "global", "", "global defaults yaml")
-	flag.StringVar(&conf, "conf", "", "project config yaml")
-	flag.Parse()
+func usage() {
+	fmt.Printf("Usage: %s -conf <fn> -global <fn> [command ...]\n", os.Args[0])
+	flag.PrintDefaults()
+	fmt.Printf("Available commands\n")
+	fmt.Printf("    build [stage]       run build\n")
+	os.Exit(1)
+}
 
-	if len(defaults) == 0 || len(conf) == 0 {
-		fmt.Printf("Usage: %s -conf <fn> -global <fn>\n", os.Args[0])
-		flag.PrintDefaults()
-		os.Exit(1)
-	}
-
-	log.Println("global", defaults)
-
+func cmdBuild() {
 	stage := E.StagePackage
 
-	engine, err := E.Load(conf, defaults)
+	if len(args) > 1 {
+		stage = E.Stage(args[1])
+	}
+
+	engine, err := E.Load(argConf, argDefaults)
 	if err != nil {
 		log.Printf("ERR: %s\n", err)
 	} else {
 		engine.RunStage(stage)
+	}
+}
+
+func main() {
+	flag.StringVar(&argDefaults, "global", "", "global defaults yaml")
+	flag.StringVar(&argConf, "conf", "", "project config yaml")
+	flag.Parse()
+	args = flag.Args()
+
+	if argDefaults == "" || argConf == "" || len(args) == 0 {
+		usage()
+	}
+
+	switch args[0] {
+	case "build":
+		cmdBuild()
+	default:
+		usage()
 	}
 }

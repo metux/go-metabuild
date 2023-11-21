@@ -24,10 +24,10 @@ test-autoconf:
 	@go test -timeout 10s -v ./engine/autoconf/...  || (echo "======= TEST FAILED =======" ; false)
 
 test-zlib: build
-	cd $(test_zlib_path)    && $(my_path)/bin/metabuild -conf $(my_path)/examples/pkg/zlib.yaml    -global $(my_path)/examples/settings.yaml
+	cd $(test_zlib_path)    && $(my_path)/bin/metabuild -conf $(my_path)/examples/pkg/zlib.yaml    -global $(my_path)/examples/settings.yaml build
 
 test-lincity: build
-	cd $(test_lincity_path) && $(my_path)/bin/metabuild -conf $(my_path)/examples/pkg/lincity.yaml -global $(my_path)/examples/settings.yaml
+	cd $(test_lincity_path) && $(my_path)/bin/metabuild -conf $(my_path)/examples/pkg/lincity.yaml -global $(my_path)/examples/settings.yaml build
 
 build:
 	@rm -Rf bin
