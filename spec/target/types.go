@@ -31,4 +31,7 @@ const (
 	/* documentation */
 	TypeDocMan  = Key("doc/man")
 	TypeDocMisc = Key("doc/misc")
+
+	/* generators */
+	TypeGenGlibResource = Key("gen/glib-resource")
 )

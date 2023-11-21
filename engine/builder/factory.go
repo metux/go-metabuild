@@ -6,6 +6,7 @@ import (
 	"github.com/metux/go-metabuild/engine/builder/c"
 	"github.com/metux/go-metabuild/engine/builder/data"
 	"github.com/metux/go-metabuild/engine/builder/doc"
+	"github.com/metux/go-metabuild/engine/builder/gen"
 	"github.com/metux/go-metabuild/engine/builder/i18n"
 	"github.com/metux/go-metabuild/spec/target"
 	"github.com/metux/go-metabuild/util/jobs"
@@ -43,6 +44,10 @@ func CreateBuilder(o target.TargetObject, id string) (jobs.Job, error) {
 		return doc.MakeManPages(o, id), nil
 	case target.TypeDocMisc:
 		return doc.MakeDocMisc(o, id), nil
+
+	/* generators */
+	case target.TypeGenGlibResource:
+		return gen.MakeGlibResource(o, id), nil
 
 	default:
 		return nil, fmt.Errorf("unsupported target type: %s", t)

@@ -443,6 +443,10 @@ platform:
                 install/subdir:       ${package}
                 compress:             gz
 
+            gen/glib-resource:
+                source/dir:           .
+                resource/dir:         ${@@PARENT::source/dir}
+
 buildconf:
     install-dirs:
         prefix:         ${buildconf::@targetdist::install-dirs::prefix}

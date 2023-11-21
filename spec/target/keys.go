@@ -52,6 +52,15 @@ const (
 	KeyI18nDomain   = Key("i18n/domain")
 )
 
+// generators
+const (
+	KeyResourceDir = Key("resource/dir")
+
+	KeyOutputCHeader   = Key("output/c/header")
+	KeyOutputCSource   = Key("output/c/source")
+	KeyOutputGResource = Key("output/gresource")
+)
+
 // C specific settings
 const (
 	KeyCDefines = Key("c/defines")
