@@ -7,6 +7,7 @@ import (
 	"os"
 
 	E "github.com/metux/go-metabuild/engine"
+	"github.com/metux/go-metabuild/util"
 )
 
 var (
@@ -34,7 +35,7 @@ func cmdBuild() {
 	if err != nil {
 		log.Printf("ERR: %s\n", err)
 	} else {
-		engine.RunStage(stage)
+		util.ErrPanicf(engine.RunStage(stage), "build failed")
 	}
 }
 
