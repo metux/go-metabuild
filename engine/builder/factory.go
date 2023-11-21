@@ -13,34 +13,35 @@ import (
 
 func CreateBuilder(o target.TargetObject, id string) (jobs.Job, error) {
 	switch t := o.Type(); t {
+
 	/* plain C */
-	case string(target.TypeCExecutable):
+	case target.TypeCExecutable:
 		return c.MakeBuilderCExecutable(o, id), nil
-	case string(target.TypeCLibrary):
+	case target.TypeCLibrary:
 		return c.MakeBuilderCLibrary(o, id), nil
 
 	/* C++ */
-	case string(target.TypeCxxExecutable):
+	case target.TypeCxxExecutable:
 		return c.MakeBuilderCExecutable(o, id), nil
-	case string(target.TypeCxxLibrary):
+	case target.TypeCxxLibrary:
 		return c.MakeBuilderCLibrary(o, id), nil
 
 	/* data files */
-	case string(target.TypeDataMisc):
+	case target.TypeDataMisc:
 		return data.MakeDataMisc(o, id), nil
-	case string(target.TypeDataDesktop):
+	case target.TypeDataDesktop:
 		return data.MakeDataDesktop(o, id), nil
-	case string(target.TypeDataPixmaps):
+	case target.TypeDataPixmaps:
 		return data.MakeDataMisc(o, id), nil
 
 	/* locales */
-	case string(target.TypeI18nPo):
+	case target.TypeI18nPo:
 		return i18n.MakeI18nPo(o, id), nil
 
 	/* documentation */
-	case string(target.TypeDocMan):
+	case target.TypeDocMan:
 		return doc.MakeManPages(o, id), nil
-	case string(target.TypeDocMisc):
+	case target.TypeDocMisc:
 		return doc.MakeDocMisc(o, id), nil
 
 	default:

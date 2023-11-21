@@ -92,8 +92,8 @@ func (o TargetObject) CompilerLang() string {
 	return o.RequiredEntryStr(KeyCompilerLang)
 }
 
-func (o TargetObject) Type() string {
-	return o.EntryStr(KeyType)
+func (o TargetObject) Type() Key {
+	return Key(o.EntryStr(KeyType))
 }
 
 func (o TargetObject) SubTarget(k specobj.Key) TargetObject {
