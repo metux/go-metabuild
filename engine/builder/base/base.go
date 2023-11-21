@@ -114,7 +114,9 @@ func (b BaseBuilder) TempDir() string {
 }
 
 func (b BaseBuilder) OutputFile() string {
-	return b.RequiredEntryStr(target.KeyFile)
+	s := b.RequiredEntryStr(target.KeyFile)
+	os.MkdirAll(filepath.Dir(s), 0755)
+	return s
 }
 
 func NewBaseBuilder(o spec.TargetObject, id string) BaseBuilder {

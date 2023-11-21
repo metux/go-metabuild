@@ -1,6 +1,8 @@
 package c
 
 import (
+	"path/filepath"
+
 	"github.com/metux/go-metabuild/spec"
 	"github.com/metux/go-metabuild/util/compiler"
 )
@@ -29,7 +31,7 @@ func (b BuilderCExecutable) JobRun() error {
 
 	if b.InstallPkgFileAuto() {
 		// FIXME: need to blacklist our own libs
-		b.WritePkgMeta(fn+".sodep", cc.BinaryInfo(fn).DependsInfo())
+		b.WritePkgMeta(filepath.Base(fn)+".sodep", cc.BinaryInfo(fn).DependsInfo())
 	}
 
 	return nil

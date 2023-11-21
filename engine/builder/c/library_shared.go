@@ -1,6 +1,8 @@
 package c
 
 import (
+	"path/filepath"
+
 	"github.com/metux/go-metabuild/spec/target"
 	"github.com/metux/go-metabuild/util/compiler"
 )
@@ -27,9 +29,11 @@ func (b BuilderCLibraryShared) JobRun() error {
 		return err
 	}
 
+	bname := filepath.Base(soFile)
+
 	if b.InstallPkgFileAuto() {
-		b.WritePkgMeta(soFile+".sodep", cc.BinaryInfo(soFile).DependsInfo())
-		b.WritePkgMeta(soFile+".trigger", "activate-noawait ldconfig")
+		b.WritePkgMeta(bname+".sodep", cc.BinaryInfo(soFile).DependsInfo())
+		b.WritePkgMeta(bname+".trigger", "activate-noawait ldconfig")
 	}
 
 	return nil
