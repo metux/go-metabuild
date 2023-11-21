@@ -11,6 +11,7 @@ type CommonCBuilder struct {
 	base.BaseBuilder
 	Compiler compiler.CompilerInfo
 	CDefs    []string
+	CFlags   []string
 	JobDep   []jobs.JobId
 	Parent   *BaseCBuilder
 }

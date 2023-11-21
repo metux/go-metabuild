@@ -84,6 +84,7 @@ func (cc CCompilerGCC) CompileExecutable(args base.CompilerArg) error {
 	cc.cmdCC(args.Output, args.Sources)
 	cc.cmdPkgImport(args.PkgImports)
 	cc.cmdDefines(args.Defines)
+	cc.cmdAppend(args.Flags...)
 	return cc.cmdExec()
 }
 
@@ -101,6 +102,7 @@ func (cc CCompilerGCC) CompileLibraryStatic(args base.CompilerArg) error {
 		cc2.cmdDefines(args.Defines)
 		cc2.cmdPkgImport(args.PkgImports)
 		cc2.cmdAppend("-o", ofile, "-c", cfile)
+		cc2.cmdAppend(args.Flags...)
 		cmdlines = append(cmdlines, cc2.cmdline)
 	}
 
@@ -125,6 +127,7 @@ func (cc CCompilerGCC) CompileLibraryShared(args base.CompilerArg) error {
 	cc.cmdDefines(args.Defines)
 	cc.cmdShared()
 	cc.cmdSoName(args.DllName)
+	cc.cmdAppend(args.Flags...)
 	return cc.cmdExec()
 }
 

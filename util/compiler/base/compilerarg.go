@@ -7,5 +7,6 @@ type CompilerArg struct {
 	Output             string
 	DllName            string
 	Defines            []string
+	Flags              []string
 	PkgImports         []PkgConfigInfo
 }

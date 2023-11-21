@@ -58,6 +58,10 @@ func (o TargetObject) CDefines() []string {
 	return o.FeaturedStrList(KeyCDefines)
 }
 
+func (o TargetObject) CFlags() []string {
+	return o.FeaturedStrList(KeyCCflags)
+}
+
 func (o TargetObject) GetFMode(k Key) os.FileMode {
 	n, _ := fileutil.FileModeParse(o.EntryStr(k))
 	return n

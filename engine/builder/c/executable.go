@@ -19,6 +19,7 @@ func (b BuilderCExecutable) JobRun() error {
 		Sources:    b.Sources(),
 		PkgImports: b.AllImports(),
 		Defines:    b.CDefines(),
+		Flags:      b.CFlags(),
 		Output:     fn,
 	}
 

@@ -19,6 +19,7 @@ func (b BuilderCLibraryShared) JobRun() error {
 		PkgImports: b.Parent.AllImports(),
 		Defines:    append(b.CDefs, b.CDefines()...),
 		Output:     b.OutputFile(),
+		Flags:      b.CFlags,
 		DllName:    b.RequiredEntryStr(target.KeyName),
 	}
 
