@@ -54,7 +54,8 @@ const (
 
 // generators
 const (
-	KeyResourceDir = Key("resource/dir")
+	KeyResourceDir  = Key("resource/dir")
+	KeyResourceName = Key("resource/name")
 
 	KeyOutputCHeader   = Key("output/c/header")
 	KeyOutputCSource   = Key("output/c/source")
