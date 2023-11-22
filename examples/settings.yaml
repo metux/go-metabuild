@@ -428,6 +428,16 @@ platform:
                 source/dir:           po
                 name:                 ${@@PARENT::domain}.mo
 
+            i18n/desktop:
+                install:              true
+                install/dir:          ${buildconf::install-dirs::fdo-appdir}
+                install/package:      data
+                install/perm:         0664
+                i18n/linguas:         ${i18n::linguas}
+                i18n/po/dir:          po
+                source/suffix:        .desktop.in
+                output/suffix:        .desktop
+
             doc/man:
                 install:              ${@@PARENT::@@PARENT::install}
                 install/dir:          ${buildconf::install-dirs::mandir}

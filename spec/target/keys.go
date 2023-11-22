@@ -31,12 +31,14 @@ const (
 	// library devlink
 	KeyLinkTarget = Key("target")
 
-	KeySource    = Key("source")
-	KeySourceDir = Key("source/dir")
-	KeySubPkg    = Key("subpkg")
-	KeyName      = Key("name")
-	KeyFile      = Key("file")
-	KeySymlink   = Key("symlink")
+	KeySource       = Key("source")
+	KeySourceDir    = Key("source/dir")
+	KeySourceSuffix = Key("source/suffix")
+
+	KeySubPkg  = Key("subpkg")
+	KeyName    = Key("name")
+	KeyFile    = Key("file")
+	KeySymlink = Key("symlink")
 
 	KeyIncludeDirs = Key("include-dirs")
 	KeyLibDirs     = Key("lib-dirs")
@@ -46,10 +48,14 @@ const (
 	KeyLinkBoth   = Key("link/both")
 
 	KeyImport = Key("import")
+)
 
+// locales
+const (
 	KeyI18nLinguas  = Key("i18n/linguas")
 	KeyI18nCategory = Key("i18n/category")
 	KeyI18nDomain   = Key("i18n/domain")
+	KeyI18nPoDir    = Key("i18n/po/dir")
 )
 
 // generators
@@ -60,6 +66,7 @@ const (
 	KeyOutputCHeader   = Key("output/c/header")
 	KeyOutputCSource   = Key("output/c/source")
 	KeyOutputGResource = Key("output/gresource")
+	KeyOutputSuffix    = Key("output/suffix")
 )
 
 // C specific settings

@@ -38,6 +38,8 @@ func CreateBuilder(o target.TargetObject, id string) (jobs.Job, error) {
 	/* locales */
 	case target.TypeI18nPo:
 		return i18n.MakeI18nPo(o, id), nil
+	case target.TypeI18nDesktop:
+		return i18n.MakeI18nDesktop(o, id), nil
 
 	/* documentation */
 	case target.TypeDocMan:

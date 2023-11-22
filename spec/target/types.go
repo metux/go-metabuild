@@ -26,7 +26,8 @@ const (
 	TypeDataDesktop = Key("data/desktop")
 
 	/* locales */
-	TypeI18nPo = Key("i18n/po")
+	TypeI18nPo      = Key("i18n/po")
+	TypeI18nDesktop = Key("i18n/desktop")
 
 	/* documentation */
 	TypeDocMan  = Key("doc/man")
