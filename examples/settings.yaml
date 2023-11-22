@@ -422,8 +422,10 @@ platform:
                 install/dir:          ${buildconf::install-dirs::localedir}
                 install/package:      data
                 install/perm:         0664
+                i18n/linguas:         ${i18n::linguas}
                 i18n/category:        LC_MESSAGES
                 i18n/domain:          ${package}
+                source/dir:           po
                 name:                 ${@@PARENT::domain}.mo
 
             doc/man:

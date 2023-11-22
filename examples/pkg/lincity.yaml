@@ -73,6 +73,9 @@ misc:
     c/cflags:
         - -Wall
 
+i18n:
+    linguas: [it, pt_BR, sv, ca]
+
 objects:
     lincitymodules:
         type:               c/library
@@ -185,8 +188,6 @@ objects:
 
     po:
         type:               i18n/po
-        source/dir:         po
-        i18n/linguas:       [it, pt_BR, sv, ca]
 
     doc/misc:
         type:               doc/misc
