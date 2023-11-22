@@ -15,7 +15,7 @@ const (
 
 // subkeys of global spec
 const (
-	KeyTargetObjects = Key("objects")
+	KeyTargetObjects = Key("targets")
 	KeyBuildConf     = Key("buildconf")
 	KeyCache         = Key("cache")
 	KeyFeatures      = Key("features")

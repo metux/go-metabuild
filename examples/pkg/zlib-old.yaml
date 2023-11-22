@@ -53,7 +53,7 @@ configure:
           config:         HAVE_SIZE_T
           yes/c/defines:  HAVE_SIZE_T
 
-objects:
+targets:
     zlib:
         type:                 c/library
         mapfile:              zlib.map

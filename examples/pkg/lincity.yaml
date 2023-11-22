@@ -76,7 +76,7 @@ misc:
 i18n:
     linguas: [it, pt_BR, sv, ca]
 
-objects:
+targets:
     lincitymodules:
         type:               c/library
         install:            false
