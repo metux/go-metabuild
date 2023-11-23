@@ -124,7 +124,7 @@ distro:
                 bugs:           ${distro::_default_::packages::main::bugs}
                 description:    ${distro::_default_::packages::main::description}
                 homepage:       ${distro::_default_::packages::main::homepage}
-                local-depend:   [ prog, lib, doc ]
+                local-depend:   [ prog, lib, data, doc ]
                 maintainer:     ${distro::_default_::packages::main::maintainer}
                 multiarch:      ${distro::_default_::packages::main::multiarch}
                 name:           ${buildconf::@targetdist::package}
