@@ -114,7 +114,7 @@ targets:
 
     lincitygui:
         type:               c/library
-        pkgconf-import:     [x11, xext, zlib, libpng, libc/math]
+        pkgconf/import:     [x11, xext, zlib, libpng, libc/math]
         link/static:        [lincityengine, lincitymodules]
         skip/shared:        true
         skip/pkgconf:       true
@@ -140,7 +140,7 @@ targets:
 
     lincity:
         type:               c/executable
-        pkgconf-import:     [x11, xext, zlib, libpng, libc/math]
+        pkgconf/import:     [x11, xext, zlib, libpng, libc/math]
         c/ldflags:          ${misc::c/ldflags}
         c/cflags:           ${misc::c/cflags}
 

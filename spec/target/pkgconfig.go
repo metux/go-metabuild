@@ -8,7 +8,7 @@ import (
 // pkgconfig settings
 const (
 	// importing by pkgconf from within a target
-	KeyPkgconfImport = Key("pkgconf-import")
+	KeyPkgconfImport = Key("pkgconf/import")
 
 	// pkgconf descriptor attributes
 	KeyPkgName         = Key("name")
