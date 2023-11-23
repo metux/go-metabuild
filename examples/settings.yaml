@@ -456,6 +456,9 @@ platform:
             gen/glib-resource:
                 source/dir:           .
                 resource/dir:         ${@@PARENT::source/dir}
+                output/c/header:      ${@@PARENT::source/dir}/${@@PARENT::name}.h
+                output/c/source:      ${@@PARENT::source/dir}/${@@PARENT::name}.c
+                output/gresource:     ${@@PARENT::source/dir}/${@@PARENT::name}.gresource
 
 buildconf:
     install-dirs:
