@@ -39,3 +39,7 @@ func (f Feature) SetOff() {
 func (f Feature) FlagsOn() specobj.SpecObj {
 	return f.EntrySpec(Key("set@" + f.Value()))
 }
+
+func (f Feature) PkgconfRequire() []string {
+	return f.EntryStrList(KeyPkgconfRequire)
+}

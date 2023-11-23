@@ -1,13 +1,13 @@
 package autoconf
 
 import (
-	"log"
 	"os"
 	"strings"
 
 	"github.com/metux/go-metabuild/spec"
 	"github.com/metux/go-metabuild/spec/features"
 	"github.com/metux/go-metabuild/spec/global"
+	"github.com/metux/go-metabuild/util"
 )
 
 type Key = spec.Key
@@ -17,7 +17,6 @@ type Key = spec.Key
 func featuresFromEnv(cf global.Global, fm features.FeatureMap) {
 	for _, f := range fm.All() {
 		fup := strings.ToUpper(string(f.Id))
-		log.Println("checking feature", f.Id, fup)
 		if v := os.Getenv("ENABLE_" + fup); v != "" {
 			f.SetOn()
 		}
@@ -42,6 +41,14 @@ func featuresProcess(cf global.Global, fm features.FeatureMap) {
 			data := flags.EntryStrList(k)
 			subBuild.EntryStrListAppendList(k, data)
 			subHost.EntryStrListAppendList(k, data)
+		}
+		if f.ValueYN() == "y" {
+			req := f.PkgconfRequire()
+			for _, pkg := range req {
+				if !bc.PkgConfig(true, pkg).Valid() && !bc.PkgConfig(false, pkg).Valid() {
+					util.Panicf("config error: missing package %s for feature %s", pkg, f.Id)
+				}
+			}
 		}
 	}
 }

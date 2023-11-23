@@ -8,5 +8,6 @@ type Key = api.Key
 
 // per feature attributes
 const (
-	KeyEnabled = Key("enabled")
+	KeyEnabled        = Key("enabled")
+	KeyPkgconfRequire = Key("pkgconf/require")
 )
