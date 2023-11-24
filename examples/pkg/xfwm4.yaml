@@ -11,55 +11,40 @@ configure:
     checks:
         - type:         target-distro
           mandatory:    true
+
         - type:         c/compiler
           mandatory:    true
+
         - c/header:     [errno.h, fcntl.h, math.h, memory.h, signal.h, stdarg.h,
                          stdio.h, stdlib.h, string.h, sys/stat.h, sys/time.h,
                          sys/types.h, sys/wait.h, time.h, unistd.h]
           mandatory:    true
-        - pkg-config:   gtk+-3.0 >= 3.24.0
-          id:           GTK
-          mandatory:    true
-        - pkg-config:   libxfce4util-1.0 >= 4.8.0
-          id:           LIBXFCE4UTIL
-          mandatory:    true
-        - pkg-config:   libxfce4ui-2 >= 4.12.0
-          id:           LIBXFCE4UI
-          mandatory:    true
-        - pkg-config:   libxfce4kbd-private-3 >= 4.12.0
-          id:           LIBXFCE4KBD_PRIVATE
-          mandatory:    true
-        - pkg-config:   libxfconf-0 >= 4.13.0
-          id:           LIBXFCONF
-          mandatory:    true
-        - pkg-config:   libwnck-3.0 => 3.14
-          id:           LIBWNCK
-          mandatory:    true
-        - pkg-config:   xinerama
-          id:           XINERAMA
-          mandatory:    true
-        - pkg-config:   x11
-          id:           X11
-          mandatory:    true
-        - pkg-config:   xres
-          id:           XRES
+
+        - pkgconf:
+            XRES:                 xres
           yes/c/define: HAVE_XRES
-        - pkg-config:   xext
-          id:           XEXT
-        - pkg-config:   xi
-          id:           XI2
-        - pkg-config:   epoxy >= 1.0
-          id:           EPOXY
-        - pkg-config:   libstartup-notification-1.0 >= 0.5
-          id:           STARTUP_NOTIFICATION
-        - pkg-config:   xrender
-          id:           XRENDER
-        - pkg-config:   xrandr
-          id:           RANDR
-        - pkg-config:   xpresent presentproto >= 1.1
-          id:           XPRESENT
-        - pkg-config:   xcomposite >= 0.2 xfixes xdamage
-          id:           XCOMPOSITE
+
+        - pkgconf:
+            GTK:                  gtk+-3.0 >= 3.24.0
+            LIBXFCE4UTIL:         libxfce4util-1.0 >= 4.8.0
+            LIBXFCE4UI:           libxfce4ui-2 >= 4.12.0
+            LIBXFCE4KBD_PRIVATE:  libxfce4kbd-private-3 >= 4.12.0
+            LIBXFCONF:            libxfconf-0 >= 4.13.0
+            LIBWNCK:              libwnck-3.0 => 3.14
+            XINERAMA:             xinerama
+            X11:                  x11
+          mandatory:    true
+
+        - pkgconf:
+            XCOMPOSITE:           xcomposite >= 0.2 xfixes xdamage
+            XEXT:                 xext
+            XI2:                  xi
+            EPOXY:                epoxy >= 1.0
+            STARTUP_NOTIFICATION: libstartup-notification-1.0 >= 0.5
+            XRENDER:              xrender
+            RANDR:                xrandr
+            XPRESENT:             xpresent presentproto >= 1.1
+            XCOMPOSITE:           xcomposite >= 0.2 xfixes xdamage
 
 features:
     xi2:

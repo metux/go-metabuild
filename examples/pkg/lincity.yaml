@@ -50,17 +50,11 @@ configure:
           yes/c/defines:  HAVE_SYS_TIME_H
         - c/header:       unistd.h
           yes/c/defines:  HAVE_UNISTD_H
-        - pkg-config:     x11
-          id:             x11
-          mandatory:      true
-        - pkg-config:     xext
-          id:             xext
-          mandatory:      true
-        - pkg-config:     zlib
-          id:             zlib
-          mandatory:      true
-        - pkg-config:     libpng
-          id:             libpng
+        - pkgconf:
+            x11:          x11
+            xext:         xext
+            zlib:         zlib
+            libpng:       libpng
           mandatory:      true
 
 misc:
