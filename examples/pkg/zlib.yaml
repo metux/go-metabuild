@@ -76,7 +76,6 @@ targets:
         headers:
             pub:
                 # directly into /usr/include
-                subdir: /
                 source:
                     - zlib.h
                     - zconf.h

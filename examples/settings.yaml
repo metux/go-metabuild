@@ -295,7 +295,7 @@ platform:
 
             c/header:
                 install:              ${@@PARENT::@@PARENT::@@PARENT::install}
-                install/dir:          ${buildconf::install-dirs::includedir}/${@@PARENT::install/subdir}
+                install/dir:          ${buildconf::install-dirs::includedir}
                 install/package:      dev
                 install/perm:         0664
                 source/dir:           ${@@PARENT::@@PARENT::@@PARENT::source/dir}
@@ -303,7 +303,7 @@ platform:
             c/executable:
                 compiler/lang:        C
                 install:              ${@@PARENT::@@PARENT::install}
-                install/dir:          ${buildconf::install-dirs::bindir}/${@@PARENT::install/subdir}
+                install/dir:          ${buildconf::install-dirs::bindir}
                 install/package:      prog
                 install/perm:         0755
 
@@ -373,7 +373,7 @@ platform:
 
             c++/header:
                 install:              ${@@PARENT::@@PARENT::@@PARENT::install}
-                install/dir:          ${buildconf::install-dirs::includedir}/${@@PARENT::install/subdir}
+                install/dir:          ${buildconf::install-dirs::includedir}
                 install/package:      dev
                 install/perm:         0664
                 source/dir:           ${@@PARENT::@@PARENT::@@PARENT::source/dir}
@@ -381,7 +381,7 @@ platform:
             c++/executable:
                 compiler/lang:        C++
                 install:              ${@@PARENT::@@PARENT::install}
-                install/dir:          ${buildconf::install-dirs::bindir}/${@@PARENT::install/subdir}
+                install/dir:          ${buildconf::install-dirs::bindir}
                 install/package:      prog
                 install/perm:         0755
 
