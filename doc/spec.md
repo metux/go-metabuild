@@ -1,3 +1,0 @@
-Project specification YAML file
-===============================
-
