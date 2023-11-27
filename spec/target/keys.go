@@ -26,7 +26,7 @@ const (
 	KeyHeaders   = Key("headers")
 	KeyMapfile   = Key("mapfile")
 	KeyLibName   = Key("libname")
-	KeyStaticLib = Key("static/libfile")
+	KeyStaticLib = Key("static::file")
 
 	// library devlink
 	KeyLinkTarget = Key("target")

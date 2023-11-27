@@ -245,9 +245,6 @@ platform:
                 description:          ${description}
                 version:              ${version}
 
-                # *pathname* of the locally built (non-installed) static library
-                static/libfile:       ${@@PARENT::static::name}
-
             c/library/pkgconf:
                 install:              ${@@PARENT::@@PARENT::install}
                 install/dir:          ${buildconf::install-dirs::pkgconfigdir}
@@ -324,9 +321,6 @@ platform:
 
                 description:          ${description}
                 version:              ${version}
-
-                # *pathname* of the locally built (non-installed) static library
-                static/libfile:       ${@@PARENT::static::name}
 
             c++/library/pkgconf:
                 install:              ${@@PARENT::@@PARENT::install}
