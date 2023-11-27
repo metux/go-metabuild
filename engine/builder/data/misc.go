@@ -18,9 +18,7 @@ func (b BuilderDataMisc) JobRun() error {
 	return nil
 }
 
-// FIXME: move this to base builder ?
 func (b BuilderDataMisc) JobPrepare(id string) error {
-	b.LoadTargetDefaults()
 	return nil
 }
 

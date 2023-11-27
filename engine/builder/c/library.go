@@ -20,8 +20,6 @@ type BuilderCLibrary struct {
 }
 
 func (b *BuilderCLibrary) JobPrepare(id jobs.JobId) error {
-	b.LoadTargetDefaults()
-
 	cdefs := b.CDefines()
 	cflags := b.CFlags()
 	ci := b.BuildConf.CompilerInfo(b.ForBuild(), b.CompilerLang())
@@ -68,6 +66,7 @@ func (b *BuilderCLibrary) JobPrepare(id jobs.JobId) error {
 func (b *BuilderCLibrary) mksub(sub spec.Key, typ spec.Key, ci compiler.CompilerInfo, cdefs []string, cflags []string, jobdep []jobs.JobId) CommonCBuilder {
 	newbuilder := base.NewBaseBuilder(b.SubTarget(sub), b.JobId()+"/"+string(sub))
 	newbuilder.SetType(typ)
+	// needs to be explicitly initialized, since not yet known in post-configure phase
 	newbuilder.LoadTargetDefaults()
 	return CommonCBuilder{newbuilder, ci, cdefs, cflags, jobdep, &b.BaseCBuilder}
 }

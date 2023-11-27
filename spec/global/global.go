@@ -90,6 +90,12 @@ func (g Global) Init() {
 	fm.Init()
 }
 
+func (g Global) PostConfig() {
+	for _, ent := range g.GetTargetObjects() {
+		ent.LoadTargetDefaults()
+	}
+}
+
 func LoadGlobal(fn string, dflt string) (Global, error) {
 	md, err := magic.YamlLoad(fn, dflt)
 	g := Global{SpecObj: specobj.NewSpecObj(md)}

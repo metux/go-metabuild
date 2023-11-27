@@ -16,7 +16,14 @@ func RunConfigure(cf global.Global) error {
 			return err
 		}
 	}
-	return RunConfigureFeatures(cf)
+	if err := RunConfigureFeatures(cf); err != nil {
+		return err
+	}
+
+	// run post-config stage
+	cf.PostConfig()
+
+	return nil
 }
 
 func runCheck(cf global.Global, chk spec.Check) error {

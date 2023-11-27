@@ -34,9 +34,7 @@ func (b BuilderDataDesktop) JobRun() error {
 	return nil
 }
 
-// FIXME: move this to base builder ?
 func (b BuilderDataDesktop) JobPrepare(id string) error {
-	b.LoadTargetDefaults()
 	return nil
 }
 

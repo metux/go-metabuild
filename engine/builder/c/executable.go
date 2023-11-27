@@ -38,7 +38,6 @@ func (b BuilderCExecutable) JobRun() error {
 }
 
 func (b BuilderCExecutable) JobPrepare(id string) error {
-	b.LoadTargetDefaults()
 	return nil
 }
 

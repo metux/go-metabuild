@@ -49,8 +49,7 @@ func (o TargetObject) ForBuild() bool {
 }
 
 func (o TargetObject) LoadTargetDefaults() {
-	targettype := o.Type()
-	k := buildconf.KeyTargetPlatform.Append("targets").Append(targettype).MagicLiteralPost()
+	k := buildconf.KeyTargetPlatform.Append("targets").Append(o.Type()).MagicLiteralPost()
 	o.DefaultPutStrMap(o.BuildConf.EntryStrMap(k))
 }
 
