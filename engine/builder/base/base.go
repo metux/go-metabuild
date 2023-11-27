@@ -101,7 +101,7 @@ func (b BaseBuilder) JobRun() error {
 }
 
 func (b BaseBuilder) JobPrepare(id jobs.JobId) error {
-	b.LoadTargetDefaults(spec.Key(b.Type()))
+	b.LoadTargetDefaults()
 	return nil
 }
 

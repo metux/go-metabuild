@@ -48,10 +48,10 @@ func (o TargetObject) ForBuild() bool {
 	return o.EntryBoolDef(Key("build"), false)
 }
 
-func (o TargetObject) LoadTargetDefaults(targettype Key) error {
+func (o TargetObject) LoadTargetDefaults() {
+	targettype := o.Type()
 	k := buildconf.KeyTargetPlatform.Append("targets").Append(targettype).MagicLiteralPost()
 	o.DefaultPutStrMap(o.BuildConf.EntryStrMap(k))
-	return nil
 }
 
 func (o TargetObject) CDefines() []string {
@@ -94,6 +94,10 @@ func (o TargetObject) CompilerLang() string {
 
 func (o TargetObject) Type() Key {
 	return Key(o.EntryStr(KeyType))
+}
+
+func (o TargetObject) SetType(k Key) {
+	o.EntryPutStr(KeyType, string(k))
 }
 
 func (o TargetObject) SubTarget(k specobj.Key) TargetObject {

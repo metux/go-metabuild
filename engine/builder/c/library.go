@@ -20,7 +20,7 @@ type BuilderCLibrary struct {
 }
 
 func (b *BuilderCLibrary) JobPrepare(id jobs.JobId) error {
-	b.LoadTargetDefaults(spec.Key(b.Type()))
+	b.LoadTargetDefaults()
 
 	cdefs := b.CDefines()
 	cflags := b.CFlags()
@@ -67,7 +67,8 @@ func (b *BuilderCLibrary) JobPrepare(id jobs.JobId) error {
 
 func (b *BuilderCLibrary) mksub(sub spec.Key, typ spec.Key, ci compiler.CompilerInfo, cdefs []string, cflags []string, jobdep []jobs.JobId) CommonCBuilder {
 	newbuilder := base.NewBaseBuilder(b.SubTarget(sub), b.JobId()+"/"+string(sub))
-	newbuilder.LoadTargetDefaults(typ)
+	newbuilder.SetType(typ)
+	newbuilder.LoadTargetDefaults()
 	return CommonCBuilder{newbuilder, ci, cdefs, cflags, jobdep, &b.BaseCBuilder}
 }
 

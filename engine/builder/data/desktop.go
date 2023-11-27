@@ -36,7 +36,7 @@ func (b BuilderDataDesktop) JobRun() error {
 
 // FIXME: move this to base builder ?
 func (b BuilderDataDesktop) JobPrepare(id string) error {
-	b.LoadTargetDefaults(spec.Key(b.Type()))
+	b.LoadTargetDefaults()
 	return nil
 }
 

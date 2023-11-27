@@ -27,7 +27,7 @@ func (b BuilderDocMisc) JobRun() error {
 
 // FIXME: move this to base builder ?
 func (b BuilderDocMisc) JobPrepare(id string) error {
-	b.LoadTargetDefaults(spec.Key(b.Type()))
+	b.LoadTargetDefaults()
 	return nil
 }
 
