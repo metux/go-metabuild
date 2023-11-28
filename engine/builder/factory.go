@@ -45,6 +45,8 @@ func CreateBuilder(o target.TargetObject, id string) (jobs.Job, error) {
 	/* generators */
 	case target.TypeGenGlibResource:
 		return gen.MakeGlibResource(o, id), nil
+	case target.TypeGenGlibMarshal:
+		return gen.MakeGlibMarshal(o, id), nil
 	case target.TypeXdtCSource:
 		return gen.MakeXdtCSource(o, id), nil
 

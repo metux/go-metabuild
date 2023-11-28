@@ -35,5 +35,6 @@ const (
 
 	/* generators */
 	TypeGenGlibResource = Key("gen/glib-resource")
+	TypeGenGlibMarshal  = Key("gen/glib-marshal")
 	TypeXdtCSource      = Key("gen/xdt-csource")
 )
