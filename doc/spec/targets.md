@@ -18,6 +18,7 @@ attribute set.
 | doc/man                | Unix manual page *(troff/nroff)*                                        |
 | doc/misc               | Simple documentation files *(placed under $datadir/doc/...)*            |
 | gen/glib-resource      | Generate Glib resource and source code files from XML                   |
+| gen/glib-marshal       | Generate Glib marshalling code                                          |
 | gen/xdt-csource        | Generate source code for compiling-in XML files *(eg. `*.glade`)*       |
 | gen/xxd-csource        | Generate source for compiling in binary data (like xxd -i)              |
 | i18n/desktop           | multilingual FreeDesktop.org `*.desktop` file                           |
@@ -366,6 +367,28 @@ the `po/` subdirectory.
         name:               workspace-resource
         source:             workspace.gresource.xml
         source/dir:         settings-dialogs
+```
+
+### gen/glib-marshal:
+
+Generate Glib marshalling code from prototype definition file.
+
+#### Attributes:
+
+| Attribute       | Default                    | Description             |
+|-----------------|----------------------------|-------------------------|
+| source          | ${@@PARENT::@id}.list      | prototype list source   |
+| source/dir      | .                          | source subdir           |
+| resource/name   | ${@@PARENT::@id}           | resource name           |
+| output/name     | ${@@PARENT::@id}           | prefix for output files |
+| output/c/header | ${@@PARENT::output/name}.h | c header output file    |
+| output/c/source | ${@@PARENT::output/name}.c | c source output file    |
+
+#### Example:
+```
+    src/gq-marshal:
+        type:               gen/glib-marshal
+        resource/name:      gq_marshal
 ```
 
 ### gen/xdt-csource:

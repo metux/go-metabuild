@@ -507,6 +507,15 @@ platform:
                 output/c/source:      ${@@PARENT::resource/dir}/${@@PARENT::resource/name}.c
                 output/gresource:     ${@@PARENT::resource/dir}/${@@PARENT::resource/name}.gresource
 
+            gen/glib-marshal:
+                builder/driver:       gen/glib-marshal
+                builder/command:      glib-genmarshal
+                source:               ${@@PARENT::@id}.list
+                resource/name:        ${@@PARENT::@id}
+                output/name:          ${@@PARENT::@id}
+                output/c/source:      ${@@PARENT::output/name}.c
+                output/c/header:      ${@@PARENT::output/name}.h
+
             gen/xdt-csource:
                 builder/driver:       gen/xdt-csource
 
