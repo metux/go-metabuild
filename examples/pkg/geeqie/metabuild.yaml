@@ -1,0 +1,439 @@
+# TODO: plugins --> .desktop files
+# TODO: changelog (text and html)
+
+package:    geeqie
+version:    2.1
+bugreport:  geeqie@freelists.org
+url:        https://www.geeqie.org/
+
+configure:
+    # dont really use it, but needs to be present since it's included
+    generate:
+        - config.h: config.h
+        - textfile: src/authors/authors
+          content:  ${buildconf::authors}
+
+    checks:
+        - type:           git/describe
+          exclude:        [continuous, gtk2final]
+          tags:           true
+
+        - type:           target-distro
+          mandatory:      true
+
+        - type:           c/compiler
+          mandatory:      true
+
+        - type:           c++/compiler
+          mandatory:      true
+
+        - type:           i18n/linguas
+
+        - c/header:       [inttypes.h, stdio.h, stdlib.h, string.h, stdint.h,
+                           sys/stat.h, sys/types.h, unistd.h, execinfo.h]
+
+        - c/function:     access
+          yes/c/defines:  HAVE_ACCESS
+
+        - c/function:     bind_textdomain_codeset
+          yes/c/defines:  HAVE_BIND_TEXTDOMAIN_CODESET
+          mandatory:      true
+
+        - c/function:     fflush
+          c/header:       stdio.h
+          c/defines:      HAVE_FFLUSH
+
+        - c/function:     fsync
+          c/header:       unistd.h
+          c/defines:      HAVE_FSYNC
+
+        - c/function:     gettext
+          mandatory:      true
+
+        - pkgconf:
+            GTK:  gtk+-3.0 >= 3.24
+            GLIB: glib-2.0 >= 2.52
+          mandatory: true
+
+        # FIXME: should also check for the library
+        - c/header: libdwarf/libdwarf.h
+          yes/pkgconf/add:
+            DWARF:
+                pkgspec:        "libdwarf"
+                pkg:            "libdwarf"
+                version:        "0.1"
+                shared/cflags:
+                shared/ldflags: "-ldwarf"
+                static/cflags:
+                static/ldflags: "-ldwarf"
+
+        - c/header: dlfcn.h
+          yes/pkgconf/add:
+            DL:
+                pkgspec:        "libdl"
+                pkg:            "libdl"
+                version:        "0.1"
+                shared/cflags:
+                shared/ldflags: "-ldl"
+                static/cflags:
+                static/ldflags: "-ldl"
+
+        - pkgconf:
+            ARCHIVE:  libarchive >= 3.4.0
+            DJVU:     ddjvuapi >= 2.5.27
+            EXIV2:    exiv2 >= 0.11
+            FFMPEG:   libffmpegthumbnailer >= 2.1.0
+            GPS:      champlain-0.12 >= 0.12 champlain-gtk-0.12 >= 0.12 clutter-1.0 clutter-gtk-1.0
+            HEIF:     libheif >= 1.3.2
+            JPEG:     libjpeg
+            J2K:      libopenjp2 >= 2.3.0
+            LCMS2:    lcms2 >= 2.0
+            LUA:      lua5.3 >= 5.3
+            PDF:      poppler-glib >= 0.62
+            RAW:      libraw >= 0.20
+            SPELL:    gspell-1 >= 1.6
+            TIFF:     libtiff-4
+            DW:       libdw libunwind
+
+options:
+    appstream:
+        default: y
+        type:    bool
+
+    archive:
+        pkgconf/require: ARCHIVE
+        default: y
+        set@y:
+            sym: HAVE_ARCHIVE
+            pkg: ARCHIVE
+
+    devel:
+        pkgconf/require: [DW, DWARF]
+        default: y
+        set@y:
+            sym: HAVE_DEVELOPER
+            pkg: [DW, DWARF]
+
+    djvu:
+        pkgconf/require: DJVU
+        default: y
+        set@y:
+            sym: HAVE_DJVU
+            pkg: DJVU
+
+    execinfo:
+        # fixme: require header
+        default: y
+        set@y:
+            sym: HAVE_EXECINFO
+
+    exiv2:
+        pkgconf/require: EXIV2
+        default: y
+        set@y:
+            sym: HAVE_EXIV2
+            pkg: EXIV2
+
+    ffmpeg:
+        pkgconf/require: FFMPEG
+        default: y
+        set@y:
+# FIXME: our libs seem to be too old, or it's some vendor patches
+#            sym: [HAVE_FFMPEGTHUMBNAILER, HAVE_FFMPEGTHUMBNAILER_METADATA, HAVE_FFMPEGTHUMBNAILER_RGB, HAVE_FFMPEGTHUMBNAILER_WH]
+            sym: HAVE_FFMPEGTHUMBNAILER
+            pkg: [FFMPEG, DL]
+
+    gps-map:
+        pkgconf/require: GPS
+        default: y
+        set@y:
+            sym: [HAVE_CLUTTER, HAVE_LIBCHAMPLAIN, HAVE_LIBCHAMPLAIN_GTK]
+            pkg: GPS
+
+    heif:
+        pkgconf/require: HEIF
+        default: y
+        set@y:
+            sym: HAVE_HEIF
+            pkg: HEIF
+
+    jpeg:
+        pkgconf/require: JPEG
+        default: y
+        set@y:
+            sym: HAVE_JPEG
+            pkg: JPEG
+
+    j2k:
+        pkgconf/require: J2K
+        default: y
+        set@y:
+            sym: HAVE_J2K
+            pkg: J2K
+
+    lcms:
+        pkgconf/require: LCMS2
+        default: y
+        set@y:
+            sym: [HAVE_LCMS, HAVE_LCMS2]
+            pkg: LCMS2
+
+    lua:
+        pkgconf/require: LUA
+        default: y
+        set@y:
+            sym: HAVE_LUA
+            pkg: LUA
+
+    pdf:
+        pkgconf/require: PDF
+        default: y
+        set@y:
+            sym: HAVE_PDF
+            pkg: PDF
+
+    raw:
+        pkgconf/require: RAW
+        default: y
+        set@y:
+            sym: HAVE_RAW
+            pkg: RAW
+
+    spell:
+        pkgconf/require: SPELL
+        default: y
+        set@y:
+            sym: HAVE_SPELL
+            pkg: SPELL
+
+    tiff:
+        pkgconf/require: TIFF
+        default: y
+        set@y:
+            sym: HAVE_TIFF
+            pkg: TIFF
+
+    webp:
+        default: y
+        set@y:
+            sym: HAVE_WEBP
+
+fflags:     ${buildconf::host::flags}
+
+plugindir: ${buildconf::install-dirs::libdir-noarch}/${package}
+helpdir:   ${buildconf::install-dirs::datadir}/${package}/help
+htmldir:   ${buildconf::install-dirs::datadir}/${package}/html
+appdir:    ${buildconf::install-dirs::datadir}/${package}/applications
+
+c/defines:
+    - PACKAGE="${package}"
+    - PACKAGE_NAME="${package}"
+    - GETTEXT_PACKAGE="${package}"
+    - VERSION="${version}"
+    - GQ_LOCALEDIR="${buildconf::install-dirs::localedir}"
+    - GQ_HELPDIR="${helpdir}"
+    - GQ_HTMLDIR="${htmldir}"
+    - GQ_APPDIR="${appdir}"
+    - GQ_BINDIR="${plugindir}"
+    - ENABLE_NLS
+    - ${fflags::sym}
+
+c/cflags:
+    - -Wno-deprecated-declarations
+    - -Wno-write-strings
+
+c/ldflags:
+    - ${fflags::lib}
+
+fflags:     ${buildconf::host::flags}
+
+targets:
+    src/gq-marshal{c/glib-marshal}:
+        resource/name:      gq_marshal
+
+    icons.gresource{c/glib-resource}:
+        source/dir:         src/icons
+
+    authors.gresource{c/glib-resource}:
+        source/dir:         src/authors
+
+    ui.gresource{c/glib-resource}:
+        source/dir:         src/ui
+
+    translators.gresource{c/glib-resource}:
+        source/dir:         po
+        job/depends:        translators.list
+
+    ClayRGB1998_icc.h{gen/xxd-csource}:
+        source:             src/ClayRGB1998.icc
+
+    translators.list{exec/basic}:
+        exec/command:       ["${@sys::config::absdir}/translators.sh"]
+        exec/log:           true
+
+    viewfile{c++/library}:
+        skip/pkgconf:       true
+        skip/shared:        true
+        source/dir:         src/view-file
+        source:             ["*.cc"]
+        include/dir:        [".", src]
+        c/defines:          ${c/defines}
+        c/cflags:           ${c/cflags}
+        pkgconf/import:     [GTK, GLIB]
+        install:            false
+
+    panview{c++/library}:
+        skip/pkgconf:       true
+        skip/shared:        true
+        source/dir:         src/pan-view
+        source:             ["*.cc"]
+        include/dir:        [".", src]
+        c/defines:          ${c/defines}
+        c/cflags:           ${c/cflags}
+        pkgconf/import:     [GTK, GLIB]
+        install:            false
+
+    main{c++/library}:
+        skip/pkgconf:       true
+        skip/shared:        true
+        source/dir:         src
+        source:             ["*.cc"]
+        include/dir:        [".", src]
+        c/defines:          ${c/defines}
+        c/cflags:           ${c/cflags}
+        pkgconf/import:     [GTK, GLIB, "${fflags::pkg}"]
+        link/static:        [viewfile, panview, src/gq-marshal]
+        install:            false
+
+    geeqie{c++/executable}:
+        link/static:        [main, viewfile, panview, src/gq-marshal,
+                             icons.gresource, ui.gresource, authors.gresource,
+                             translators.gresource]
+        source/dir:         src
+        c/defines:          ${c/defines}
+        c/cflags:           ${c/cflags}
+        c/ldflags:          ${c/ldflags}
+        pkgconf/import:     [GTK, GLIB, "${fflags::pkg}"]
+
+    geeqie.1{doc/man}:
+
+    desktop{i18n/desktop}:
+        source:             org.geeqie.Geeqie
+
+    appdata{i18n/appdata}:
+        source:             org.geeqie.Geeqie
+        optional:           appstream
+
+    geeqie.png{data/pixmap}:
+
+    svg{data/misc}:
+        install/subdir:     icons/hicolor/scalable/apps
+        source:             "*.svg"
+        source/dir:         src/icons/svg
+
+    po{i18n/po}:
+
+    docs{doc/misc}:
+        source:             [COPYING, NEWS, TODO, CHECKLIST.md, CODING.md, README.md]
+
+    docbook{doc/yelp}:
+        source/dir:         doc/docbook
+        source:             GuideIndex.xml
+        include/dir:        doc/icons
+        install/subdir:     html
+
+    plugins/camera-import{data/lib-script-subdir}:
+        source:             [geeqie-camera-import, geeqie-camera-import-hook-script]
+    plugins/camera-import/org.geeqie.camera-import{i18n/desktop}:
+        source:             ${@@^::@basename}
+        source/dir:         ${@@^::@dirname}
+        install/dir:        ${appdir}
+
+    plugins/export-jpeg{data/lib-script-subdir}:
+        source:             [geeqie-export-jpeg]
+    plugins/export-jpeg/org.geeqie.export-jpeg{i18n/desktop}:
+        source:             ${@@^::@basename}
+        source/dir:         ${@@^::@dirname}
+        install/dir:        ${appdir}
+
+    plugins/geocode-parameters{data/lib-script-subdir}:
+        source:             geocode-parameters.awk
+
+    plugins/image-crop{data/lib-script-subdir}:
+        source:             geeqie-image-crop
+    plugins/image-crop/org.geeqie.image-crop{i18n/desktop}:
+        source:             ${@@^::@basename}
+        source/dir:         ${@@^::@dirname}
+        install/dir:        ${appdir}
+
+    plugins/export-jpeg/org.geeqie.open-with{i18n/desktop}:
+        source:             ${@@^::@basename}
+        source/dir:         ${@@^::@dirname}
+        install/dir:        ${appdir}
+
+    plugins/lens{data/lib-script-subdir}:
+        source:             lensID
+
+    plugins/random-image{data/lib-script-subdir}:
+        source:             geeqie-random-image
+    plugins/random-image/org.geeqie.random-image{i18n/desktop}:
+        source:             ${@@^::@basename}
+        source/dir:         ${@@^::@dirname}
+        install/dir:        ${appdir}
+
+    plugins/refresh-thumbnail{data/lib-script-subdir}:
+        source:             geeqie-refresh-thumbnail
+    plugins/refresh-thumbnail/org.geeqie.refresh-thumbnail{i18n/desktop}:
+        source:             ${@@^::@basename}
+        source/dir:         ${@@^::@dirname}
+        install/dir:        ${appdir}
+
+    plugins/resize-image{data/lib-script-subdir}:
+        source:             [geeqie-resize-image, downsize, resize-help.sh]
+    plugins/resize-image/org.geeqie.resize-image{i18n/desktop}:
+        source:             ${@@^::@basename}
+        source/dir:         ${@@^::@dirname}
+        install/dir:        ${appdir}
+
+    plugins/rotate{data/lib-script-subdir}:
+        source:             [geeqie-rotate]
+    plugins/rotate/org.geeqie.rotate{i18n/desktop}:
+        source:             ${@@^::@basename}
+        source/dir:         ${@@^::@dirname}
+        install/dir:        ${appdir}
+
+    plugins/symlink{data/lib-script-subdir}:
+        source:             [geeqie-symlink]
+    plugins/symlink/org.geeqie.symlink{i18n/desktop}:
+        source:             ${@@^::@basename}
+        source/dir:         ${@@^::@dirname}
+        install/dir:        ${appdir}
+
+    plugins/tethered-photography{data/lib-script-subdir}:
+        source:             [geeqie-tethered-photography, geeqie-tethered-photography-hook-script]
+    plugins/org.geeqie.tethered-photography{i18n/desktop}:
+        source:             ${@@^::@basename}
+        source/dir:         ${@@^::@dirname}
+        install/dir:        ${appdir}
+
+    plugins/org.geeqie.video-player{i18n/desktop}:
+        source:             ${@@^::@basename}
+        source/dir:         ${@@^::@dirname}
+        install/dir:        ${appdir}
+
+#distro:
+#    _default_:
+#        packages:
+#            dev:
+#                skip: true
+#            lib:
+#                skip: true
+#            doc:
+#                skip: true
+#            prog:
+#                skip: true
+
+buildconf:
+    authors: |
+      List of authors not available
+      (not built from git ?)

@@ -5,6 +5,7 @@ test_zlib_path    := ../zlib
 test_lincity_path := ../lincity
 test_xfwm4_path   := ../xfwm4
 test_dvdinfo_path  := ../dvd_info
+test_geeqie_path  := ../geeqie
 
 metabuild := $(my_path)/bin/metabuild
 conf := $(my_path)/examples/conf/settings.yaml
@@ -46,6 +47,9 @@ test-xfwm4: build
 
 test-dvd_info: build
 	$(call RUNTEST, $(test_dvdinfo_path), dvd_info)
+
+test-geeqie: build
+	$(call RUNTEST, $(test_geeqie_path), geeqie)
 
 build:
 	@rm -Rf bin

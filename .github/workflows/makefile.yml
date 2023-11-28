@@ -44,6 +44,33 @@ jobs:
       run: make test-dvd_info
       working-directory: go-metabuild
 
+
+  geeqie:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - uses: ./.github/actions/setup
+
+    - name: install deps
+      run: |
+        sudo apt-get install -y gettext libgtk-3-dev libdwarf-dev libarchive-dev \
+            libdjvulibre-dev libexiv2-dev libffmpegthumbnailer-dev libdwarf-dev \
+            libchamplain-gtk-0.12-dev libclutter-gtk-1.0-dev libheif-dev \
+            libopenjp2-7-dev libjpeg-dev liblcms2-dev liblua5.3-dev libdw-dev \
+            libpoppler-glib-dev libraw-dev libgspell-1-dev libtiff-dev \
+            libunwind-dev yelp-tools
+
+    - uses: actions/checkout@v3
+      with:
+        repository: BestImageViewer/geeqie.git
+        path: geeqie
+        ref: master
+
+    - name: build test
+      run: make test-geeqie
+      working-directory: go-metabuild
+
   lincity:
     runs-on: ubuntu-latest
     steps:
