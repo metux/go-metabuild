@@ -14,6 +14,8 @@ const (
 	KeyCheckConfig = Key("config")
 	KeyPackages    = Key("packages")
 	KeyFlags       = Key("flags")
+	KeyVersion     = Key("version")
+	KeyAuthors     = Key("authors")
 	KeyLinguas     = Key("linguas")
 )
 
