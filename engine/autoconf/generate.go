@@ -28,6 +28,10 @@ func runGenLines(g spec.Generate) (string, error) {
 	// generate kconfig style .config
 	case generate.KeyKConf:
 		return strings.Join(g.BuildConf.KConfLines(), "\n"), nil
+
+	// generate simple text file by content variable
+	case generate.KeyTextfile:
+		return g.EntryStr(generate.KeyContent), nil
 	}
 
 	return "", generate.ErrUnsupportedGenerate

@@ -44,6 +44,7 @@ func (gen Generate) detectType() error {
 	types := []Key{
 		KeyKConf,
 		KeyAC,
+		KeyTextfile,
 	}
 
 	for _, x := range types {
