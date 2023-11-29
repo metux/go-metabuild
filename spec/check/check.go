@@ -151,5 +151,9 @@ func (chk Check) YesNoStrList(yesno bool, k Key) []string {
 }
 
 func (chk Check) Logf(f string, args ...any) {
-	log.Printf("[Check %s %s] %s\n", chk.Type(), chk.Id(), fmt.Sprintf(f, args...))
+	if id := chk.Id(); id == "" {
+		log.Printf("[Check %s] %s\n", chk.Type(), fmt.Sprintf(f, args...))
+	} else {
+		log.Printf("[Check %s %s] %s\n", chk.Type(), id, fmt.Sprintf(f, args...))
+	}
 }
