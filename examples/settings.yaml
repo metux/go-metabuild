@@ -473,3 +473,6 @@ buildconf:
         includedir:     ${buildconf::@targetdist::install-dirs::includedir}
         pixmapdir:      ${buildconf::@targetdist::install-dirs::pixmapdir}
         fdo-appdir:     ${buildconf::@targetdist::install-dirs::fdo-appdir}
+
+i18n:
+    linguas: ${buildconf::linguas}

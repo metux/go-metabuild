@@ -25,6 +25,8 @@ func mkProbe(chk Check) ProbeInterface {
 		return MakeProbeCXXCompiler(chk)
 	case check.KeyTargetDistro:
 		return MakeProbeTargetDistro(chk)
+	case check.KeyI18nLinguas:
+		return MakeI18nLinguas(chk)
 	}
 	return nil
 }

@@ -56,6 +56,7 @@ configure:
             zlib:         zlib
             libpng:       libpng
           mandatory:      true
+        - type:           i18n/linguas
 
 misc:
     c/defines:
@@ -66,9 +67,6 @@ misc:
         - ${buildconf::host::flags::c/defines}
     c/cflags:
         - -Wall
-
-i18n:
-    linguas: [it, pt_BR, sv, ca]
 
 targets:
     lincitymodules:

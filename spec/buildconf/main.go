@@ -14,6 +14,7 @@ const (
 	KeyCheckConfig = Key("config")
 	KeyPackages    = Key("packages")
 	KeyFlags       = Key("flags")
+	KeyLinguas     = Key("linguas")
 )
 
 type BuildConf struct {
