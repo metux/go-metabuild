@@ -233,6 +233,8 @@ platform:
             # thus magic references here are relative to the individual target entries
 
             c/library:
+                builder/driver:       c/library
+
                 ## defaults that may be overwritten
                 compiler/lang:        C
                 libname:              ${@@PARENT::@@KEY}
@@ -294,6 +296,7 @@ platform:
                 file:                 ${@@PARENT::name}
 
             c/header:
+                builder/driver:       c/header
                 install:              ${@@PARENT::@@PARENT::@@PARENT::install}
                 install/dir:          ${buildconf::install-dirs::includedir}
                 install/package:      dev
@@ -301,6 +304,7 @@ platform:
                 source/dir:           ${@@PARENT::@@PARENT::@@PARENT::source/dir}
 
             c/executable:
+                builder/driver:       c/executable
                 compiler/lang:        C
                 install:              ${@@PARENT::@@PARENT::install}
                 install/dir:          ${buildconf::install-dirs::bindir}
@@ -311,6 +315,8 @@ platform:
                 file:                 ${@@PARENT::name}
 
             c++/library:
+                builder/driver:       c/library
+
                 ## defaults that may be overwritten
                 compiler/lang:        C++
                 libname:              ${@@PARENT::@@KEY}
@@ -372,6 +378,7 @@ platform:
                 file:                 ${@@PARENT::name}
 
             c++/header:
+                builder/driver:       c/header
                 install:              ${@@PARENT::@@PARENT::@@PARENT::install}
                 install/dir:          ${buildconf::install-dirs::includedir}
                 install/package:      dev
@@ -379,6 +386,7 @@ platform:
                 source/dir:           ${@@PARENT::@@PARENT::@@PARENT::source/dir}
 
             c++/executable:
+                builder/driver:       c/executable
                 compiler/lang:        C++
                 install:              ${@@PARENT::@@PARENT::install}
                 install/dir:          ${buildconf::install-dirs::bindir}
@@ -389,18 +397,21 @@ platform:
                 file:                 ${@@PARENT::name}
 
             data/misc:
+                builder/driver:       data/misc
                 install:              ${@@PARENT::@@PARENT::install}
                 install/dir:          ${buildconf::install-dirs::datadir}
                 install/package:      data
                 install/perm:         0664
 
             data/pixmaps:
+                builder/driver:       data/pixmaps
                 install:              ${@@PARENT::@@PARENT::install}
                 install/dir:          ${buildconf::install-dirs::pixmapdir}
                 install/package:      data
                 install/perm:         0664
 
             data/desktop:
+                builder/driver:       data/desktop
                 install:              ${@@PARENT::@@PARENT::install}
                 install/dir:          ${buildconf::install-dirs::fdo-appdir}
                 install/package:      data
@@ -414,6 +425,7 @@ platform:
                 desktop/terminal:     false
 
             i18n/po:
+                builder/driver:       i18n/po
                 install:              ${@@PARENT::@@PARENT::install}
                 install/dir:          ${buildconf::install-dirs::localedir}
                 install/package:      data
@@ -425,6 +437,7 @@ platform:
                 name:                 ${@@PARENT::domain}.mo
 
             i18n/desktop:
+                builder/driver:       i18n/desktop
                 install:              true
                 install/dir:          ${buildconf::install-dirs::fdo-appdir}
                 install/package:      data
@@ -435,6 +448,7 @@ platform:
                 output/suffix:        .desktop
 
             doc/man:
+                builder/driver:       doc/man
                 install:              ${@@PARENT::@@PARENT::install}
                 install/dir:          ${buildconf::install-dirs::mandir}
                 install/package:      doc
@@ -442,6 +456,7 @@ platform:
                 man/compress:         gz
 
             doc/misc:
+                builder/driver:       doc/misc
                 install:              ${@@PARENT::@@PARENT::install}
                 install/dir:          ${buildconf::install-dirs::docdir}
                 install/package:      doc
@@ -450,6 +465,7 @@ platform:
                 compress:             gz
 
             gen/glib-resource:
+                builder/driver:       gen/glib-resource
                 source/dir:           .
                 name:                 ${@@PARENT::@@KEY}
                 resource/name:        ${@@PARENT::name}
@@ -457,6 +473,9 @@ platform:
                 output/c/header:      ${@@PARENT::resource/dir}/${@@PARENT::resource/name}.h
                 output/c/source:      ${@@PARENT::resource/dir}/${@@PARENT::resource/name}.c
                 output/gresource:     ${@@PARENT::resource/dir}/${@@PARENT::resource/name}.gresource
+
+            gen/xdt-csource:
+                builder/driver:       gen/xdt-csource
 
 buildconf:
     install-dirs:

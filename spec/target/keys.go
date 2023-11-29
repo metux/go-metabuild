@@ -50,6 +50,11 @@ const (
 	KeyImport = Key("import")
 )
 
+// internal builder configuration
+const (
+	KeyBuilderDriver = Key("builder/driver")
+)
+
 // locales
 const (
 	KeyI18nLinguas  = Key("i18n/linguas")

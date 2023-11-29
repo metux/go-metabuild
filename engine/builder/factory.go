@@ -8,23 +8,18 @@ import (
 	"github.com/metux/go-metabuild/engine/builder/doc"
 	"github.com/metux/go-metabuild/engine/builder/gen"
 	"github.com/metux/go-metabuild/engine/builder/i18n"
+	"github.com/metux/go-metabuild/spec"
 	"github.com/metux/go-metabuild/spec/target"
 	"github.com/metux/go-metabuild/util/jobs"
 )
 
 func CreateBuilder(o target.TargetObject, id string) (jobs.Job, error) {
-	switch t := o.Type(); t {
+	switch t := spec.Key(o.RequiredEntryStr(target.KeyBuilderDriver)); t {
 
-	/* plain C */
+	/* plain C or C++ */
 	case target.TypeCExecutable:
 		return c.MakeBuilderCExecutable(o, id), nil
 	case target.TypeCLibrary:
-		return c.MakeBuilderCLibrary(o, id), nil
-
-	/* C++ */
-	case target.TypeCxxExecutable:
-		return c.MakeBuilderCExecutable(o, id), nil
-	case target.TypeCxxLibrary:
 		return c.MakeBuilderCLibrary(o, id), nil
 
 	/* data files */
@@ -54,6 +49,6 @@ func CreateBuilder(o target.TargetObject, id string) (jobs.Job, error) {
 		return gen.MakeXdtCSource(o, id), nil
 
 	default:
-		return nil, fmt.Errorf("unsupported target type: %s", t)
+		return nil, fmt.Errorf("unsupported builder driver: %s", t)
 	}
 }
