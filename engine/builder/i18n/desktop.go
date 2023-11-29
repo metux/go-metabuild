@@ -21,7 +21,10 @@ func (b I18nDesktop) JobRun() error {
 	}
 
 	podir := b.RequiredEntryStr(target.KeyI18nPoDir)
-	subdir := b.EntryStr(target.KeySourceDir) + "/"
+	subdir := b.EntryStr(target.KeySourceDir)
+	if subdir != "" {
+		subdir = subdir + "/"
+	}
 	inSuffix := b.RequiredEntryStr(target.KeySourceSuffix)
 	outSuffix := b.RequiredEntryStr(target.KeyOutputSuffix)
 	installdir := b.InstallDir()
