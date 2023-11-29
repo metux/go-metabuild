@@ -1,8 +1,11 @@
 package doc
 
 import (
+	"path/filepath"
+
 	"github.com/metux/go-metabuild/engine/builder/base"
 	"github.com/metux/go-metabuild/spec"
+	"github.com/metux/go-metabuild/spec/target"
 	"github.com/metux/go-metabuild/util"
 )
 
@@ -18,10 +21,14 @@ func (b ManPages) JobRun() error {
 	}
 	srcfile := src[0]
 
-	alias := b.EntryStrList("man/alias")
-	compress := b.EntryStr("man/compress")
+	if ext := filepath.Ext(srcfile); ext != "" {
+		b.DefaultPutStr(target.KeyManpageSection, ext[1:])
+	}
 
-	mdir := b.InstallDir() + "man" + b.RequiredEntryStr("man/section")
+	alias := b.EntryStrList(target.KeyManpageAlias)
+	compress := b.EntryStr(target.KeyManpageCompress)
+
+	mdir := b.InstallDir() + "man" + b.RequiredEntryStr(target.KeyManpageSection)
 
 	// FIXME: directly write compressed file instead of copying
 	switch compress {

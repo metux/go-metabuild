@@ -88,3 +88,10 @@ const (
 	KeyDesktopTerminal    = Key("desktop/terminal")
 	KeyDesktopCategories  = Key("desktop/categories")
 )
+
+// manpages
+const (
+	KeyManpageSection  = Key("man/section")
+	KeyManpageAlias    = Key("man/alias")
+	KeyManpageCompress = Key("man/compress")
+)

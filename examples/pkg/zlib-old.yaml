@@ -122,12 +122,10 @@ targets:
         type:           doc/man
         c/defines:      ${buildconf::host::c/defines}
         source:         contrib/minizip/${@@PARENT::@@KEY}
-        man/section:    1
 
     miniunzip.1:
         type:           doc/man
         source:         contrib/minizip/${@@PARENT::@@KEY}
-        man/section:    1
 
     minigzip:
         type:           c/executable
