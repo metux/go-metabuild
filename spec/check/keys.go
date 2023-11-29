@@ -33,6 +33,8 @@ const (
 	KeyId   = Key("id")
 	KeyType = Key("type")
 
+	KeyGitDescribe = Key("git/describe")
+
 	KeyI18nLinguas = Key("i18n/linguas")
 	KeyI18nPoDir   = Key("i18n/po/dir")
 )

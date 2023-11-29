@@ -10,7 +10,7 @@ distro:
                 maintainer:  ${maintainer}
                 multiarch:   no
                 origin:      ${origin}
-                version:     ${version}
+                version:     ${buildconf::version}
                 section:     ${section}
             lib:
                 description: |
@@ -21,7 +21,7 @@ distro:
                 maintainer:  ${maintainer}
                 multiarch:   same
                 origin:      ${origin}
-                version:     ${version}
+                version:     ${buildconf::version}
                 section:     ${section}
             dev:
                 description: |
@@ -32,7 +32,7 @@ distro:
                 maintainer:  ${maintainer}
                 multiarch:   no
                 origin:      ${origin}
-                version:     ${version}
+                version:     ${buildconf::version}
                 section:     ${section}
             prog:
                 description: |
@@ -43,7 +43,7 @@ distro:
                 maintainer:  ${maintainer}
                 multiarch:   no
                 origin:      ${origin}
-                version:     ${version}
+                version:     ${buildconf::version}
                 section:     ${section}
             prog-man:
                 description: |
@@ -54,7 +54,7 @@ distro:
                 maintainer:  ${maintainer}
                 multiarch:   no
                 origin:      ${origin}
-                version:     ${version}
+                version:     ${buildconf::version}
                 section:     ${section}
             doc:
                 description: |
@@ -65,7 +65,7 @@ distro:
                 maintainer:  ${maintainer}
                 multiarch:   no
                 origin:      ${origin}
-                version:     ${version}
+                version:     ${buildconf::version}
                 section:     ${section}
             data:
                 description: |
@@ -76,7 +76,7 @@ distro:
                 maintainer:  ${maintainer}
                 multiarch:   no
                 origin:      ${origin}
-                version:     ${version}
+                version:     ${buildconf::version}
                 section:     ${section}
 
     debian:
@@ -243,7 +243,7 @@ platform:
                 name:                 ${@@PARENT::libname}
 
                 description:          ${description}
-                version:              ${version}
+                version:              ${buildconf::version}
 
             c/library/pkgconf:
                 install:              ${@@PARENT::@@PARENT::install}
@@ -321,7 +321,7 @@ platform:
                 name:                 ${@@PARENT::libname}
 
                 description:          ${description}
-                version:              ${version}
+                version:              ${buildconf::version}
 
             c++/library/pkgconf:
                 install:              ${@@PARENT::@@PARENT::install}
@@ -477,6 +477,7 @@ buildconf:
         includedir:     ${buildconf::@targetdist::install-dirs::includedir}
         pixmapdir:      ${buildconf::@targetdist::install-dirs::pixmapdir}
         fdo-appdir:     ${buildconf::@targetdist::install-dirs::fdo-appdir}
+    version: ${version}
 
 i18n:
     linguas: ${buildconf::linguas}

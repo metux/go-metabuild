@@ -72,3 +72,12 @@ func YesNo(yes bool) string {
 		return "no"
 	}
 }
+
+func StrSplitTwo(s string, d string) (string, string) {
+	sp := strings.Split(s, d)
+	if len(sp) == 1 {
+		return strings.TrimSpace(sp[0]), ""
+	} else {
+		return strings.TrimSpace(sp[0]), strings.TrimSpace(sp[1])
+	}
+}
