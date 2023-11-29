@@ -311,7 +311,7 @@ platform:
 
             c++/library:
                 ## defaults that may be overwritten
-                compiler/lang:        C
+                compiler/lang:        C++
                 libname:              ${@@PARENT::@@KEY}
                 install:              true
                 abi:                  1
