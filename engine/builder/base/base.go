@@ -118,6 +118,10 @@ func (b BaseBuilder) OutputFile() string {
 	return s
 }
 
+func (b BaseBuilder) BuilderCmd() []string {
+	return b.RequiredEntryStrList(target.KeyBuilderCommand)
+}
+
 func NewBaseBuilder(o spec.TargetObject, id string) BaseBuilder {
 	return BaseBuilder{o, id}
 }

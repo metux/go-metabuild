@@ -52,7 +52,8 @@ const (
 
 // internal builder configuration
 const (
-	KeyBuilderDriver = Key("builder/driver")
+	KeyBuilderCommand = Key("builder/command")
+	KeyBuilderDriver  = Key("builder/driver")
 )
 
 // locales
