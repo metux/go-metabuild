@@ -80,6 +80,7 @@ const (
 	KeyOutputCSource   = Key("output/c/source")
 	KeyOutputGResource = Key("output/gresource")
 	KeyOutputSuffix    = Key("output/suffix")
+	KeyOutputFormat    = Key("output/format")
 )
 
 // C specific settings

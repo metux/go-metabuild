@@ -486,6 +486,16 @@ platform:
                 install/subdir:       ${package}
                 compress:             gz
 
+            doc/yelp:
+                builder/driver:       doc/yelp
+                builder/command:      yelp-build
+                install:              ${@@PARENT::@@PARENT::install}
+                install/dir:          ${buildconf::install-dirs::docdir}
+                install/package:      doc
+                install/perm:         0664
+                install/subdir:       ${package}
+                output/format:        html
+
             gen/glib-resource:
                 builder/driver:       gen/glib-resource
                 builder/command:      glib-compile-resources
