@@ -11,14 +11,13 @@ type GlibResource struct {
 }
 
 func (b GlibResource) JobRun() error {
-	src := b.Sources()[0]
 	cheader := b.RequiredEntryStr(target.KeyOutputCHeader)
 	csource := b.RequiredEntryStr(target.KeyOutputCSource)
 	gresource := b.RequiredEntryStr(target.KeyOutputGResource)
-	srcdir := b.EntryStr(target.KeyResourceDir)
 
-	c1 := []string{"glib-compile-resources", src}
-	if srcdir != "" {
+	c1 := append(b.BuilderCmd(), b.RequiredSourceAbs())
+
+	if srcdir := b.EntryStr(target.KeyResourceDir); srcdir != "" {
 		c1 = append(c1, "--sourcedir="+srcdir)
 	}
 

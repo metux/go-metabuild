@@ -20,11 +20,8 @@ func (b I18nPo) JobRun() error {
 	catdir := b.RequiredEntryStr(target.KeyI18nCategory) + "/"
 	perm := b.InstallPerm()
 	installdir := b.InstallDir() + "/"
-
 	fn := b.RequiredEntryStr(target.KeyI18nDomain) + SuffixMo
-
-	// FIXME: probe this, handle endianess ?
-	prog := []string{"msgfmt"}
+	prog := b.BuilderCommand()
 
 	for _, l := range b.FeaturedStrList(target.KeyI18nLinguas) {
 		subdir := l + "/" + catdir

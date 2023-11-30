@@ -426,6 +426,7 @@ platform:
 
             i18n/po:
                 builder/driver:       i18n/po
+                builder/command:      msgfmt
                 install:              ${@@PARENT::@@PARENT::install}
                 install/dir:          ${buildconf::install-dirs::localedir}
                 install/package:      data
@@ -438,6 +439,7 @@ platform:
 
             i18n/desktop:
                 builder/driver:       i18n/desktop
+                builder/command:      msgfmt
                 install:              true
                 install/dir:          ${buildconf::install-dirs::fdo-appdir}
                 install/package:      data
@@ -466,6 +468,7 @@ platform:
 
             gen/glib-resource:
                 builder/driver:       gen/glib-resource
+                builder/command:      glib-compile-resources
                 source/dir:           .
                 name:                 ${@@PARENT::@@KEY}
                 resource/name:        ${@@PARENT::name}

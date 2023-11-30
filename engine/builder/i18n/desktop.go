@@ -46,7 +46,7 @@ func (b I18nDesktop) JobRun() error {
 
 		fileutil.WriteFileLines(tmpfile, lines)
 
-		b.ExecAbort([]string{"msgfmt", "--desktop", "-d", podir, "--template", tmpfile, "-o", outfile}, "")
+		b.ExecAbort(append(b.BuilderCommand(), "--desktop", "-d", podir, "--template", tmpfile, "-o", outfile), "")
 
 		b.InstallPkgFile(outfile, installdir, perm)
 	}
