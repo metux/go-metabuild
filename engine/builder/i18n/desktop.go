@@ -5,7 +5,6 @@ import (
 	"github.com/metux/go-metabuild/spec"
 	"github.com/metux/go-metabuild/spec/target"
 	"github.com/metux/go-metabuild/util"
-	"github.com/metux/go-metabuild/util/cmd"
 	"github.com/metux/go-metabuild/util/fileutil"
 )
 
@@ -51,11 +50,7 @@ func (b I18nDesktop) JobRun() error {
 
 		fileutil.WriteFileLines(tmpfile, lines)
 
-		cmdline := []string{"msgfmt", "--desktop", "-d", podir, "--template", tmpfile, "-o", outfile}
-		_, err := cmd.RunOutOne(cmdline, true)
-		if err != nil {
-			return err
-		}
+		b.ExecAbort([]string{"msgfmt", "--desktop", "-d", podir, "--template", tmpfile, "-o", outfile}, "")
 
 		b.InstallPkgFile(outfile, installdir, perm)
 	}
