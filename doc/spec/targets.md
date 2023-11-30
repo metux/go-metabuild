@@ -4,22 +4,24 @@ This section is a map of all targets to be built and installed. Most types use
 the key as the object's name / output file. Each target must have an `type`
 attribute set.
 
-| Type             | Description                                                             |
-|------------------|-------------------------------------------------------------------------|
-| c/executable     | executable program written in C                                         |
-| c/library        | library written in C *(building shared/static/pkgconfig per default)*   |
-| c++/executable   | executable program written in C++                                       |
-| c++/library      | library written in C++ *(building shared/static/pkgconfig per default)* |
-| data/desktop     | simple FreeDesktop.org `*.desktop` file                                 |
-| data/misc        | misc data *(installed to $datadir)                                      |
-| data/pixmaps     | pixmap files *(installed to $datadir/pixmaps)*                          |
-| doc/man          | Unix manual page *(troff/nroff)*                                        |
-| doc/misc         | Simple documentation files *(placed under $datadir/doc/...)*            |
-| gen/glib-resource| Generate Glib resource and source code files from XML                   |
-| gen/xdt-csource  | Generate source code for compiling-in XML files *(eg. `*.glade`)*       |
-| gen/xxd-csource  | Generate source for compiling in binary data (like xxd -i)              |
-| i18n/desktop     | multilingual FreeDesktop.org `*.desktop` file                           |
-| i18n/po          | gettext translation files *(building `*.mo` files)*                     |
+| Type                   | Description                                                             |
+|------------------------|-------------------------------------------------------------------------|
+| c/executable           | executable program written in C                                         |
+| c/library              | library written in C *(building shared/static/pkgconfig per default)*   |
+| c++/executable         | executable program written in C++                                       |
+| c++/library            | library written in C++ *(building shared/static/pkgconfig per default)* |
+| data/desktop           | simple FreeDesktop.org `*.desktop` file                                 |
+| data/misc              | misc data *(installed to $datadir)                                      |
+| data/pixmaps           | pixmap files *(installed to $datadir/pixmaps)*                          |
+| data/lib-script        | install script to arch-independent libdir                               |
+| data/lib-script-subdir | install script to arch-independent libdir (subdir by target id)         |
+| doc/man                | Unix manual page *(troff/nroff)*                                        |
+| doc/misc               | Simple documentation files *(placed under $datadir/doc/...)*            |
+| gen/glib-resource      | Generate Glib resource and source code files from XML                   |
+| gen/xdt-csource        | Generate source code for compiling-in XML files *(eg. `*.glade`)*       |
+| gen/xxd-csource        | Generate source for compiling in binary data (like xxd -i)              |
+| i18n/desktop           | multilingual FreeDesktop.org `*.desktop` file                           |
+| i18n/po                | gettext translation files *(building `*.mo` files)*                     |
 
 ## Automatic attributes
 
@@ -140,6 +142,50 @@ The attributes are those of `c/executable` plus some more:
         install/subdir: lincity/opening
         source:         "*"
         source/dir:     opening
+```
+
+### data/lib-script: script libs
+
+Similar to data/misc, but putting it into arch-independent libdir and sets executable flag.
+
+#### Attributes:
+
+| Attribute       | Default                                              | Description                            |
+|-----------------|------------------------------------------------------|----------------------------------------|
+| install         | ${@@PARENT::@@PARENT::install}                       | whether to install into distro package |
+| install/dir     | ${buildconf::install-dirs::libdir-noarch}/${package} | install directory                      |
+| install/package | data                                                 | install package                        |
+| install/perm    | 0775                                                 | install permissions                    |
+| source          |                                                      | source files globs                     |
+| source/dir      |                                                      | source subdirector                     |
+
+#### Example:
+```
+    foo:
+        type:           data/lib-script
+        source:         "foo-helper"
+```
+
+### data/lib-script-subdir: script libs
+
+Like data/lib-script, but taking `source/dir` from target id.
+
+#### Attributes:
+
+| Attribute       | Default                                              | Description                            |
+|-----------------|------------------------------------------------------|----------------------------------------|
+| install         | ${@@PARENT::@@PARENT::install}                       | whether to install into distro package |
+| install/dir     | ${buildconf::install-dirs::libdir-noarch}/${package} | install directory                      |
+| install/package | data                                                 | install package                        |
+| install/perm    | 0775                                                 | install permissions                    |
+| source          |                                                      | source files globs                     |
+| source/dir      | ${@@PARENT::@id}                                     | source subdirector                     |
+
+#### Example:
+```
+    plugin-foo:
+        type:           data/lib-script-subdir
+        source:         "*.sh"
 ```
 
 ### data/desktop

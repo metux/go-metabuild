@@ -102,6 +102,7 @@ distro:
             bindir:         ${buildconf::@targetdist::install-dirs::prefix}/bin
             bootbindir:     /bin
             libdir:         ${buildconf::@targetdist::install-dirs::prefix}/lib/${buildconf::@targetdist::targetsys}
+            libdir-noarch:  ${buildconf::@targetdist::install-dirs::prefix}/lib/
             bootlibdir:     /lib/${buildconf::@targetdist::targetsys}
             pkgconfigdir:   ${buildconf::@targetdist::install-dirs::libdir}/pkgconfig
             datadir:        ${buildconf::@targetdist::install-dirs::prefix}/share
@@ -403,6 +404,21 @@ platform:
                 install/package:      data
                 install/perm:         0664
 
+            data/lib-script:
+                builder/driver:       data/misc
+                install:              ${@@PARENT::@@PARENT::install}
+                install/dir:          ${buildconf::install-dirs::libdir-noarch}/${package}
+                install/package:      data
+                install/perm:         0755
+
+            data/lib-script-subdir:
+                builder/driver:       data/misc
+                install:              ${@@PARENT::@@PARENT::install}
+                install/dir:          ${buildconf::install-dirs::libdir-noarch}/${package}
+                install/package:      data
+                install/perm:         0755
+                source/dir:           ${@@PARENT::@id}
+
             data/pixmap:
                 builder/driver:       data/pixmap
                 install:              ${@@PARENT::@@PARENT::install}
@@ -495,6 +511,7 @@ buildconf:
         bindir:         ${buildconf::@targetdist::install-dirs::bindir}
         bootbindir:     ${buildconf::@targetdist::install-dirs::bootbindir}
         libdir:         ${buildconf::@targetdist::install-dirs::libdir}
+        libdir-noarch:  ${buildconf::@targetdist::install-dirs::libdir-noarch}
         sharedlibdir:   ${buildconf::@targetdist::install-dirs::sharedlibdir}
         bootlibdir:     ${buildconf::@targetdist::install-dirs::bootlibdir}
         pkgconfigdir:   ${buildconf::@targetdist::install-dirs::pkgconfigdir}
