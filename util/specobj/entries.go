@@ -99,6 +99,14 @@ func (so SpecObj) RequiredEntryStr(k Key) string {
 	return magic.RequiredEntryStr(so.Spec, k)
 }
 
+func (so SpecObj) RequiredEntryStrList(k Key) []string {
+	s := magic.EntryStrList(so.Spec, k)
+	if len(s) == 0 {
+		panic("required at least one element for key: " + string(k))
+	}
+	return s
+}
+
 func SpecXformList[K ~string, V any](so SpecObj, k Key, proc func(K) V) []V {
 	names := so.EntryStrList(k)
 	data := make([]V, len(names), len(names))
