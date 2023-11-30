@@ -47,6 +47,16 @@ func (o TargetObject) RequiredSources() []string {
 	return s
 }
 
+func (o TargetObject) RequiredSourceAbs() string {
+	s := o.RequiredSources()
+	if len(s) != 1 {
+		panic("only exactly one source file required")
+	}
+	a, err := filepath.Abs(s[0])
+	util.ErrPanicf(err, "failed retrieving absolute path of %s", s[0])
+	return a
+}
+
 func (o TargetObject) ForBuild() bool {
 	return o.EntryBoolDef(Key("build"), false)
 }
