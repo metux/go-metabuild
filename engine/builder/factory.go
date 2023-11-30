@@ -41,6 +41,8 @@ func CreateBuilder(o target.TargetObject, id string) (jobs.Job, error) {
 		return doc.MakeManPages(o, id), nil
 	case target.TypeDocMisc:
 		return doc.MakeDocMisc(o, id), nil
+	case target.TypeDocYelp:
+		return doc.MakeYelp(o, id), nil
 
 	/* generators */
 	case target.TypeGenGlibResource:
