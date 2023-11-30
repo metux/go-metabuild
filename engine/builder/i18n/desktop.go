@@ -14,11 +14,7 @@ type I18nDesktop struct {
 
 // FIXME: scan for linguas
 func (b I18nDesktop) JobRun() error {
-	linguas := b.EntryStrList(target.KeyI18nLinguas)
-	if len(linguas) == 0 {
-		panic("missing i18n/linguas")
-	}
-
+	linguas := b.RequiredEntryStrList(target.KeyI18nLinguas)
 	podir := b.RequiredEntryStr(target.KeyI18nPoDir)
 	subdir := b.EntryStr(target.KeySourceDir)
 	if subdir != "" {
