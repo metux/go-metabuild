@@ -120,6 +120,16 @@ func (o TargetObject) WantInstall() bool {
 	return o.EntryBoolDef(KeyInstall, true)
 }
 
+func (b TargetObject) EntryPathList(k Key) []string {
+	list := b.EntryStrList(k)
+	for idx, ent := range list {
+		d, err := filepath.Abs(ent)
+		util.ErrPanicf(err, "error retrieving abspath for %s", d)
+		list[idx] = d
+	}
+	return list
+}
+
 func NewTargetObject(spec specobj.SpecObj, k Key, bc buildconf.BuildConf, c cache.Cache) TargetObject {
 	obj := TargetObject{
 		SpecObj:   spec,
