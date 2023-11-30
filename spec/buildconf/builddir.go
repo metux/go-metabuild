@@ -11,34 +11,30 @@ const (
 	BuildDirDist = BuildDir + "dist/"
 )
 
-func (bc BuildConf) BuildTempDir(sub string) string {
-	d := BuildDirTmp + sub
+func xmkdir(d string) string {
 	os.MkdirAll(d, 0755)
-	return filepath.Clean(d)
+	d, _ = filepath.Abs(filepath.Clean(d))
+	return d
+}
+
+func (bc BuildConf) BuildTempDir(sub string) string {
+	return xmkdir(BuildDirTmp + sub)
 }
 
 func (bc BuildConf) BuildDistDir(sub string) string {
-	d := BuildDirDist + sub
-	os.MkdirAll(d, 0755)
-	return filepath.Clean(d)
+	return xmkdir(BuildDirDist + sub)
 }
 
 func (bc BuildConf) BuildDistPkgDir(pkg string) string {
-	d := BuildDirDist + bc.EntryStr(KeyTargetDistName) + "/" + pkg
-	os.MkdirAll(d, 0755)
-	return filepath.Clean(d)
+	return xmkdir(BuildDirDist + bc.EntryStr(KeyTargetDistName) + "/" + pkg)
 }
 
 func (bc BuildConf) BuildDistPkgMetaDir(pkg string) string {
-	d := BuildDirDist + bc.EntryStr(KeyTargetDistName) + "/" + pkg + "/meta/"
-	os.MkdirAll(d, 0755)
-	return filepath.Clean(d)
+	return xmkdir(BuildDirDist + bc.EntryStr(KeyTargetDistName) + "/" + pkg + "/meta/")
 }
 
 func (bc BuildConf) BuildDistPkgRootDir(pkg string, sub string) string {
-	d := BuildDirDist + bc.EntryStr(KeyTargetDistName) + "/" + pkg + "/root/" + sub
-	os.MkdirAll(d, 0755)
-	return filepath.Clean(d)
+	return xmkdir(BuildDirDist + bc.EntryStr(KeyTargetDistName) + "/" + pkg + "/root/" + sub)
 }
 
 func (bc BuildConf) CleanBuildDir() {
