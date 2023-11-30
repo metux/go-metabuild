@@ -4,8 +4,6 @@ import (
 	"github.com/metux/go-metabuild/engine/builder/base"
 	"github.com/metux/go-metabuild/spec"
 	"github.com/metux/go-metabuild/spec/target"
-	"github.com/metux/go-metabuild/util"
-	"github.com/metux/go-metabuild/util/cmd"
 )
 
 type GlibResource struct {
@@ -24,14 +22,9 @@ func (b GlibResource) JobRun() error {
 		c1 = append(c1, "--sourcedir="+srcdir)
 	}
 
-	_, err := cmd.RunOutOne(append(c1, "--target="+cheader, "--generate-header"), true)
-	util.ErrPanicf(err, "failed generating header")
-
-	_, err = cmd.RunOutOne(append(c1, "--target="+csource, "--generate-source"), true)
-	util.ErrPanicf(err, "failed generating source")
-
-	_, err = cmd.RunOutOne(append(c1, "--target="+gresource), true)
-	util.ErrPanicf(err, "failed generating gresource")
+	b.ExecAbort(append(c1, "--target="+cheader, "--generate-header"), "")
+	b.ExecAbort(append(c1, "--target="+csource, "--generate-source"), "")
+	b.ExecAbort(append(c1, "--target="+gresource), "")
 
 	return nil
 }
