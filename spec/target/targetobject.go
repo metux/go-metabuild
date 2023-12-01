@@ -31,6 +31,9 @@ func (o TargetObject) Sources() []string {
 	for _, f := range util.StrDirPrefix(o.EntryStr(KeySourceDir), o.FeaturedStrList(KeySource)) {
 		files, err := filepath.Glob(f)
 		util.ErrPanicf(err, "file glob error")
+		if len(files) == 0 {
+			panic("broken source glob: " + f)
+		}
 		res = append(res, files...)
 	}
 	return res
