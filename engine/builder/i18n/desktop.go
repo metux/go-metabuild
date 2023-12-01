@@ -17,9 +17,6 @@ func (b I18nDesktop) JobRun() error {
 	linguas := b.RequiredEntryStrList(target.KeyI18nLinguas)
 	podir := b.RequiredEntryStr(target.KeyI18nPoDir)
 	subdir := b.EntryStr(target.KeySourceDir)
-	if subdir != "" {
-		subdir = subdir + "/"
-	}
 	inSuffix := b.RequiredEntryStr(target.KeySourceSuffix)
 	outSuffix := b.RequiredEntryStr(target.KeyOutputSuffix)
 	installdir := b.InstallDir()
@@ -29,12 +26,12 @@ func (b I18nDesktop) JobRun() error {
 	// write linguas file
 	util.ErrPanicf(fileutil.WriteFileLines(podir+"/LINGUAS", linguas), "failed writing LINGUAS file")
 
-	tmpdir := b.BuildConf.BuildTempDir("i18n/desktop") + "/"
+	tmpdir := b.BuildConf.BuildTempDir("i18n/desktop")
 
 	for _, item := range b.FeaturedStrList(target.KeySource) {
-		infile := subdir + item + inSuffix
-		tmpfile := tmpdir + item + inSuffix + ".tmp"
-		outfile := tmpdir + item + outSuffix
+		infile := fileutil.MkPath(subdir, item+inSuffix)
+		tmpfile := fileutil.MkPath(tmpdir, item+inSuffix+".tmp")
+		outfile := fileutil.MkPath(tmpdir, item+outSuffix)
 
 		// need to fix intltool specific syntax
 		lines := fileutil.ReadLines(infile)
@@ -46,7 +43,7 @@ func (b I18nDesktop) JobRun() error {
 
 		fileutil.WriteFileLines(tmpfile, lines)
 
-		b.ExecAbort(append(b.BuilderCommand(), "--desktop", "-d", podir, "--template", tmpfile, "-o", outfile), "")
+		b.ExecAbort(append(b.BuilderCmd(), "--desktop", "-d", podir, "--template", tmpfile, "-o", outfile), "")
 
 		b.InstallPkgFile(outfile, installdir, perm)
 	}
