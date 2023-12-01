@@ -451,10 +451,12 @@ platform:
 
             gen/glib-resource:
                 source/dir:           .
+                name:                 ${@@PARENT::@@KEY}
+                resource/name:        ${@@PARENT::name}
                 resource/dir:         ${@@PARENT::source/dir}
-                output/c/header:      ${@@PARENT::source/dir}/${@@PARENT::name}.h
-                output/c/source:      ${@@PARENT::source/dir}/${@@PARENT::name}.c
-                output/gresource:     ${@@PARENT::source/dir}/${@@PARENT::name}.gresource
+                output/c/header:      ${@@PARENT::resource/dir}/${@@PARENT::resource/name}.h
+                output/c/source:      ${@@PARENT::resource/dir}/${@@PARENT::resource/name}.c
+                output/gresource:     ${@@PARENT::resource/dir}/${@@PARENT::resource/name}.gresource
 
 buildconf:
     install-dirs:
