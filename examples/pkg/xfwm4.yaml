@@ -139,7 +139,8 @@ targets:
     # FIXME: install into helper_path_prefix/xfce4/xfwm4
     helper-dialog/helper-dialog{c/executable}:
         install/dir:        ${helperpath}
-        source:             helper-dialog/helper-dialog.c
+        source:             helper-dialog.c
+        source/dir:         ${@@PARENT::@dirname}
         c/defines:          ${c/defines}
         pkgconf/import:     [GTK, LIBXFCE4UTIL, X11]
 
@@ -185,7 +186,7 @@ targets:
     settings-dialogs/xfwm4-settings{c/executable}:
         pkgconf/import:     [LIBXFCE4KBD_PRIVATE]
         source:             [xfwm4-settings.c, range-debouncer.c]
-        source/dir:         settings-dialogs
+        source/dir:         ${@@PARENT::@dirname}
         include/dir:        .
         c/defines:          ${c/defines}
         link/static:        xfwm-common
@@ -198,7 +199,7 @@ targets:
     settings-dialogs/xfwm4-tweaks-settings{c/executable}:
         pkgconf/import:     [LIBXFCE4KBD_PRIVATE]
         source:             [tweaks-settings.c, range-debouncer.c]
-        source/dir:         settings-dialogs
+        source/dir:         ${@@PARENT::@dirname}
         include/dir:        .
         c/defines:          ${c/defines}
         link/static:        xfwm-common
@@ -212,7 +213,7 @@ targets:
     settings-dialogs/xfwm4-workspace-settings{c/executable}:
         pkgconf/import:     [LIBXFCE4UI, LIBXFCONF, LIBWNCK]
         source:             [workspace-settings.c, workspace-resource.c]
-        source/dir:         settings-dialogs
+        source/dir:         ${@@PARENT::@dirname}
         include/dir:        .
         c/defines:          ${c/defines}
         link/static:        xfwm-common

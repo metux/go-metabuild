@@ -82,6 +82,12 @@ func (o TargetObject) setId(id string) {
 	if ext := filepath.Ext(id); ext != "" {
 		o.DefaultPutStr(KeyInternIdSuffix, ext[1:])
 	}
+
+	o.DefaultPutStr(KeyInternBasename, filepath.Base(id))
+
+	if dn := filepath.Dir(id); dn != "" {
+		o.DefaultPutStr(KeyInternDirname, dn)
+	}
 }
 
 func (o TargetObject) LoadTargetDefaults() {

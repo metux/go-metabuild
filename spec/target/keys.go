@@ -11,6 +11,8 @@ const (
 	KeyInternId       = Key("@id")
 	KeyInternIdSuffix = Key("@id/suffix")
 	KeyInternType     = Key("@type")
+	KeyInternBasename = Key("@basename")
+	KeyInternDirname  = Key("@dirname")
 
 	KeyType = Key("type")
 
