@@ -47,7 +47,7 @@ func (b ManPages) JobRun() error {
 		if compress != "" {
 			a = a + "." + compress
 		}
-		b.InstallPkgSymlink(srcfile, a, mdir)
+		b.InstallPkgSymlink(filepath.Base(srcfile), a, mdir)
 	}
 
 	return nil
