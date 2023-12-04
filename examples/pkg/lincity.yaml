@@ -168,9 +168,9 @@ targets:
         source:             "*.csi"
         source/dir:         icons
 
-    data/pixmap:
+    lincity.xpm:
         type:               data/pixmaps
-        source:             debian/lincity.xpm
+        source:             ${@@PARENT::@@KEY}
 
     data/help:
         type:               data/misc
