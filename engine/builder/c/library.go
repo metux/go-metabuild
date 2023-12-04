@@ -99,7 +99,7 @@ func (b BuilderCLibrary) JobSub() ([]jobs.Job, error) {
 	cflags := b.CFlags()
 	ci := b.BuildConf.CompilerInfo(b.ForBuild(), b.CompilerLang())
 	jobdep := b.JobDepends()
-	for _, h := range b.EntryKeys("headers") {
+	for _, h := range b.EntryKeys(target.KeyHeaders) {
 		jobs = append(jobs, BuilderCLibraryHeaders{b.mksub(target.KeyHeaders.Append(h), t, ci, cdefs, cflags, jobdep)})
 	}
 	return jobs, nil

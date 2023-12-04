@@ -294,10 +294,11 @@ platform:
                 file:                 ${@@PARENT::name}
 
             c/header:
-                install:              ${@@PARENT::@@PARENT::install}
+                install:              ${@@PARENT::@@PARENT::@@PARENT::install}
                 install/dir:          ${buildconf::install-dirs::includedir}/${@@PARENT::install/subdir}
                 install/package:      dev
                 install/perm:         0664
+                source/dir:           ${@@PARENT::@@PARENT::@@PARENT::source/dir}
 
             c/executable:
                 compiler/lang:        C
@@ -371,10 +372,11 @@ platform:
                 file:                 ${@@PARENT::name}
 
             c++/header:
-                install:              ${@@PARENT::@@PARENT::install}
+                install:              ${@@PARENT::@@PARENT::@@PARENT::install}
                 install/dir:          ${buildconf::install-dirs::includedir}/${@@PARENT::install/subdir}
                 install/package:      dev
                 install/perm:         0664
+                source/dir:           ${@@PARENT::@@PARENT::@@PARENT::source/dir}
 
             c++/executable:
                 compiler/lang:        C++
