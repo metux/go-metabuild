@@ -170,7 +170,7 @@ targets:
 
     lincity.xpm:
         type:               data/pixmap
-        source:             ${@@PARENT::@@KEY}
+        source:             ${@@PARENT::@id}
 
     data/help:
         type:               data/misc
@@ -191,10 +191,9 @@ targets:
             - COPYING
             - COPYRIGHT
 
-    doc/lincity.6:
+    lincity.6:
         type:               doc/man
-        source:             lincity.6
-        man/section:        6
+        source:             ${@@PARENT::@id}
         man/alias:          xlincity
 
 features:

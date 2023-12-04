@@ -237,7 +237,7 @@ platform:
 
                 ## defaults that may be overwritten
                 compiler/lang:        C
-                libname:              ${@@PARENT::@@KEY}
+                libname:              ${@@PARENT::@id}
                 install:              true
                 abi:                  1
 
@@ -311,7 +311,7 @@ platform:
                 install/package:      prog
                 install/perm:         0755
 
-                name:                 ${@@PARENT::@@KEY}
+                name:                 ${@@PARENT::@id}
                 file:                 ${@@PARENT::name}
 
             c++/library:
@@ -319,7 +319,7 @@ platform:
 
                 ## defaults that may be overwritten
                 compiler/lang:        C++
-                libname:              ${@@PARENT::@@KEY}
+                libname:              ${@@PARENT::@id}
                 install:              true
                 abi:                  1
 
@@ -393,7 +393,7 @@ platform:
                 install/package:      prog
                 install/perm:         0755
 
-                name:                 ${@@PARENT::@@KEY}
+                name:                 ${@@PARENT::@id}
                 file:                 ${@@PARENT::name}
 
             data/misc:
@@ -416,7 +416,7 @@ platform:
                 install/dir:          ${buildconf::install-dirs::fdo-appdir}
                 install/package:      data
                 install/perm:         0664
-                file:                 ${@@PARENT::@@KEY}
+                file:                 ${@@PARENT::@id}
                 desktop/type:         Application
                 desktop/name:         ${shortname}
                 desktop/genericname:  ${name}
@@ -480,7 +480,7 @@ platform:
                 builder/driver:       gen/glib-resource
                 builder/command:      glib-compile-resources
                 source/dir:           .
-                name:                 ${@@PARENT::@@KEY}
+                name:                 ${@@PARENT::@id}
                 resource/name:        ${@@PARENT::name}
                 resource/dir:         ${@@PARENT::source/dir}
                 output/c/header:      ${@@PARENT::resource/dir}/${@@PARENT::resource/name}.h

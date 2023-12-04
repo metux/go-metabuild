@@ -156,22 +156,22 @@ targets:
     settings-dialogs/xfwm4-workspace-dialog:
         type:               gen/xdt-csource
         resource/name:      workspace_dialog_ui
-        source:             ${@@PARENT::@@KEY}.glade
-        output/c/header:    ${@@PARENT::@@KEY}_ui.h
+        source:             ${@@PARENT::@id}.glade
+        output/c/header:    ${@@PARENT::@id}_ui.h
         install:            false
 
     settings-dialogs/xfwm4-tweaks-dialog:
         type:               gen/xdt-csource
         resource/name:      tweaks_dialog_ui
-        source:             ${@@PARENT::@@KEY}.glade
-        output/c/header:    ${@@PARENT::@@KEY}_ui.h
+        source:             ${@@PARENT::@id}.glade
+        output/c/header:    ${@@PARENT::@id}_ui.h
         install:            false
 
     settings-dialogs/xfwm4-dialog:
         type:               gen/xdt-csource
         resource/name:      xfwm4_dialog_ui
-        source:             ${@@PARENT::@@KEY}.glade
-        output/c/header:    ${@@PARENT::@@KEY}_ui.h
+        source:             ${@@PARENT::@id}.glade
+        output/c/header:    ${@@PARENT::@id}_ui.h
         install:            false
 
     xfwm-common:
@@ -309,37 +309,37 @@ targets:
         install/subdir:     themes/Daloa/xfwm4
         source:             [README, themerc, "*.xpm", "*.png"]
         source/dir:         icons/scalable
-        source/dir:         ${@@PARENT::@@KEY}
+        source/dir:         ${@@PARENT::@id}
 
     themes/default:
         type:               data/misc
         install/subdir:     themes/Default/xfwm4
         source:             [README, themerc, "*.xpm", "*.png"]
-        source/dir:         ${@@PARENT::@@KEY}
+        source/dir:         ${@@PARENT::@id}
 
     themes/default-hdpi:
         type:               data/misc
         install/subdir:     themes/Default-hdpi/xfwm4
         source:             [README, themerc, "*.xpm", "*.png"]
-        source/dir:         ${@@PARENT::@@KEY}
+        source/dir:         ${@@PARENT::@id}
 
     themes/default-xhdpi:
         type:               data/misc
         install/subdir:     themes/Default-xhdpi/xfwm4
         source:             [README, themerc, "*.xpm", "*.png"]
-        source/dir:         ${@@PARENT::@@KEY}
+        source/dir:         ${@@PARENT::@id}
 
     themes/kokodi:
         type:               data/misc
         install/subdir:     themes/Kokodi/xfwm4
         source:             [README, themerc, "*.xpm", "*.png"]
-        source/dir:         ${@@PARENT::@@KEY}
+        source/dir:         ${@@PARENT::@id}
 
     themes/moheli:
         type:               data/misc
         install/subdir:     themes/Moheli/xfwm4
         source:             [README, themerc, "*.xpm", "*.png"]
-        source/dir:         ${@@PARENT::@@KEY}
+        source/dir:         ${@@PARENT::@id}
 
     xfwm-defaults:
         type:               data/misc

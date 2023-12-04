@@ -7,7 +7,9 @@ import (
 type Key = api.Key
 
 const (
-	KeyId   = Key("id")
+	// internal keys -- automatically created after loading
+	KeyInternId = Key("@id")
+
 	KeyType = Key("type")
 
 	// build host vs target host

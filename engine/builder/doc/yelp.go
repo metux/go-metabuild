@@ -35,7 +35,7 @@ func (b Yelp) JobRun() error {
 	src := b.RequiredSourceAbs()
 	format := b.RequiredEntryStr(target.KeyOutputFormat)
 	includes := b.EntryPathList(target.KeyIncludeDirs)
-	outdir := b.BuildConf.BuildTempDir("yelp/" + string(b.MyKey()) + "/" + format)
+	outdir := b.BuildConf.BuildTempDir("yelp/" + b.MyId() + "/" + format)
 
 	c := append(b.BuilderCmd(), format, "-o", outdir)
 	for _, d := range includes {
