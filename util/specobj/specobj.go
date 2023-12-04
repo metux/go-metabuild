@@ -2,6 +2,7 @@ package specobj
 
 import (
 	magic "github.com/metux/go-magicdict"
+	"github.com/metux/go-magicdict/api"
 )
 
 type Key = magic.Key
@@ -13,7 +14,7 @@ type SpecObj struct {
 }
 
 func (so SpecObj) MyKey() Key {
-	return Key(so.EntryStr("@@KEY"))
+	return Key(so.EntryStr(api.MagicAttrKey))
 }
 
 func NewSpecObj(ent magic.Entry) SpecObj {
