@@ -66,7 +66,13 @@ func (o TargetObject) MyId() string {
 }
 
 func (o TargetObject) LoadTargetDefaults() {
-	o.EntryPutStr(KeyInternId, string(o.MyKey()))
+	id := string(o.MyKey())
+	o.DefaultPutStr(KeyInternId, id)
+
+	if ext := filepath.Ext(id); ext != "" {
+		o.DefaultPutStr(KeyInternIdSuffix, ext[1:])
+	}
+
 	k := buildconf.KeyTargetPlatform.Append("targets").Append(o.Type()).MagicLiteralPost()
 	o.DefaultPutStrMap(o.BuildConf.EntryStrMap(k))
 }

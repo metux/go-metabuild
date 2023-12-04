@@ -456,6 +456,7 @@ platform:
                 install/package:      doc
                 install/perm:         0664
                 man/compress:         gz
+                man/section:          ${@@PARENT::@id/suffix}
                 source:               ${@@PARENT::@id}
 
             doc/misc:
