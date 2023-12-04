@@ -169,7 +169,7 @@ targets:
         source/dir:         icons
 
     lincity.xpm:
-        type:               data/pixmaps
+        type:               data/pixmap
         source:             ${@@PARENT::@@KEY}
 
     data/help:

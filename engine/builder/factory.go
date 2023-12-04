@@ -27,7 +27,7 @@ func CreateBuilder(o target.TargetObject, id string) (jobs.Job, error) {
 		return data.MakeDataMisc(o, id), nil
 	case target.TypeDataDesktop:
 		return data.MakeDataDesktop(o, id), nil
-	case target.TypeDataPixmaps:
+	case target.TypeDataPixmap:
 		return data.MakeDataMisc(o, id), nil
 
 	/* locales */
