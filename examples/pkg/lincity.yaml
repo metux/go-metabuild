@@ -69,8 +69,7 @@ misc:
         - -Wall
 
 targets:
-    lincitymodules:
-        type:               c/library
+    lincitymodules{c/library}:
         install:            false
         skip/shared:        true
         skip/pkgconf:       true
@@ -80,8 +79,7 @@ targets:
         source/dir:         modules
         source:             "*.c"
 
-    lincityengine:
-        type:               c/library
+    lincityengine{c/library}:
         c/defines:          ${misc::c/defines}
         c/cflags:           ${misc::c/cflags}
         skip/shared:        true
@@ -104,8 +102,7 @@ targets:
             - shrglobs.c
             - stats.c
 
-    lincitygui:
-        type:               c/library
+    lincitygui{c/library}:
         pkgconf/import:     [x11, xext, zlib, libpng, libc/math]
         link/static:        [lincityengine, lincitymodules]
         skip/shared:        true
@@ -130,8 +127,7 @@ targets:
             - module_buttons.c
             - dialbox.c
 
-    lincity:
-        type:               c/executable
+    lincity{c/executable}:
         pkgconf/import:     [x11, xext, zlib, libpng, libc/math]
         c/ldflags:          ${misc::c/ldflags}
         c/cflags:           ${misc::c/cflags}
@@ -139,50 +135,41 @@ targets:
         ## FIXME: order really matters here. need lincitymodules twice since circular dependency
         link/static:        [lincitygui, lincitymodules, lincityengine, lincitymodules]
 
-    lincity.desktop:
-        type:               data/desktop
+    lincity.desktop{data/desktop}:
         desktop/categories: Application;Game;StrategyGame
         desktop/exec:       lincity
         desktop/tryexec:    ${buildconf::install-dirs::bindir}/lincity
 
-    data/main:
-        type:               data/misc
+    colour.pal{data/misc}:
         install/subdir:     lincity
         source:             colour.pal
 
-    data/opening:
-        type:               data/misc
+    opening{data/misc}:
         install/subdir:     lincity/opening
         source:             "*"
         source/dir:         opening
 
-    data/messages:
-        type:               data/misc
+    messages{data/misc}:
         install/subdir:     lincity/messages
         source:             "*.mes"
         source/dir:         messages
 
-    data/icons:
-        type:               data/misc
+    icons{data/misc}:
         install/subdir:     lincity/icons
         source:             "*.csi"
         source/dir:         icons
 
-    lincity.xpm:
-        type:               data/pixmap
+    lincity.xpm{data/pixmap}:
         source:             ${@@PARENT::@id}
 
-    data/help:
-        type:               data/misc
+    help{data/misc}:
         install/subdir:     lincity/help
         source:             "*.hlp"
         source/dir:         help
 
-    po:
-        type:               i18n/po
+    po{i18n/po}:
 
-    doc/misc:
-        type:               doc/misc
+    docs{doc/misc}:
         source:
             - Acknowledgements
             - README
@@ -191,9 +178,7 @@ targets:
             - COPYING
             - COPYRIGHT
 
-    lincity.6:
-        type:               doc/man
-        source:             ${@@PARENT::@id}
+    lincity.6{doc/man}:
         man/alias:          xlincity
 
 features:

@@ -42,8 +42,7 @@ configure:
           yes/c/defines:  HAVE_SIZE_T
 
 targets:
-    zlib:
-        type:           c/library
+    zlib{c/library}:
         mapfile:        zlib.map
         version:        1
         libname:        z
@@ -92,63 +91,53 @@ targets:
                     - trees.h
                     - zutil.h
 
-    example:
-        type:           c/executable
+    example{c/executable}:
         c/defines:      ${buildconf::host::flags::c/defines}
         source:         test/example.c
         link/static:    zlib
         install:        false
 
-    minizip.1:
-        type:           doc/man
+    minizip.1{doc/man}:
         c/defines:      ${buildconf::host::flags::c/defines}
         source/dir:     contrib/minizip
 
-    miniunzip.1:
-        type:           doc/man
+    miniunzip.1{doc/man}:
         source/dir:     contrib/minizip
 
-    minigzip:
-        type:           c/executable
+    minigzip{c/executable}:
         c/defines:      ${buildconf::host::flags::c/defines}
         source:         test/minigzip.c
         link/static:    zlib
 
-    example64:
-        type:           c/executable
+    example64{c/executable}:
         c/defines:      ["${buildconf::host::flags::c/defines}", _FILE_OFFSET_BITS=64]
         source:         test/example.c
         link/static:    zlib
         install:        false
 
-    minigzip64:
-        type:           c/executable
+    minigzip64{c/executable}:
         source:         test/minigzip.c
         c/defines:      ["${buildconf::host::flags::c/defines}", _FILE_OFFSET_BITS=64]
         link/static:    zlib
 
-    examplesh:
-        type:           c/executable
+    examplesh{c/executable}:
         source:         test/example.c
         c/defines:      ${buildconf::host::flags::c/defines}
         link/shared:    zlib
         install:        false
 
-    minigzipsh:
-        type:           c/executable
+    minigzipsh{c/executable}:
         source:         test/minigzip.c
         c/defines:      ${buildconf::host::flags::c/defines}
         link/static:    zlib
 
-    example64sh:
-        type:           c/executable
+    example64sh{c/executable}:
         source:         test/example.c
         c/defines:      ["${buildconf::host::flags::c/defines}", _FILE_OFFSET_BITS=64]
         link/shared:    zlib
         install:        false
 
-    minigzip64sh:
-        type:           c/executable
+    minigzip64sh{c/executable}:
         source:         test/minigzip.c
         c/defines:      ["${buildconf::host::flags::c/defines}", _FILE_OFFSET_BITS=64]
         link/shared:    zlib

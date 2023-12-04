@@ -10,6 +10,7 @@ const (
 	// internal keys -- automatically created after loading
 	KeyInternId       = Key("@id")
 	KeyInternIdSuffix = Key("@id/suffix")
+	KeyInternType     = Key("@type")
 
 	KeyType = Key("type")
 

@@ -137,15 +137,13 @@ fflags:     ${buildconf::host::flags}
 
 targets:
     # FIXME: install into helper_path_prefix/xfce4/xfwm4
-    helper-dialog/helper-dialog:
-        type:               c/executable
+    helper-dialog/helper-dialog{c/executable}:
         install/dir:        ${helperpath}
         source:             helper-dialog/helper-dialog.c
         c/defines:          ${c/defines}
         pkgconf/import:     [GTK, LIBXFCE4UTIL, X11]
 
-    settings-dialogs/workspace-resource:
-        type:               gen/glib-resource
+    settings-dialogs/workspace-resource{gen/glib-resource}:
         name:               workspace-resource
         source:             workspace.gresource.xml
         source/dir:         settings-dialogs
@@ -153,29 +151,25 @@ targets:
 
     # FIXME: add a multi-file mode
     # FIXME: automatically substitue resource/name
-    settings-dialogs/xfwm4-workspace-dialog:
-        type:               gen/xdt-csource
+    settings-dialogs/xfwm4-workspace-dialog{gen/xdt-csource}:
         resource/name:      workspace_dialog_ui
         source:             ${@@PARENT::@id}.glade
         output/c/header:    ${@@PARENT::@id}_ui.h
         install:            false
 
-    settings-dialogs/xfwm4-tweaks-dialog:
-        type:               gen/xdt-csource
+    settings-dialogs/xfwm4-tweaks-dialog{gen/xdt-csource}:
         resource/name:      tweaks_dialog_ui
         source:             ${@@PARENT::@id}.glade
         output/c/header:    ${@@PARENT::@id}_ui.h
         install:            false
 
-    settings-dialogs/xfwm4-dialog:
-        type:               gen/xdt-csource
+    settings-dialogs/xfwm4-dialog{gen/xdt-csource}:
         resource/name:      xfwm4_dialog_ui
         source:             ${@@PARENT::@id}.glade
         output/c/header:    ${@@PARENT::@id}_ui.h
         install:            false
 
-    xfwm-common:
-        type:               c/library
+    xfwm-common{c/library}:
         install:            false
         source:             [xfwm-common.c, xfconf-util.c]
         source/dir:         common
@@ -188,8 +182,7 @@ targets:
             priv:
                 source:     [xfwm-common.h, xfconf-util.h, core-c.h, list.h]
 
-    settings-dialogs/xfwm4-settings:
-        type:               c/executable
+    settings-dialogs/xfwm4-settings{c/executable}:
         pkgconf/import:     [LIBXFCE4KBD_PRIVATE]
         source:             [xfwm4-settings.c, range-debouncer.c]
         source/dir:         settings-dialogs
@@ -202,8 +195,7 @@ targets:
             priv:
                 source:     [xfwm4-settings.h, xfwm4-dialog_ui.h, range-debouncer.h]
 
-    settings-dialogs/xfwm4-tweaks-settings:
-        type:               c/executable
+    settings-dialogs/xfwm4-tweaks-settings{c/executable}:
         pkgconf/import:     [LIBXFCE4KBD_PRIVATE]
         source:             [tweaks-settings.c, range-debouncer.c]
         source/dir:         settings-dialogs
@@ -217,8 +209,7 @@ targets:
             priv:
                 source:     [xfwm4-tweaks-dialog_ui.h, range-debouncer.h]
 
-    settings-dialogs/xfwm4-workspace-settings:
-        type:               c/executable
+    settings-dialogs/xfwm4-workspace-settings{c/executable}:
         pkgconf/import:     [LIBXFCE4UI, LIBXFCONF, LIBWNCK]
         source:             [workspace-settings.c, workspace-resource.c]
         source/dir:         settings-dialogs
@@ -233,16 +224,13 @@ targets:
             priv:
                 source:     [xfwm4-workspace-dialog_ui.h, workspace-resource.h]
 
-    po:
-        type:               i18n/po
+    po{i18n/po}:
 
-    desktop:
-        type:               i18n/desktop
+    desktop{i18n/desktop}:
         source:             [xfce-wm-settings, xfce-wmtweaks-settings, xfce-workspaces-settings]
         source/dir:         settings-dialogs
 
-    xfwm4:
-        type:               c/executable
+    xfwm4{c/executable}:
         source:             [client.c, compositor.c, cycle.c, device.c, display.c,
                              event_filter.c, events.c, focus.c, frame.c, hints.c,
                              icons.c, keyboard.c, main.c, menu.c, misc.c, moveresize.c,
@@ -271,87 +259,73 @@ targets:
         include-dirs:       .
         install/package:    main
 
-    icons/128x128/apps:
-        type:               data/misc
+    icons/128x128/apps{data/misc}:
         install/subdir:     icons/hicolor/128x128/apps
         source:             "*.png"
         source/dir:         icons/128x128
 
-    icons/16x16/apps:
-        type:               data/misc
+    icons/16x16/apps{data/misc}:
         install/subdir:     icons/hicolor/16x16/apps
         source:             "*.png"
         source/dir:         icons/16x16
 
-    icons/22x22/actions:
-        type:               data/misc
+    icons/22x22/actions{data/misc}:
         install/subdir:     icons/hicolor/22x22/actions
         source:             "*.png"
         source/dir:         icons/22x22
 
-    icons/48x48/apps:
-        type:               data/misc
+    icons/48x48/apps{data/misc}:
         install/subdir:     icons/hicolor/48x48/apps
         source:             "*.png"
         source/dir:         icons/48x48
 
-    icons/scalable/apps:
-        type:               data/misc
+    icons/scalable/apps{data/misc}:
         install/subdir:     icons/hicolor/scalable/apps
         source:             [org.xfce.xfwm4-tweaks.svg, org.xfce.workspaces.svg,
                              org.xfce.xfwm4.svg, xfwm4-default.svg]
         source/dir:         icons/scalable
 
-    icons/scalable/actions:
-        type:               data/misc
+    icons/scalable/actions{data/misc}:
         install/subdir:     icons/hicolor/scalable/actions
         source:             xfce-wm-*.svg
         source/dir:         icons/scalable
 
-    themes/daloa:
-        type:               data/misc
+    themes/daloa{data/misc}:
         install/subdir:     themes/Daloa/xfwm4
         source:             [README, themerc, "*.xpm", "*.png"]
         source/dir:         icons/scalable
         source/dir:         ${@@PARENT::@id}
 
-    themes/default:
-        type:               data/misc
+    themes/default{data/misc}:
         install/subdir:     themes/Default/xfwm4
         source:             [README, themerc, "*.xpm", "*.png"]
         source/dir:         ${@@PARENT::@id}
 
-    themes/default-hdpi:
-        type:               data/misc
+    themes/default-hdpi{data/misc}:
         install/subdir:     themes/Default-hdpi/xfwm4
         source:             [README, themerc, "*.xpm", "*.png"]
         source/dir:         ${@@PARENT::@id}
 
-    themes/default-xhdpi:
-        type:               data/misc
+    themes/default-xhdpi{data/misc}:
         install/subdir:     themes/Default-xhdpi/xfwm4
         source:             [README, themerc, "*.xpm", "*.png"]
         source/dir:         ${@@PARENT::@id}
 
-    themes/kokodi:
-        type:               data/misc
+    themes/kokodi{data/misc}:
         install/subdir:     themes/Kokodi/xfwm4
         source:             [README, themerc, "*.xpm", "*.png"]
         source/dir:         ${@@PARENT::@id}
 
-    themes/moheli:
-        type:               data/misc
+    themes/moheli{data/misc}:
         install/subdir:     themes/Moheli/xfwm4
         source:             [README, themerc, "*.xpm", "*.png"]
         source/dir:         ${@@PARENT::@id}
 
-    xfwm-defaults:
-        type:               data/misc
+    xfwm-defaults{data/misc}:
         install/subdir:     xfwm4
         source:             defaults/defaults
 
-    docs:
-        type:               doc/misc
+    docs{doc/misc}:
         source:             [NEWS, NOTES, README.md, TODO, AUTHORS, COMPOSITOR, COPYING]
 
 distro:
