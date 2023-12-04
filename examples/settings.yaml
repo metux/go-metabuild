@@ -403,8 +403,8 @@ platform:
                 install/package:      data
                 install/perm:         0664
 
-            data/pixmaps:
-                builder/driver:       data/pixmaps
+            data/pixmap:
+                builder/driver:       data/pixmap
                 install:              ${@@PARENT::@@PARENT::install}
                 install/dir:          ${buildconf::install-dirs::pixmapdir}
                 install/package:      data

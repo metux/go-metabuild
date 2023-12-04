@@ -22,7 +22,7 @@ const (
 
 	/* data files */
 	TypeDataMisc    = Key("data/misc")
-	TypeDataPixmaps = Key("data/pixmaps")
+	TypeDataPixmap  = Key("data/pixmap")
 	TypeDataDesktop = Key("data/desktop")
 
 	/* locales */
