@@ -8,7 +8,8 @@ type Key = api.Key
 
 const (
 	// internal keys -- automatically created after loading
-	KeyInternId = Key("@id")
+	KeyInternId       = Key("@id")
+	KeyInternIdSuffix = Key("@id/suffix")
 
 	KeyType = Key("type")
 

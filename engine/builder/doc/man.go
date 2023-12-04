@@ -21,10 +21,6 @@ func (b ManPages) JobRun() error {
 	}
 	srcfile := src[0]
 
-	if ext := filepath.Ext(srcfile); ext != "" {
-		b.DefaultPutStr(target.KeyManpageSection, ext[1:])
-	}
-
 	alias := b.EntryStrList(target.KeyManpageAlias)
 	compress := b.EntryStr(target.KeyManpageCompress)
 
