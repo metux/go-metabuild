@@ -121,11 +121,11 @@ targets:
     minizip.1:
         type:           doc/man
         c/defines:      ${buildconf::host::c/defines}
-        source:         contrib/minizip/${@@PARENT::@id}
+        source/dir:     contrib/minizip
 
     miniunzip.1:
         type:           doc/man
-        source:         contrib/minizip/${@@PARENT::@id}
+        source/dir:     contrib/minizip
 
     minigzip:
         type:           c/executable
