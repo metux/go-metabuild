@@ -12,8 +12,8 @@ type BuildAll struct {
 
 func (b BuildAll) JobSub() ([]jobs.Job, error) {
 	jobs := []jobs.Job{}
-	for id, t := range b.GetTargetObjects() {
-		if b, err := CreateBuilder(t, id); err == nil {
+	for _, t := range b.GetTargetObjects() {
+		if b, err := CreateBuilder(t); err == nil {
 			jobs = append(jobs, b)
 		} else {
 			return jobs, err
