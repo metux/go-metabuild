@@ -50,6 +50,11 @@ func (dpkg Dpkg) MatchElfArch(debArch string, elfArch string) bool {
 	if strings.HasSuffix(elfArch, debArch) {
 		return true
 	}
+
+	if debArch == "amd64" && elfArch == "elf64-x86-64" {
+		return true
+	}
+
 	return false
 }
 
