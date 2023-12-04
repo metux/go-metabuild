@@ -28,6 +28,13 @@ Some attributes are automatically set in the post-load phase.
 |------------|----------------------------------------------------------------|
 | @id        | The ID-part of the target key name (used eg. for target names) |
 | @id/suffix | Suffix (extension) of the ID, without leading dot              |
+| @type      | target type, extracted from target key                         |
+
+## Special key notation
+
+For convenience, the target key (in the yaml struct) may encode the target type:
+
+   `target_id{target_type}`
 
 ## Target types
 

@@ -3,12 +3,17 @@ package target
 import (
 	"os"
 	"path/filepath"
+	"regexp"
 
 	"github.com/metux/go-metabuild/spec/buildconf"
 	"github.com/metux/go-metabuild/spec/cache"
 	"github.com/metux/go-metabuild/util"
 	"github.com/metux/go-metabuild/util/fileutil"
 	"github.com/metux/go-metabuild/util/specobj"
+)
+
+var (
+	reWithType = regexp.MustCompile(`(.*)\{([\w/_\-\.]+)\}$`)
 )
 
 type TargetObject struct {
@@ -65,16 +70,32 @@ func (o TargetObject) MyId() string {
 	return o.EntryStr(KeyInternId)
 }
 
-func (o TargetObject) LoadTargetDefaults() {
-	id := string(o.MyKey())
-	o.DefaultPutStr(KeyInternId, id)
+func (o TargetObject) loadTargetType(t Key) {
+	if !t.Empty() {
+		k := buildconf.KeyTargetPlatform.Append("targets").Append(t).MagicLiteralPost()
+		o.DefaultPutStrMap(o.BuildConf.EntryStrMap(k))
+	}
+}
 
+func (o TargetObject) setId(id string) {
+	o.EntryPutStr("@id", id)
 	if ext := filepath.Ext(id); ext != "" {
 		o.DefaultPutStr(KeyInternIdSuffix, ext[1:])
 	}
+}
 
-	k := buildconf.KeyTargetPlatform.Append("targets").Append(o.Type()).MagicLiteralPost()
-	o.DefaultPutStrMap(o.BuildConf.EntryStrMap(k))
+func (o TargetObject) LoadTargetDefaults() {
+	id := o.MyKey()
+
+	if match := reWithType.FindStringSubmatch(string(id)); len(match) == 3 {
+		o.setId(match[1])
+		o.EntryPutStr("@type", match[2])
+		o.loadTargetType(Key(match[2]))
+	} else {
+		o.setId(string(id))
+	}
+
+	o.loadTargetType(o.Type())
 }
 
 func (o TargetObject) CDefines() []string {
@@ -116,6 +137,9 @@ func (o TargetObject) CompilerLang() string {
 }
 
 func (o TargetObject) Type() Key {
+	if s := o.EntryStr("@type"); s != "" {
+		return Key(s)
+	}
 	return Key(o.EntryStr(KeyType))
 }
 
@@ -147,6 +171,5 @@ func NewTargetObject(spec specobj.SpecObj, k Key, bc buildconf.BuildConf, c cach
 		Cache:     c,
 		BuildConf: bc,
 	}
-	obj.EntryPutStr(KeyInternId, string(k))
 	return obj
 }
