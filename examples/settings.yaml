@@ -470,7 +470,7 @@ platform:
             gen/glib-resource:
                 builder/driver:       gen/glib-resource
                 builder/command:      glib-compile-resources
-                source/dir:           .
+                source:               ${@@PARENT::@id}.xml
                 name:                 ${@@PARENT::@id}
                 resource/name:        ${@@PARENT::name}
                 resource/dir:         ${@@PARENT::source/dir}
