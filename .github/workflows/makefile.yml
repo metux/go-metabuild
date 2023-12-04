@@ -10,6 +10,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    - name: update apt db
+      run: sudo apt-get update
+    - name: install packages
+      run: sudo apt-get install -y gettext libx11-6 libxinerama-dev libxfce4ui-2-dev libxfconf-0-dev libgtk-3-dev libxres-dev libwnck-3-dev
     - uses: actions/checkout@v3
       name: clone go-metabuild
       with:
@@ -32,8 +36,19 @@ jobs:
         repository: oss-qm/lincity
         path: lincity
         ref: master
+    - name: clone xfwm4
+      run: git clone -b sub/testing-6 https://gitlab.xfce.org/metux/xfwm4.git xfwm4
     - name: build
-      run: make
+      run: make build
+      working-directory: go-metabuild
+    - name: test zlib
+      run: make test-zlib
+      working-directory: go-metabuild
+    - name: test lincity
+      run: make test-lincity
+      working-directory: go-metabuild
+    - name: test xfwm4
+      run: make test-xfwm4
       working-directory: go-metabuild
     - name: Archive build results
       uses: actions/upload-artifact@v3
