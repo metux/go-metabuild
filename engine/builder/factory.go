@@ -13,7 +13,9 @@ import (
 	"github.com/metux/go-metabuild/util/jobs"
 )
 
-func CreateBuilder(o target.TargetObject, id string) (jobs.Job, error) {
+func CreateBuilder(o target.TargetObject) (jobs.Job, error) {
+	id := o.MyId()
+
 	switch t := spec.Key(o.RequiredEntryStr(target.KeyBuilderDriver)); t {
 
 	/* plain C or C++ */
