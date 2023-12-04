@@ -141,31 +141,31 @@ targets:
         desktop/tryexec:    ${buildconf::install-dirs::bindir}/lincity
 
     colour.pal{data/misc}:
-        install/subdir:     lincity
+        install/subdir:     ${package}
         source:             colour.pal
 
     opening{data/misc}:
-        install/subdir:     lincity/opening
+        install/subdir:     ${package}/${@@PARENT::@id}
         source:             "*"
-        source/dir:         opening
+        source/dir:         ${@@PARENT::@id}
 
     messages{data/misc}:
-        install/subdir:     lincity/messages
+        install/subdir:     ${package}/${@@PARENT::@id}
         source:             "*.mes"
-        source/dir:         messages
+        source/dir:         ${@@PARENT::@id}
 
     icons{data/misc}:
-        install/subdir:     lincity/icons
+        install/subdir:     ${package}/${@@PARENT::@id}
         source:             "*.csi"
-        source/dir:         icons
+        source/dir:         ${@@PARENT::@id}
 
     lincity.xpm{data/pixmap}:
         source:             ${@@PARENT::@id}
 
     help{data/misc}:
-        install/subdir:     lincity/help
+        install/subdir:     ${package}/${@@PARENT::@id}
         source:             "*.hlp"
-        source/dir:         help
+        source/dir:         ${@@PARENT::@id}
 
     po{i18n/po}:
 
