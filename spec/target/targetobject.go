@@ -61,7 +61,12 @@ func (o TargetObject) ForBuild() bool {
 	return o.EntryBoolDef(Key("build"), false)
 }
 
+func (o TargetObject) MyId() string {
+	return o.EntryStr(KeyInternId)
+}
+
 func (o TargetObject) LoadTargetDefaults() {
+	o.EntryPutStr(KeyInternId, string(o.MyKey()))
 	k := buildconf.KeyTargetPlatform.Append("targets").Append(o.Type()).MagicLiteralPost()
 	o.DefaultPutStrMap(o.BuildConf.EntryStrMap(k))
 }
@@ -136,6 +141,6 @@ func NewTargetObject(spec specobj.SpecObj, k Key, bc buildconf.BuildConf, c cach
 		Cache:     c,
 		BuildConf: bc,
 	}
-	obj.EntryPutStr(KeyId, string(k))
+	obj.EntryPutStr(KeyInternId, string(k))
 	return obj
 }

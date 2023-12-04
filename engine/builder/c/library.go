@@ -60,7 +60,7 @@ func (b *BuilderCLibrary) JobPrepare(id jobs.JobId) error {
 		StaticCflags:  cflags,
 	}
 
-	return b.BuildConf.SetPkgConfig(b.ForBuild(), string(b.MyKey()), pi)
+	return b.BuildConf.SetPkgConfig(b.ForBuild(), b.MyId(), pi)
 }
 
 func (b *BuilderCLibrary) mksub(sub spec.Key, typ spec.Key, ci compiler.CompilerInfo, cdefs []string, cflags []string, jobdep []jobs.JobId) CommonCBuilder {
