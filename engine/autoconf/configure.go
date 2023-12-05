@@ -45,6 +45,13 @@ func runCheck(cf global.Global, chk spec.Check) error {
 	flags.EntryStrListAppendList(check.KeyCCFlags, chk.YesNoStrList(res, check.KeyCCFlags))
 	flags.EntryStrListAppendList(check.KeyCLDFlags, chk.YesNoStrList(res, check.KeyCLDFlags))
 
+	k := chk.YesNoKey(res, check.KeyPkgConfAdd)
+	b := chk.ForBuild()
+	for _, i := range chk.EntryKeys(k) {
+		id := string(i)
+		chk.BuildConf.SetPkgConfig(b, id, buildconf.PkgconfLoad(chk.EntrySpec(k.Append(i)), id))
+	}
+
 	// store .config flags
 	if cf := chk.EntryStr(buildconf.KeyCheckConfig); cf != "" {
 		chk.BuildConf.ConfigBool(cf, res)

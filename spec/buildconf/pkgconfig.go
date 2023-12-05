@@ -51,7 +51,7 @@ func (bc BuildConf) SetPkgConfig(build bool, id string, pi compiler.PkgConfigInf
 	return nil
 }
 
-func pkgconf(sub SpecObj, id string) compiler.PkgConfigInfo {
+func PkgconfLoad(sub SpecObj, id string) compiler.PkgConfigInfo {
 	return compiler.PkgConfigInfo{
 		Id:            id,
 		PkgSpec:       sub.EntryStr(KeyPkgSpec),
@@ -65,11 +65,11 @@ func pkgconf(sub SpecObj, id string) compiler.PkgConfigInfo {
 }
 
 func (bc BuildConf) PkgConfig(build bool, id string) compiler.PkgConfigInfo {
-	pkg := pkgconf(bc.PkgConfigSub(build, id), id)
+	pkg := PkgconfLoad(bc.PkgConfigSub(build, id), id)
 	if !pkg.Valid() {
 		// try to get it from target platform
 		if !build {
-			pkg = pkgconf(bc.EntrySpec(KeyTargetPlatform.Append(KeyPkgSub).AppendStr(id)), id)
+			pkg = PkgconfLoad(bc.EntrySpec(KeyTargetPlatform.Append(KeyPkgSub).AppendStr(id)), id)
 		} // FIXME: also should have @host-platform ?
 	}
 	return pkg

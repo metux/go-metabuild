@@ -14,6 +14,7 @@ const (
 	KeyCCompiler   = Key("c/compiler")
 	KeyCXXCompiler = Key("c++/compiler")
 	KeyPkgConfig   = Key("pkgconf")
+	KeyPkgConfAdd  = Key("pkgconf/add")
 
 	KeyCDefines = Key("c/defines")
 	KeyCLDFlags = Key("c/ldflags")

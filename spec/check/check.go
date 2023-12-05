@@ -150,6 +150,10 @@ func (chk Check) YesNoStrList(yesno bool, k Key) []string {
 	return chk.EntryStrList(Key(util.YesNo(yesno) + "/" + string(k)))
 }
 
+func (chk Check) YesNoKey(yesno bool, k Key) Key {
+	return Key(util.YesNo(yesno) + "/" + string(k))
+}
+
 func (chk Check) Logf(f string, args ...any) {
 	if id := chk.Id(); id == "" {
 		log.Printf("[Check %s] %s\n", chk.Type(), fmt.Sprintf(f, args...))
