@@ -29,7 +29,7 @@ func featuresFromEnv(cf global.Global, fm features.FeatureMap) {
 	}
 }
 
-func featuresProcess(cf global.Global, fm features.FeatureMap) {
+func featuresProcess(cf global.Global, fm features.FeatureMap) error {
 	bc := cf.BuildConf()
 
 	subBuild := bc.SubForBuild(true, "flags")
@@ -46,16 +46,16 @@ func featuresProcess(cf global.Global, fm features.FeatureMap) {
 			req := f.PkgconfRequire()
 			for _, pkg := range req {
 				if !bc.PkgConfig(true, pkg).Valid() && !bc.PkgConfig(false, pkg).Valid() {
-					util.Panicf("config error: missing package %s for feature %s", pkg, f.Id)
+					return util.ConfigError("missing package import \"%s\" for feature \"%s\"", pkg, f.Id)
 				}
 			}
 		}
 	}
+	return nil
 }
 
 func RunConfigureFeatures(cf global.Global) error {
 	fmap := cf.GetFeatureMap()
 	featuresFromEnv(cf, fmap)
-	featuresProcess(cf, fmap)
-	return nil
+	return featuresProcess(cf, fmap)
 }
