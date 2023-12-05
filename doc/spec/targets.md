@@ -17,6 +17,7 @@ attribute set.
 | doc/misc         | Simple documentation files *(placed under $datadir/doc/...)*            |
 | gen/glib-resource| Generate Glib resource and source code files from XML                   |
 | gen/xdt-csource  | Generate source code for compiling-in XML files *(eg. `*.glade`)*       |
+| gen/xxd-csource  | Generate source for compiling in binary data (like xxd -i)              |
 | i18n/desktop     | multilingual FreeDesktop.org `*.desktop` file                           |
 | i18n/po          | gettext translation files *(building `*.mo` files)*                     |
 
@@ -338,4 +339,22 @@ the `po/` subdirectory.
         name:               workspace-resource
         source:             workspace.gresource.xml
         source/dir:         settings-dialogs
+```
+
+### gen/xxd-csource:
+
+Generate code fragment (header) for compiling in binary data, like `xxd -i`.
+
+#### Attributes:
+
+| Attribute        | Default                | Description                   |
+|------------------|------------------------|-------------------------------|
+| source           |                        | binary input file             |
+| output/c/header  | ${@@PARENT::@id}       | c header output file          |
+
+#### Example:
+```
+    ClayRGB1998_icc.h:
+        type:               gen/xxd-csource
+        source:             src/ClayRGB1998.icc
 ```

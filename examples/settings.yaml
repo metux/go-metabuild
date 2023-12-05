@@ -482,6 +482,10 @@ platform:
             gen/xdt-csource:
                 builder/driver:       gen/xdt-csource
 
+            gen/xxd-csource:
+                builder/driver:       gen/xxd-csource
+                output/c/header:      ${@@PARENT::@id}
+
 buildconf:
     install-dirs:
         prefix:         ${buildconf::@targetdist::install-dirs::prefix}

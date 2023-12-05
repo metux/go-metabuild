@@ -49,6 +49,8 @@ func CreateBuilder(o target.TargetObject) (jobs.Job, error) {
 		return gen.MakeGlibResource(o, id), nil
 	case target.TypeXdtCSource:
 		return gen.MakeXdtCSource(o, id), nil
+	case target.TypeXxdCSource:
+		return gen.MakeXxdCSource(o, id), nil
 
 	default:
 		return nil, fmt.Errorf("unsupported builder driver: %s", t)
