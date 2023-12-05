@@ -10,6 +10,6 @@ func Panicf(format string, v ...any) {
 
 func ErrPanicf(err error, format string, v ...any) {
 	if err != nil {
-		panic(fmt.Sprintf(format, v...) + " " + fmt.Sprintf("%s", err))
+		panic(fmt.Sprintf(format, v...) + ": " + fmt.Sprintf("%s", err))
 	}
 }
