@@ -15,8 +15,7 @@ type BaseCBuilder struct {
 
 // FIXME: move this to individual builders ?
 func (b BaseCBuilder) JobDepends() []jobs.JobId {
-	j := make([]jobs.JobId, 0)
-	// FIXME: write a util func for that
+	j := b.BaseBuilder.JobDepends()
 	for _, x := range b.EntryStrList(target.KeyLinkStatic) {
 		j = append(j, jobs.JobId(x))
 	}

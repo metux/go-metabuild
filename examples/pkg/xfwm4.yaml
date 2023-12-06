@@ -196,6 +196,7 @@ targets:
         include-dirs:       .
         c/defines:          ${c/defines}
         link/static:        xfwm-common
+        job/depends:        settings-dialogs/xfwm4-dialog
         headers:
             install:        false
             priv:
@@ -210,6 +211,7 @@ targets:
         c/defines:          ${c/defines}
         link/static:        xfwm-common
         install/package:    main
+        job/depends:        [settings-dialogs/xfwm4-tweaks-dialog]
         headers:
             install:        false
             priv:
@@ -223,6 +225,8 @@ targets:
         include-dirs:       .
         c/defines:          ${c/defines}
         link/static:        xfwm-common
+        job/depends:        [settings-dialogs/xfwm4-workspace-dialog,
+                             settings-dialogs/workspace-resource]
         install/package:    main
         headers:
             install:        false

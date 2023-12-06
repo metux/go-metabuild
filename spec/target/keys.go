@@ -37,8 +37,9 @@ const (
 	KeySourceDir    = Key("source/dir")
 	KeySourceSuffix = Key("source/suffix")
 
-	KeyName = Key("name")
-	KeyFile = Key("file")
+	KeyName       = Key("name")
+	KeyFile       = Key("file")
+	KeyJobDepends = Key("job/depends")
 
 	KeyIncludeDirs = Key("include-dirs")
 	KeyLibDirs     = Key("lib-dirs")
