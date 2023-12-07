@@ -16,7 +16,7 @@ attribute set.
 | doc/man          | Unix manual page *(troff/nroff)*                                        |
 | doc/misc         | Simple documentation files *(placed under $datadir/doc/...)*            |
 | gen/glib-resource| Generate Glib resource and source code files from XML                   |
-| gen/xdt-source   | Generate source code for compiling-in XML files *(eg. `*.glade`)*       |
+| gen/xdt-csource  | Generate source code for compiling-in XML files *(eg. `*.glade`)*       |
 | i18n/desktop     | multilingual FreeDesktop.org `*.desktop` file                           |
 | i18n/po          | gettext translation files *(building `*.mo` files)*                     |
 
