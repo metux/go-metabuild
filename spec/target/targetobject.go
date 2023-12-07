@@ -73,7 +73,7 @@ func (o TargetObject) MyId() string {
 func (o TargetObject) loadTargetType(t Key) {
 	if !t.Empty() {
 		k := buildconf.KeyTargetPlatform.Append("targets").Append(t).MagicLiteralPost()
-		o.DefaultPutStrMap(o.BuildConf.EntryStrMap(k))
+		o.CopyDefaultsFrom(o.BuildConf.EntrySpec(k))
 	}
 }
 
