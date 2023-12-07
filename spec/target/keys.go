@@ -35,10 +35,8 @@ const (
 	KeySourceDir    = Key("source/dir")
 	KeySourceSuffix = Key("source/suffix")
 
-	KeySubPkg  = Key("subpkg")
-	KeyName    = Key("name")
-	KeyFile    = Key("file")
-	KeySymlink = Key("symlink")
+	KeyName = Key("name")
+	KeyFile = Key("file")
 
 	KeyIncludeDirs = Key("include-dirs")
 	KeyLibDirs     = Key("lib-dirs")
@@ -46,8 +44,6 @@ const (
 	KeyLinkStatic = Key("link/static")
 	KeyLinkShared = Key("link/shared")
 	KeyLinkBoth   = Key("link/both")
-
-	KeyImport = Key("import")
 )
 
 // internal builder configuration
