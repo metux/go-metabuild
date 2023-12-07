@@ -248,53 +248,57 @@ platform:
                 description:          ${description}
                 version:              ${buildconf::version}
 
-            c/library/pkgconf:
-                install:              ${@@PARENT::@@PARENT::install}
-                install/dir:          ${buildconf::install-dirs::pkgconfigdir}
-                install/package:      dev
-                install/perm:         0644
+                pkgconf:
+                    build:                ${@@PARENT::@@PARENT::build}
+                    install:              ${@@PARENT::@@PARENT::install}
+                    install/dir:          ${buildconf::install-dirs::pkgconfigdir}
+                    install/package:      dev
+                    install/perm:         0644
+                    file:                 ${@@PARENT::name}.pc
+                    version:              ${@@PARENT::@@PARENT::version}
+                    name:                 ${@@PARENT::@@PARENT::libname}
+                    libdir:               ${@@PARENT::@@PARENT::shared::install/dir}
+                    sharedlibdir:         ${@@PARENT::@@PARENT::shared::install/dir}
+                    description:          ${@@PARENT::@@PARENT::description}
+                    prefix:               ${buildconf::install-dirs::prefix}
+                    exec-prefix:          ${buildconf::install-dirs::exec-prefix}
+                    includedir:           ${buildconf::install-dirs::includedir}
+                    archive:              ${@@PARENT::libdir}/${@@PARENT::@@PARENT::static::name}
+                    libname:              ${@@PARENT::@@PARENT::libname}
+                    source/dir:           ${@@PARENT::@@PARENT::source/dir}
 
-                file:                 ${@@PARENT::name}.pc
-                version:              ${@@PARENT::@@PARENT::version}
-                name:                 ${@@PARENT::@@PARENT::libname}
-                libdir:               ${@@PARENT::@@PARENT::shared::install/dir}
-                sharedlibdir:         ${@@PARENT::@@PARENT::shared::install/dir}
-                description:          ${@@PARENT::@@PARENT::description}
-                prefix:               ${buildconf::install-dirs::prefix}
-                exec-prefix:          ${buildconf::install-dirs::exec-prefix}
-                includedir:           ${buildconf::install-dirs::includedir}
-                archive:              ${@@PARENT::libdir}/${@@PARENT::@@PARENT::static::name}
-                libname:              ${@@PARENT::@@PARENT::libname}
+                shared:
+                    build:                ${@@PARENT::@@PARENT::build}
+                    compiler/lang:        ${@@PARENT::@@PARENT::compiler/lang}
+                    install:              ${@@PARENT::@@PARENT::install}
+                    install/dir:          ${buildconf::install-dirs::libdir}
+                    install/package:      lib
+                    install/perm:         0644
+                    name:                 lib${@@PARENT::@@PARENT::libname}.so.${@@PARENT::@@PARENT::abi}
+                    file:                 ${@@PARENT::name}
+                    source/dir:           ${@@PARENT::@@PARENT::source/dir}
 
-            c/library/shared:
-                compiler/lang:        ${@@PARENT::@@PARENT::compiler/lang}
-                install:              ${@@PARENT::@@PARENT::install}
-                install/dir:          ${buildconf::install-dirs::libdir}
-                install/package:      lib
-                install/perm:         0644
+                devlink:
+                    build:                ${@@PARENT::@@PARENT::build}
+                    install:              ${@@PARENT::@@PARENT::install}
+                    install/dir:          ${buildconf::install-dirs::libdir}
+                    install/package:      dev
+                    install/perm:         0644
+                    name:                 lib${@@PARENT::@@PARENT::libname}.so
+                    target:               ${@@PARENT::@@PARENT::shared::file}
+                    file:                 ${@@PARENT::name}
+                    source/dir:           ${@@PARENT::@@PARENT::source/dir}
 
-                name:                 lib${@@PARENT::@@PARENT::libname}.so.${@@PARENT::@@PARENT::abi}
-                file:                 ${@@PARENT::name}
-
-            c/library/devlink:
-                install:              ${@@PARENT::@@PARENT::install}
-                install/dir:          ${buildconf::install-dirs::libdir}
-                install/package:      dev
-                install/perm:         0644
-
-                name:                 lib${@@PARENT::@@PARENT::libname}.so
-                target:               ${@@PARENT::@@PARENT::shared::file}
-                file:                 ${@@PARENT::name}
-
-            c/library/static:
-                compiler/lang:        ${@@PARENT::@@PARENT::compiler/lang}
-                install:              ${@@PARENT::@@PARENT::install}
-                install/dir:          ${buildconf::install-dirs::libdir}
-                install/package:      dev
-                install/perm:         0644
-
-                name:                 lib${@@PARENT::@@PARENT::libname}.a
-                file:                 ${@@PARENT::name}
+                static:
+                    build:                ${@@PARENT::@@PARENT::build}
+                    compiler/lang:        ${@@PARENT::@@PARENT::compiler/lang}
+                    install:              ${@@PARENT::@@PARENT::install}
+                    install/dir:          ${buildconf::install-dirs::libdir}
+                    install/package:      dev
+                    install/perm:         0644
+                    name:                 lib${@@PARENT::@@PARENT::libname}.a
+                    file:                 ${@@PARENT::name}
+                    source/dir:           ${@@PARENT::@@PARENT::source/dir}
 
             c/header:
                 builder/driver:       c/header
@@ -330,53 +334,57 @@ platform:
                 description:          ${description}
                 version:              ${buildconf::version}
 
-            c++/library/pkgconf:
-                install:              ${@@PARENT::@@PARENT::install}
-                install/dir:          ${buildconf::install-dirs::pkgconfigdir}
-                install/package:      dev
-                install/perm:         0644
+                pkgconf:
+                    build:                ${@@PARENT::@@PARENT::build}
+                    install:              ${@@PARENT::@@PARENT::install}
+                    install/dir:          ${buildconf::install-dirs::pkgconfigdir}
+                    install/package:      dev
+                    install/perm:         0644
+                    file:                 ${@@PARENT::name}.pc
+                    version:              ${@@PARENT::@@PARENT::version}
+                    name:                 ${@@PARENT::@@PARENT::libname}
+                    libdir:               ${@@PARENT::@@PARENT::shared::install/dir}
+                    sharedlibdir:         ${@@PARENT::@@PARENT::shared::install/dir}
+                    description:          ${@@PARENT::@@PARENT::description}
+                    prefix:               ${buildconf::install-dirs::prefix}
+                    exec-prefix:          ${buildconf::install-dirs::exec-prefix}
+                    includedir:           ${buildconf::install-dirs::includedir}
+                    archive:              ${@@PARENT::libdir}/${@@PARENT::@@PARENT::static::name}
+                    libname:              ${@@PARENT::@@PARENT::libname}
+                    source/dir:           ${@@PARENT::@@PARENT::source/dir}
 
-                file:                 ${@@PARENT::name}.pc
-                version:              ${@@PARENT::@@PARENT::version}
-                name:                 ${@@PARENT::@@PARENT::libname}
-                libdir:               ${@@PARENT::@@PARENT::shared::install/dir}
-                sharedlibdir:         ${@@PARENT::@@PARENT::shared::install/dir}
-                description:          ${@@PARENT::@@PARENT::description}
-                prefix:               ${buildconf::install-dirs::prefix}
-                exec-prefix:          ${buildconf::install-dirs::exec-prefix}
-                includedir:           ${buildconf::install-dirs::includedir}
-                archive:              ${@@PARENT::libdir}/${@@PARENT::@@PARENT::static::name}
-                libname:              ${@@PARENT::@@PARENT::libname}
+                shared:
+                    build:                ${@@PARENT::@@PARENT::build}
+                    compiler/lang:        ${@@PARENT::@@PARENT::compiler/lang}
+                    install:              ${@@PARENT::@@PARENT::install}
+                    install/dir:          ${buildconf::install-dirs::libdir}
+                    install/package:      lib
+                    install/perm:         0644
+                    name:                 lib${@@PARENT::@@PARENT::libname}.so.${@@PARENT::@@PARENT::abi}
+                    file:                 ${@@PARENT::name}
+                    source/dir:           ${@@PARENT::@@PARENT::source/dir}
 
-            c++/library/shared:
-                compiler/lang:        ${@@PARENT::@@PARENT::compiler/lang}
-                install:              ${@@PARENT::@@PARENT::install}
-                install/dir:          ${buildconf::install-dirs::libdir}
-                install/package:      lib
-                install/perm:         0644
+                devlink:
+                    build:                ${@@PARENT::@@PARENT::build}
+                    install:              ${@@PARENT::@@PARENT::install}
+                    install/dir:          ${buildconf::install-dirs::libdir}
+                    install/package:      dev
+                    install/perm:         0644
+                    name:                 lib${@@PARENT::@@PARENT::libname}.so
+                    target:               ${@@PARENT::@@PARENT::shared::file}
+                    file:                 ${@@PARENT::name}
+                    source/dir:           ${@@PARENT::@@PARENT::source/dir}
 
-                name:                 lib${@@PARENT::@@PARENT::libname}.so.${@@PARENT::@@PARENT::abi}
-                file:                 ${@@PARENT::name}
-
-            c++/library/devlink:
-                install:              ${@@PARENT::@@PARENT::install}
-                install/dir:          ${buildconf::install-dirs::libdir}
-                install/package:      dev
-                install/perm:         0644
-
-                name:                 lib${@@PARENT::@@PARENT::libname}.so
-                target:               ${@@PARENT::@@PARENT::shared::file}
-                file:                 ${@@PARENT::name}
-
-            c++/library/static:
-                compiler/lang:        ${@@PARENT::@@PARENT::compiler/lang}
-                install:              ${@@PARENT::@@PARENT::install}
-                install/dir:          ${buildconf::install-dirs::libdir}
-                install/package:      dev
-                install/perm:         0644
-
-                name:                 lib${@@PARENT::@@PARENT::libname}.a
-                file:                 ${@@PARENT::name}
+                static:
+                    build:                ${@@PARENT::@@PARENT::build}
+                    compiler/lang:        ${@@PARENT::@@PARENT::compiler/lang}
+                    install:              ${@@PARENT::@@PARENT::install}
+                    install/dir:          ${buildconf::install-dirs::libdir}
+                    install/package:      dev
+                    install/perm:         0644
+                    name:                 lib${@@PARENT::@@PARENT::libname}.a
+                    file:                 ${@@PARENT::name}
+                    source/dir:           ${@@PARENT::@@PARENT::source/dir}
 
             c++/header:
                 builder/driver:       c/header
