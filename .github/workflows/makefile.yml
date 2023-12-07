@@ -23,7 +23,7 @@ jobs:
       with:
         repository: metux/go-magicdict
         path: go-magicdict
-        ref: wip/doc
+        ref: next
     - uses: actions/checkout@v3
       name: clone zlib
       with:
