@@ -1,0 +1,19 @@
+name: 'setup'
+runs:
+  using: "composite"
+  steps:
+    - name: update apt db
+      shell: bash
+      run: sudo apt-get update && sudo apt-get upgrade -y
+
+    - name: clone go-metabuild
+      uses: actions/checkout@v3
+      with:
+        path: go-metabuild
+
+    - name: clone go-magicdict
+      uses: actions/checkout@v3
+      with:
+        repository: metux/go-magicdict
+        path:       go-magicdict
+        ref:        next
