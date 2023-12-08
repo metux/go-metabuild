@@ -51,6 +51,12 @@ const (
 	KeyLinkBoth   = Key("link/both")
 )
 
+// libraries
+const (
+	// pkgconf ID for internal libs
+	KeyLibraryPkgId = Key("library/pkgid")
+)
+
 // internal builder configuration
 const (
 	KeyBuilderCommand = Key("builder/command")

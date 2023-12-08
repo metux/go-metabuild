@@ -239,6 +239,7 @@ platform:
                 ## defaults that may be overwritten
                 compiler/lang:        C
                 libname:              ${@@PARENT::@id}
+                library/pkgid:        ${@@PARENT::@id}
                 install:              true
                 abi:                  1
 
@@ -325,6 +326,7 @@ platform:
                 ## defaults that may be overwritten
                 compiler/lang:        C++
                 libname:              ${@@PARENT::@id}
+                library/pkgid:        ${@@PARENT::@id}
                 install:              true
                 abi:                  1
 

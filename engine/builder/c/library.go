@@ -28,6 +28,8 @@ func (b *BuilderCLibrary) JobPrepare(id jobs.JobId) error {
 
 	libname := b.RequiredEntryStr(target.KeyLibName)
 	pkgname := b.RequiredEntryStr(target.KeyPkgName)
+	pkgid := b.RequiredEntryStr(target.KeyLibraryPkgId)
+
 	cflags = []string{"-I."}
 
 	pi := compiler.PkgConfigInfo{
@@ -39,7 +41,7 @@ func (b *BuilderCLibrary) JobPrepare(id jobs.JobId) error {
 		StaticCflags:  cflags,
 	}
 
-	return b.BuildConf.SetPkgConfig(b.ForBuild(), b.MyId(), pi)
+	return b.BuildConf.SetPkgConfig(b.ForBuild(), pkgid, pi)
 }
 
 func (b BuilderCLibrary) copySub(sub base.BaseBuilder) {
