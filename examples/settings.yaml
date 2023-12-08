@@ -386,14 +386,6 @@ platform:
                     file:                 ${@@PARENT::name}
                     source/dir:           ${@@PARENT::@@PARENT::source/dir}
 
-            c++/header:
-                builder/driver:       c/header
-                install:              ${@@PARENT::@@PARENT::@@PARENT::install}
-                install/dir:          ${buildconf::install-dirs::includedir}
-                install/package:      dev
-                install/perm:         0664
-                source/dir:           ${@@PARENT::@@PARENT::@@PARENT::source/dir}
-
             c++/executable:
                 builder/driver:       c/executable
                 compiler/lang:        C++

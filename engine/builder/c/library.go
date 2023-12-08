@@ -1,8 +1,6 @@
 package c
 
 import (
-	"fmt"
-
 	"github.com/metux/go-metabuild/engine/builder/base"
 	"github.com/metux/go-metabuild/spec"
 	"github.com/metux/go-metabuild/spec/target"
@@ -64,9 +62,9 @@ func (b *BuilderCLibrary) mksub1(subkey spec.Key) BaseCBuilder {
 	return newbuilder
 }
 
-func (b *BuilderCLibrary) mkHdrSub(subkey spec.Key, typ spec.Key) BuilderCLibraryHeaders {
+func (b *BuilderCLibrary) mkHdrSub(subkey spec.Key) BuilderCLibraryHeaders {
 	newbuilder := MakeBaseCBuilder(b.SubTarget(subkey), b.JobId()+"/"+string(subkey))
-	newbuilder.SetType(typ)
+	newbuilder.SetType(target.TypeCHeader)
 	// needs to be explicitly initialized, since not yet known in post-configure phase
 	newbuilder.LoadTargetDefaults()
 	b.copySub(newbuilder.BaseBuilder)
@@ -88,17 +86,8 @@ func (b BuilderCLibrary) JobSub() ([]jobs.Job, error) {
 		jobs = append(jobs, b.subPkgconfig)
 	}
 
-	t := target.TypeCHeader
-	switch lang := b.CompilerLang(); lang {
-	case compiler.LangC:
-	case compiler.LangCxx:
-		t = target.TypeCxxHeader
-	default:
-		panic(fmt.Sprintf("unsupported lang: %s", lang))
-	}
-
 	for _, h := range b.EntryKeys(target.KeyHeaders) {
-		jobs = append(jobs, b.mkHdrSub(target.KeyHeaders.Append(h), t))
+		jobs = append(jobs, b.mkHdrSub(target.KeyHeaders.Append(h)))
 	}
 	return jobs, nil
 }
