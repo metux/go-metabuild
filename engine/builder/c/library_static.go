@@ -10,7 +10,8 @@ type BuilderCLibraryStatic struct {
 }
 
 func (b BuilderCLibraryStatic) JobRun() error {
-	cc := compiler.NewCCompiler(b.Compiler, b.TempDir())
+	ci := b.BuildConf.CompilerInfo(b.ForBuild(), b.CompilerLang())
+	cc := compiler.NewCCompiler(ci, b.TempDir())
 
 	args := compiler.CompilerArg{
 		Sources:    b.Parent.Sources(),

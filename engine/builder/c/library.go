@@ -21,13 +21,12 @@ type BuilderCLibrary struct {
 
 func (b *BuilderCLibrary) JobPrepare(id jobs.JobId) error {
 	cflags := b.CFlags()
-	ci := b.BuildConf.CompilerInfo(b.ForBuild(), b.CompilerLang())
 
 	// we NEED to initialize them all, but only add them if not skipped
-	b.subShared = &BuilderCLibraryShared{b.mksub1("shared", ci)}
-	b.subStatic = &BuilderCLibraryStatic{b.mksub1("static", ci)}
-	b.subDevlink = &BuilderCLibraryDevlink{b.mksub1("devlink", ci)}
-	b.subPkgconfig = &BuilderCLibraryPkgConfig{b.mksub1("pkgconf", ci)}
+	b.subShared = &BuilderCLibraryShared{b.mksub1("shared")}
+	b.subStatic = &BuilderCLibraryStatic{b.mksub1("static")}
+	b.subDevlink = &BuilderCLibraryDevlink{b.mksub1("devlink")}
+	b.subPkgconfig = &BuilderCLibraryPkgConfig{b.mksub1("pkgconf")}
 
 	libname := b.RequiredEntryStr(target.KeyLibName)
 	pkgname := b.RequiredEntryStr(target.KeyPkgName)
@@ -45,17 +44,17 @@ func (b *BuilderCLibrary) JobPrepare(id jobs.JobId) error {
 	return b.BuildConf.SetPkgConfig(b.ForBuild(), b.MyId(), pi)
 }
 
-func (b *BuilderCLibrary) mksub1(sub spec.Key, ci compiler.CompilerInfo) CommonCBuilder {
+func (b *BuilderCLibrary) mksub1(sub spec.Key) CommonCBuilder {
 	newbuilder := base.MakeBaseBuilder(b.SubTarget(sub), b.JobId()+"/"+string(sub))
-	return CommonCBuilder{newbuilder, ci, &b.BaseCBuilder}
+	return CommonCBuilder{newbuilder, &b.BaseCBuilder}
 }
 
-func (b *BuilderCLibrary) mkHdrSub(sub spec.Key, typ spec.Key, ci compiler.CompilerInfo) BuilderCLibraryHeaders {
+func (b *BuilderCLibrary) mkHdrSub(sub spec.Key, typ spec.Key) BuilderCLibraryHeaders {
 	newbuilder := base.MakeBaseBuilder(b.SubTarget(sub), b.JobId()+"/"+string(sub))
 	newbuilder.SetType(typ)
 	// needs to be explicitly initialized, since not yet known in post-configure phase
 	newbuilder.LoadTargetDefaults()
-	return BuilderCLibraryHeaders{CommonCBuilder{newbuilder, ci, &b.BaseCBuilder}}
+	return BuilderCLibraryHeaders{CommonCBuilder{newbuilder, &b.BaseCBuilder}}
 }
 
 // FIXME: support skipping some of them
@@ -82,9 +81,8 @@ func (b BuilderCLibrary) JobSub() ([]jobs.Job, error) {
 		panic(fmt.Sprintf("unsupported lang: %s", lang))
 	}
 
-	ci := b.BuildConf.CompilerInfo(b.ForBuild(), b.CompilerLang())
 	for _, h := range b.EntryKeys(target.KeyHeaders) {
-		jobs = append(jobs, b.mkHdrSub(target.KeyHeaders.Append(h), t, ci))
+		jobs = append(jobs, b.mkHdrSub(target.KeyHeaders.Append(h), t))
 	}
 	return jobs, nil
 }

@@ -2,15 +2,13 @@ package c
 
 import (
 	"github.com/metux/go-metabuild/engine/builder/base"
-	"github.com/metux/go-metabuild/util/compiler"
 	"github.com/metux/go-metabuild/util/jobs"
 )
 
 // base for library components
 type CommonCBuilder struct {
 	base.BaseBuilder
-	Compiler compiler.CompilerInfo
-	Parent   *BaseCBuilder
+	Parent *BaseCBuilder
 }
 
 // the child jobs must depend on the parent's deps, so all imported libs

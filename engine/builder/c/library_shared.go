@@ -14,7 +14,8 @@ type BuilderCLibraryShared struct {
 func (b BuilderCLibraryShared) JobRun() error {
 	soFile := b.OutputFile()
 
-	cc := compiler.NewCCompiler(b.Compiler, b.TempDir())
+	ci := b.BuildConf.CompilerInfo(b.ForBuild(), b.CompilerLang())
+	cc := compiler.NewCCompiler(ci, b.TempDir())
 
 	args := compiler.CompilerArg{
 		Sources:    b.Parent.Sources(),
