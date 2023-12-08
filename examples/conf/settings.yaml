@@ -540,6 +540,44 @@ platform:
                 builder/driver:       gen/xxd-csource
                 output/c/header:      ${@@^::@id}
 
+            c/glib-marshal:
+                builder/driver:       c/glib-marshal
+
+                source:               ${@@^::@id}.list
+                output/name:          ${@@^::@id}
+                output/c/source:      ${@@^::output/name}.c
+                output/c/header:      ${@@^::output/name}.h
+                resource/name:        ${@@^::@id}
+                library/name:         ${@@^::resource/name}
+                pkgconf/import:       GLIB
+                skip/pkgconf:         true
+                skip/shared:          true
+                install:              false
+
+                generate:
+                    type:             gen/glib-marshal
+                    resource/name:    ${@@^2::resource/name}
+                    output/name:      ${@@^2::output/name}
+                    output/c/header:  ${@@^2::output/c/header}
+                    output/c/source:  ${@@^2::output/c/source}
+                    source:           ${@@^2::source}
+                    source/dir:       ${@@^2::source/dir}
+                    job/depends:      ${@@^2::job/depends}
+
+                library:
+                    type:             c/library
+                    build:            ${@@^2::build}
+                    library/name:     ${@@^2::library/name}
+                    skip/pkgconf:     ${@@^2::skip/pkgconf}
+                    skip/shared:      ${@@^2::skip/shared}
+                    source/dir:       ${@@^2::source/dir}
+                    source:           ${@@^2::generate::output/c/source}
+                    pkgconf/import:   ${@@^2::pkgconf/import}
+                    install:          ${@@^2::install}
+                    job/depends:      [ "${@@^3::@id}/generate",
+                                        "${@@^3::job/depends}" ]
+                    library/pkgid:    ${@@^2::@id}
+
 buildconf:
     install-dirs: # will be filled by configure stage
     version: ${version}

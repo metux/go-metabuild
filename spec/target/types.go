@@ -11,6 +11,9 @@ const (
 	TypeCLibraryPkgconf = Key("c/library/pkgconf")
 	TypeCLibraryDevlink = Key("c/library/devlink")
 
+	/* generated C */
+	TypeCGlibMarshal = Key("c/glib-marshal")
+
 	/* C++ */
 	TypeCxxExecutable     = Key("c++/executable")
 	TypeCxxHeader         = Key("c++/header")
