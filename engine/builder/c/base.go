@@ -13,19 +13,13 @@ type BaseCBuilder struct {
 	base.BaseBuilder
 }
 
-// FIXME: move this to individual builders ?
 func (b BaseCBuilder) JobDepends() []jobs.JobId {
-	j := b.BaseBuilder.JobDepends()
-	for _, x := range b.EntryStrList(target.KeyLinkStatic) {
-		j = append(j, jobs.JobId(x))
-	}
-	for _, x := range b.EntryStrList(target.KeyLinkShared) {
-		j = append(j, jobs.JobId(x))
-	}
-	for _, x := range b.EntryStrList(target.KeyLinkBoth) {
-		j = append(j, jobs.JobId(x))
-	}
-	return j
+	return append(
+		append(
+			append(b.BaseBuilder.JobDepends(),
+				b.EntryStrList(target.KeyLinkStatic)...),
+			b.EntryStrList(target.KeyLinkShared)...),
+		b.EntryStrList(target.KeyLinkBoth)...)
 }
 
 func (b BaseCBuilder) ImportInternalLib(id string, wantShared bool, wantStatic bool) compiler.PkgConfigInfo {
