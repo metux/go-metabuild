@@ -75,6 +75,6 @@ func (b BaseCBuilder) AllImports() []compiler.PkgConfigInfo {
 	return imports
 }
 
-func NewBaseCBuilder(o spec.TargetObject, id string) BaseCBuilder {
+func MakeBaseCBuilder(o spec.TargetObject, id string) BaseCBuilder {
 	return BaseCBuilder{base.NewBaseBuilder(o, id)}
 }

@@ -106,7 +106,7 @@ func (b BuilderCLibrary) JobSub() ([]jobs.Job, error) {
 }
 
 func MakeBuilderCLibrary(o spec.TargetObject, id string) *BuilderCLibrary {
-	b := BuilderCLibrary{BaseCBuilder: NewBaseCBuilder(o, id)}
+	b := BuilderCLibrary{BaseCBuilder: MakeBaseCBuilder(o, id)}
 	b.JobPrepare(id)
 	return &b
 }

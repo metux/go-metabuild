@@ -42,5 +42,5 @@ func (b BuilderCExecutable) JobPrepare(id string) error {
 }
 
 func MakeBuilderCExecutable(o spec.TargetObject, id string) BuilderCExecutable {
-	return BuilderCExecutable{NewBaseCBuilder(o, id)}
+	return BuilderCExecutable{MakeBaseCBuilder(o, id)}
 }
