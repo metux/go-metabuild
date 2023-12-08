@@ -105,11 +105,7 @@ func (b BaseBuilder) JobPrepare(id jobs.JobId) error {
 }
 
 func (b BaseBuilder) JobDepends() []jobs.JobId {
-	dep := []jobs.JobId{}
-	for _, x := range b.EntryStrList(target.KeyJobDepends) {
-		dep = append(dep, jobs.JobId(x))
-	}
-	return dep
+	return b.EntryStrList(target.KeyJobDepends)
 }
 
 func (b BaseBuilder) TempDir() string {
