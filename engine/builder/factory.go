@@ -22,7 +22,7 @@ func CreateBuilder(o target.TargetObject) (jobs.Job, error) {
 	case target.TypeCExecutable:
 		return c.MakeBuilderCExecutable(o, id), nil
 	case target.TypeCLibrary:
-		return c.MakeBuilderCLibrary(o, id), nil
+		return c.MakeCLibrary(o, id), nil
 
 	/* data files */
 	case target.TypeDataMisc:
