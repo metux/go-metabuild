@@ -148,7 +148,7 @@ func (o TargetObject) SetType(k Key) {
 }
 
 func (o TargetObject) SubTarget(k specobj.Key) TargetObject {
-	return NewTargetObject(o.EntrySpec(k), k, o.BuildConf, o.Cache)
+	return MakeTargetObject(o.EntrySpec(k), k, o.BuildConf, o.Cache)
 }
 
 func (o TargetObject) WantInstall() bool {
@@ -165,7 +165,7 @@ func (b TargetObject) EntryPathList(k Key) []string {
 	return list
 }
 
-func NewTargetObject(spec specobj.SpecObj, k Key, bc buildconf.BuildConf, c cache.Cache) TargetObject {
+func MakeTargetObject(spec specobj.SpecObj, k Key, bc buildconf.BuildConf, c cache.Cache) TargetObject {
 	obj := TargetObject{
 		SpecObj:   spec,
 		Cache:     c,

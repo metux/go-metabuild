@@ -48,7 +48,7 @@ func (g Global) GetTargetObjects() map[string]target.TargetObject {
 	m := make(map[string]target.TargetObject)
 	// FIXME: use SubSpecList / EntrySpecMap
 	for _, n := range g.EntryKeys(KeyTargetObjects) {
-		m[string(n)] = target.NewTargetObject(g.EntrySpec(KeyTargetObjects.Append(n)), n, bc, c)
+		m[string(n)] = target.MakeTargetObject(g.EntrySpec(KeyTargetObjects.Append(n)), n, bc, c)
 	}
 	return m
 }
