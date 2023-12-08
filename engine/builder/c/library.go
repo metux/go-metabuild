@@ -23,7 +23,6 @@ func (b *BuilderCLibrary) JobPrepare(id jobs.JobId) error {
 	cdefs := b.CDefines()
 	cflags := b.CFlags()
 	ci := b.BuildConf.CompilerInfo(b.ForBuild(), b.CompilerLang())
-	jobdep := b.JobDepends()
 
 	tShared := target.TypeCLibraryShared
 	tStatic := target.TypeCLibraryStatic
@@ -42,10 +41,10 @@ func (b *BuilderCLibrary) JobPrepare(id jobs.JobId) error {
 	}
 
 	// we NEED to initialize them all, but only add them if not skipped
-	b.subShared = &BuilderCLibraryShared{b.mksub("shared", tShared, ci, cdefs, cflags, jobdep)}
-	b.subStatic = &BuilderCLibraryStatic{b.mksub("static", tStatic, ci, cdefs, cflags, jobdep)}
-	b.subDevlink = &BuilderCLibraryDevlink{b.mksub("devlink", tDevlink, ci, cdefs, cflags, jobdep)}
-	b.subPkgconfig = &BuilderCLibraryPkgConfig{b.mksub("pkgconf", tPkgconf, ci, cdefs, cflags, jobdep)}
+	b.subShared = &BuilderCLibraryShared{b.mksub("shared", tShared, ci, cdefs, cflags)}
+	b.subStatic = &BuilderCLibraryStatic{b.mksub("static", tStatic, ci, cdefs, cflags)}
+	b.subDevlink = &BuilderCLibraryDevlink{b.mksub("devlink", tDevlink, ci, cdefs, cflags)}
+	b.subPkgconfig = &BuilderCLibraryPkgConfig{b.mksub("pkgconf", tPkgconf, ci, cdefs, cflags)}
 
 	libname := b.RequiredEntryStr(target.KeyLibName)
 	pkgname := b.RequiredEntryStr(target.KeyPkgName)
@@ -63,12 +62,12 @@ func (b *BuilderCLibrary) JobPrepare(id jobs.JobId) error {
 	return b.BuildConf.SetPkgConfig(b.ForBuild(), b.MyId(), pi)
 }
 
-func (b *BuilderCLibrary) mksub(sub spec.Key, typ spec.Key, ci compiler.CompilerInfo, cdefs []string, cflags []string, jobdep []jobs.JobId) CommonCBuilder {
+func (b *BuilderCLibrary) mksub(sub spec.Key, typ spec.Key, ci compiler.CompilerInfo, cdefs []string, cflags []string) CommonCBuilder {
 	newbuilder := base.MakeBaseBuilder(b.SubTarget(sub), b.JobId()+"/"+string(sub))
 	newbuilder.SetType(typ)
 	// needs to be explicitly initialized, since not yet known in post-configure phase
 	newbuilder.LoadTargetDefaults()
-	return CommonCBuilder{newbuilder, ci, cdefs, cflags, jobdep, &b.BaseCBuilder}
+	return CommonCBuilder{newbuilder, ci, cdefs, cflags, &b.BaseCBuilder}
 }
 
 // FIXME: support skipping some of them
@@ -98,9 +97,8 @@ func (b BuilderCLibrary) JobSub() ([]jobs.Job, error) {
 	cdefs := b.CDefines()
 	cflags := b.CFlags()
 	ci := b.BuildConf.CompilerInfo(b.ForBuild(), b.CompilerLang())
-	jobdep := b.JobDepends()
 	for _, h := range b.EntryKeys(target.KeyHeaders) {
-		jobs = append(jobs, BuilderCLibraryHeaders{b.mksub(target.KeyHeaders.Append(h), t, ci, cdefs, cflags, jobdep)})
+		jobs = append(jobs, BuilderCLibraryHeaders{b.mksub(target.KeyHeaders.Append(h), t, ci, cdefs, cflags)})
 	}
 	return jobs, nil
 }
