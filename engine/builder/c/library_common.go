@@ -10,8 +10,6 @@ import (
 type CommonCBuilder struct {
 	base.BaseBuilder
 	Compiler compiler.CompilerInfo
-	CDefs    []string
-	CFlags   []string
 	Parent   *BaseCBuilder
 }
 

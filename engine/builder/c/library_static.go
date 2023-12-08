@@ -15,9 +15,9 @@ func (b BuilderCLibraryStatic) JobRun() error {
 	args := compiler.CompilerArg{
 		Sources:    b.Parent.Sources(),
 		PkgImports: b.Parent.AllImports(),
-		Defines:    append(b.CDefs, b.CDefines()...),
+		Defines:    append(b.Parent.CDefines(), b.CDefines()...),
 		Output:     b.RequiredEntryStr(target.KeyFile),
-		Flags:      b.CFlags,
+		Flags:      append(b.Parent.CFlags(), b.CFlags()...),
 	}
 
 	if err := cc.CompileLibraryStatic(args); err != nil {
