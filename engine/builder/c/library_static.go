@@ -6,7 +6,7 @@ import (
 )
 
 type BuilderCLibraryStatic struct {
-	CommonCBuilder
+	BaseCBuilder
 }
 
 func (b BuilderCLibraryStatic) JobRun() error {

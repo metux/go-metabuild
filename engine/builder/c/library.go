@@ -57,11 +57,11 @@ func (b BuilderCLibrary) copySub(sub base.BaseBuilder) {
 	sub.DefaultPutStrList(target.KeyJobDepends, b.JobDepends())
 }
 
-func (b *BuilderCLibrary) mksub1(subkey spec.Key) CommonCBuilder {
+func (b *BuilderCLibrary) mksub1(subkey spec.Key) BaseCBuilder {
 	subtarget := b.SubTarget(subkey)
 	newbuilder := MakeBaseCBuilder(subtarget, b.JobId()+"/"+string(subkey))
 	b.copySub(newbuilder.BaseBuilder)
-	return CommonCBuilder{newbuilder}
+	return newbuilder
 }
 
 func (b *BuilderCLibrary) mkHdrSub(subkey spec.Key, typ spec.Key) BuilderCLibraryHeaders {
@@ -70,7 +70,7 @@ func (b *BuilderCLibrary) mkHdrSub(subkey spec.Key, typ spec.Key) BuilderCLibrar
 	// needs to be explicitly initialized, since not yet known in post-configure phase
 	newbuilder.LoadTargetDefaults()
 	b.copySub(newbuilder.BaseBuilder)
-	return BuilderCLibraryHeaders{CommonCBuilder{newbuilder}}
+	return BuilderCLibraryHeaders{newbuilder}
 }
 
 // FIXME: support skipping some of them

@@ -8,7 +8,7 @@ import (
 )
 
 type BuilderCLibraryPkgConfig struct {
-	CommonCBuilder
+	BaseCBuilder
 }
 
 func (b BuilderCLibraryPkgConfig) JobRun() error {

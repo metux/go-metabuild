@@ -1,7 +1,7 @@
 package c
 
 type BuilderCLibraryHeaders struct {
-	CommonCBuilder
+	BaseCBuilder
 }
 
 func (b BuilderCLibraryHeaders) JobRun() error {

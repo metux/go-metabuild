@@ -8,7 +8,7 @@ import (
 )
 
 type BuilderCLibraryShared struct {
-	CommonCBuilder
+	BaseCBuilder
 }
 
 func (b BuilderCLibraryShared) JobRun() error {

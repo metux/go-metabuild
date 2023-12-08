@@ -8,7 +8,7 @@ import (
 )
 
 type BuilderCLibraryDevlink struct {
-	CommonCBuilder
+	BaseCBuilder
 }
 
 func (b BuilderCLibraryDevlink) JobRun() error {
