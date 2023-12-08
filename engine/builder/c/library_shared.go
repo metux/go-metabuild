@@ -19,7 +19,7 @@ func (b BuilderCLibraryShared) JobRun() error {
 
 	args := compiler.CompilerArg{
 		Sources:    b.Sources(),
-		PkgImports: b.Parent.AllImports(),
+		PkgImports: b.AllImports(),
 		Defines:    b.CDefines(),
 		Output:     b.OutputFile(),
 		Flags:      b.CFlags(),

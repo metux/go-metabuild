@@ -15,7 +15,7 @@ func (b BuilderCLibraryPkgConfig) JobRun() error {
 	libname := b.RequiredEntryStr(target.KeyPkgLibname)
 
 	requires := []string{}
-	for _, pi := range b.Parent.AllImports() {
+	for _, pi := range b.AllImports() {
 		if !pi.Private {
 			requires = append(requires, pi.PkgSpec)
 		}

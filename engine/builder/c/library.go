@@ -59,18 +59,18 @@ func (b BuilderCLibrary) copySub(sub base.BaseBuilder) {
 
 func (b *BuilderCLibrary) mksub1(subkey spec.Key) CommonCBuilder {
 	subtarget := b.SubTarget(subkey)
-	newbuilder := base.MakeBaseBuilder(subtarget, b.JobId()+"/"+string(subkey))
-	b.copySub(newbuilder)
-	return CommonCBuilder{newbuilder, &b.BaseCBuilder}
+	newbuilder := MakeBaseCBuilder(subtarget, b.JobId()+"/"+string(subkey))
+	b.copySub(newbuilder.BaseBuilder)
+	return CommonCBuilder{newbuilder}
 }
 
 func (b *BuilderCLibrary) mkHdrSub(subkey spec.Key, typ spec.Key) BuilderCLibraryHeaders {
-	newbuilder := base.MakeBaseBuilder(b.SubTarget(subkey), b.JobId()+"/"+string(subkey))
+	newbuilder := MakeBaseCBuilder(b.SubTarget(subkey), b.JobId()+"/"+string(subkey))
 	newbuilder.SetType(typ)
 	// needs to be explicitly initialized, since not yet known in post-configure phase
 	newbuilder.LoadTargetDefaults()
-	b.copySub(newbuilder)
-	return BuilderCLibraryHeaders{CommonCBuilder{newbuilder, &b.BaseCBuilder}}
+	b.copySub(newbuilder.BaseBuilder)
+	return BuilderCLibraryHeaders{CommonCBuilder{newbuilder}}
 }
 
 // FIXME: support skipping some of them
