@@ -523,6 +523,44 @@ platform:
                 builder/driver:       gen/xxd-csource
                 output/c/header:      ${@@PARENT::@id}
 
+            c/glib-marshal:
+                builder/driver:       c/glib-marshal
+
+                source:               ${@@PARENT::@id}.list
+                output/name:          ${@@PARENT::@id}
+                output/c/source:      ${@@PARENT::output/name}.c
+                output/c/header:      ${@@PARENT::output/name}.h
+                resource/name:        ${@@PARENT::@id}
+                library/name:         ${@@PARENT::resource/name}
+                pkgconf/import:       GLIB
+                skip/pkgconf:         true
+                skip/shared:          true
+                install:              false
+
+                generate:
+                    type:             gen/glib-marshal
+                    resource/name:    ${@@PARENT::@@PARENT::resource/name}
+                    output/name:      ${@@PARENT::@@PARENT::output/name}
+                    output/c/header:  ${@@PARENT::@@PARENT::output/c/header}
+                    output/c/source:  ${@@PARENT::@@PARENT::output/c/source}
+                    source:           ${@@PARENT::@@PARENT::source}
+                    source/dir:       ${@@PARENT::@@PARENT::source/dir}
+                    job/depends:      ${@@PARENT::@@PARENT::job/depends}
+
+                library:
+                    type:             c/library
+                    build:            ${@@PARENT::@@PARENT::build}
+                    libname:          ${@@PARENT::@@PARENT::library/name}
+                    skip/pkgconf:     ${@@PARENT::@@PARENT::skip/pkgconf}
+                    skip/shared:      ${@@PARENT::@@PARENT::skip/shared}
+                    source/dir:       ${@@PARENT::@@PARENT::source/dir}
+                    source:           ${@@PARENT::@@PARENT::generate::output/c/source}
+                    pkgconf/import:   ${@@PARENT::@@PARENT::pkgconf/import}
+                    install:          ${@@PARENT::@@PARENT::install}
+                    job/depends:      [ "${@@PARENT::@@PARENT::@@PARENT::@id}/generate",
+                                        "${@@PARENT::@@PARENT::@@PARENT::job/depends}" ]
+                    library/pkgid:    ${@@PARENT::@@PARENT::@id}
+
 buildconf:
     install-dirs:
         prefix:         ${buildconf::@targetdist::install-dirs::prefix}

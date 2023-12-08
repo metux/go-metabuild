@@ -8,6 +8,7 @@ attribute set.
 |------------------------|-------------------------------------------------------------------------|
 | c/executable           | executable program written in C                                         |
 | c/library              | library written in C *(building shared/static/pkgconfig per default)*   |
+| c/glib-marshal         | generate and compile glib marshaling code as static library             |
 | c++/executable         | executable program written in C++                                       |
 | c++/library            | library written in C++ *(building shared/static/pkgconfig per default)* |
 | data/desktop           | simple FreeDesktop.org `*.desktop` file                                 |
@@ -383,6 +384,32 @@ Generate Glib marshalling code from prototype definition file.
 | output/name     | ${@@PARENT::@id}           | prefix for output files |
 | output/c/header | ${@@PARENT::output/name}.h | c header output file    |
 | output/c/source | ${@@PARENT::output/name}.c | c source output file    |
+
+#### Example:
+```
+    src/gq-marshal:
+        type:               gen/glib-marshal
+        resource/name:      gq_marshal
+```
+
+### c/glib-marshal:
+
+Generate Glib marshalling code and compile it as static library.
+
+The library can be linked-in by other targets just like any other C library, via `link/static`.
+
+#### Attributes:
+
+| Attribute       | Default                      | Description                   |
+|-----------------|------------------------------|-------------------------------|
+| source          | ${@@PARENT::@id}.list        | prototype list source         |
+| source/dir      | .                            | source subdir                 |
+| resource/name   | ${@@PARENT::name}            | resource name                 |
+| output/name     | ${@@PARENT::resource/name}.h | prefix for output files       |
+| output/c/header | ${@@PARENT::output/name}.h   | c header output file          |
+| output/c/source | ${@@PARENT::output/name}.c   | c source output file          |
+| library/name    | ${@@PARENT::resource/name}   | library name                  |
+| pkgconf/import  | GLIB                         | imports for compiling library |
 
 #### Example:
 ```

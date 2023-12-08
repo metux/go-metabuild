@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/metux/go-metabuild/engine/builder/c"
+	"github.com/metux/go-metabuild/engine/builder/composite"
 	"github.com/metux/go-metabuild/engine/builder/data"
 	"github.com/metux/go-metabuild/engine/builder/doc"
 	"github.com/metux/go-metabuild/engine/builder/gen"
@@ -55,6 +56,10 @@ func CreateBuilder(o target.TargetObject) (jobs.Job, error) {
 		return gen.MakeXdtCSource(o, id), nil
 	case target.TypeXxdCSource:
 		return gen.MakeXxdCSource(o, id), nil
+
+	/* composite */
+	case target.TypeCGlibMarshal:
+		return composite.MakeGlibMarshal(o, id), nil
 
 	default:
 		return nil, fmt.Errorf("unsupported builder driver: %s", t)
