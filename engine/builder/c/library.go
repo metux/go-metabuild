@@ -10,21 +10,10 @@ import (
 
 type BuilderCLibrary struct {
 	BaseCBuilder
-
-	subShared    *BuilderCLibraryShared
-	subStatic    *BuilderCLibraryStatic
-	subDevlink   *BuilderCLibraryDevlink
-	subPkgconfig *BuilderCLibraryPkgConfig
 }
 
 func (b *BuilderCLibrary) JobPrepare(id jobs.JobId) error {
 	cflags := b.CFlags()
-
-	// we NEED to initialize them all, but only add them if not skipped
-	b.subShared = &BuilderCLibraryShared{b.mksub1("shared")}
-	b.subStatic = &BuilderCLibraryStatic{b.mksub1("static")}
-	b.subDevlink = &BuilderCLibraryDevlink{b.mksub1("devlink")}
-	b.subPkgconfig = &BuilderCLibraryPkgConfig{b.mksub1("pkgconf")}
 
 	libname := b.RequiredEntryStr(target.KeyLibName)
 	pkgname := b.RequiredEntryStr(target.KeyPkgName)
@@ -79,13 +68,15 @@ func (b BuilderCLibrary) JobSub() ([]jobs.Job, error) {
 	jobs := []jobs.Job{}
 
 	if !b.EntryBoolDef("skip/shared", false) {
-		jobs = append(jobs, b.subShared, b.subDevlink)
+		jobs = append(jobs,
+			&BuilderCLibraryShared{b.mksub1("shared")},
+			&BuilderCLibraryDevlink{b.mksub1("devlink")})
 	}
 	if !b.EntryBoolDef("skip/static", false) {
-		jobs = append(jobs, b.subStatic)
+		jobs = append(jobs, &BuilderCLibraryStatic{b.mksub1("static")})
 	}
 	if !b.EntryBoolDef("skip/pkgconf", false) {
-		jobs = append(jobs, b.subPkgconfig)
+		jobs = append(jobs, &BuilderCLibraryPkgConfig{b.mksub1("pkgconf")})
 	}
 
 	for _, h := range b.EntryKeys(target.KeyHeaders) {
