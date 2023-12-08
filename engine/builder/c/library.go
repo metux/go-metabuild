@@ -23,27 +23,11 @@ func (b *BuilderCLibrary) JobPrepare(id jobs.JobId) error {
 	cflags := b.CFlags()
 	ci := b.BuildConf.CompilerInfo(b.ForBuild(), b.CompilerLang())
 
-	tShared := target.TypeCLibraryShared
-	tStatic := target.TypeCLibraryStatic
-	tDevlink := target.TypeCLibraryDevlink
-	tPkgconf := target.TypeCLibraryPkgconf
-
-	switch lang := b.CompilerLang(); lang {
-	case compiler.LangC:
-	case compiler.LangCxx:
-		tShared = target.TypeCxxLibraryShared
-		tStatic = target.TypeCxxLibraryStatic
-		tDevlink = target.TypeCxxLibraryDevlink
-		tPkgconf = target.TypeCxxLibraryPkgconf
-	default:
-		panic(fmt.Sprintf("unsupported lang: %s", lang))
-	}
-
 	// we NEED to initialize them all, but only add them if not skipped
-	b.subShared = &BuilderCLibraryShared{b.mksub("shared", tShared, ci)}
-	b.subStatic = &BuilderCLibraryStatic{b.mksub("static", tStatic, ci)}
-	b.subDevlink = &BuilderCLibraryDevlink{b.mksub("devlink", tDevlink, ci)}
-	b.subPkgconfig = &BuilderCLibraryPkgConfig{b.mksub("pkgconf", tPkgconf, ci)}
+	b.subShared = &BuilderCLibraryShared{b.mksub1("shared", ci)}
+	b.subStatic = &BuilderCLibraryStatic{b.mksub1("static", ci)}
+	b.subDevlink = &BuilderCLibraryDevlink{b.mksub1("devlink", ci)}
+	b.subPkgconfig = &BuilderCLibraryPkgConfig{b.mksub1("pkgconf", ci)}
 
 	libname := b.RequiredEntryStr(target.KeyLibName)
 	pkgname := b.RequiredEntryStr(target.KeyPkgName)
@@ -61,12 +45,17 @@ func (b *BuilderCLibrary) JobPrepare(id jobs.JobId) error {
 	return b.BuildConf.SetPkgConfig(b.ForBuild(), b.MyId(), pi)
 }
 
-func (b *BuilderCLibrary) mksub(sub spec.Key, typ spec.Key, ci compiler.CompilerInfo) CommonCBuilder {
+func (b *BuilderCLibrary) mksub1(sub spec.Key, ci compiler.CompilerInfo) CommonCBuilder {
+	newbuilder := base.MakeBaseBuilder(b.SubTarget(sub), b.JobId()+"/"+string(sub))
+	return CommonCBuilder{newbuilder, ci, &b.BaseCBuilder}
+}
+
+func (b *BuilderCLibrary) mkHdrSub(sub spec.Key, typ spec.Key, ci compiler.CompilerInfo) BuilderCLibraryHeaders {
 	newbuilder := base.MakeBaseBuilder(b.SubTarget(sub), b.JobId()+"/"+string(sub))
 	newbuilder.SetType(typ)
 	// needs to be explicitly initialized, since not yet known in post-configure phase
 	newbuilder.LoadTargetDefaults()
-	return CommonCBuilder{newbuilder, ci, &b.BaseCBuilder}
+	return BuilderCLibraryHeaders{CommonCBuilder{newbuilder, ci, &b.BaseCBuilder}}
 }
 
 // FIXME: support skipping some of them
@@ -95,7 +84,7 @@ func (b BuilderCLibrary) JobSub() ([]jobs.Job, error) {
 
 	ci := b.BuildConf.CompilerInfo(b.ForBuild(), b.CompilerLang())
 	for _, h := range b.EntryKeys(target.KeyHeaders) {
-		jobs = append(jobs, BuilderCLibraryHeaders{b.mksub(target.KeyHeaders.Append(h), t, ci)})
+		jobs = append(jobs, b.mkHdrSub(target.KeyHeaders.Append(h), t, ci))
 	}
 	return jobs, nil
 }
