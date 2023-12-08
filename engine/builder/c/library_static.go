@@ -14,11 +14,11 @@ func (b BuilderCLibraryStatic) JobRun() error {
 	cc := compiler.NewCCompiler(ci, b.TempDir())
 
 	args := compiler.CompilerArg{
-		Sources:    b.Parent.Sources(),
+		Sources:    b.Sources(),
 		PkgImports: b.Parent.AllImports(),
-		Defines:    append(b.Parent.CDefines(), b.CDefines()...),
+		Defines:    b.CDefines(),
 		Output:     b.RequiredEntryStr(target.KeyFile),
-		Flags:      append(b.Parent.CFlags(), b.CFlags()...),
+		Flags:      b.CFlags(),
 	}
 
 	if err := cc.CompileLibraryStatic(args); err != nil {

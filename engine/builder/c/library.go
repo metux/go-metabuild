@@ -44,16 +44,32 @@ func (b *BuilderCLibrary) JobPrepare(id jobs.JobId) error {
 	return b.BuildConf.SetPkgConfig(b.ForBuild(), b.MyId(), pi)
 }
 
-func (b *BuilderCLibrary) mksub1(sub spec.Key) CommonCBuilder {
-	newbuilder := base.MakeBaseBuilder(b.SubTarget(sub), b.JobId()+"/"+string(sub))
+func (b BuilderCLibrary) copySub(sub base.BaseBuilder) {
+	sub.DefaultPutStrList(target.KeySource, b.FeaturedStrList(target.KeySource))
+	sub.DefaultPutStrList(target.KeyCDefines, b.FeaturedStrList(target.KeyCDefines))
+	sub.DefaultPutStrList(target.KeyCCflags, b.FeaturedStrList(target.KeyCCflags))
+	sub.DefaultPutStrList(target.KeyLinkStatic, b.FeaturedStrList(target.KeyLinkStatic))
+	sub.DefaultPutStrList(target.KeyLinkShared, b.FeaturedStrList(target.KeyLinkShared))
+	sub.DefaultPutStrList(target.KeyLinkBoth, b.FeaturedStrList(target.KeyLinkBoth))
+	sub.DefaultPutStrList(target.KeyPkgconfImport, b.FeaturedStrList(target.KeyPkgconfImport))
+	sub.DefaultPutStrList(target.KeyIncludeDirs, b.FeaturedStrList(target.KeyIncludeDirs))
+	sub.DefaultPutStrList(target.KeyLibDirs, b.FeaturedStrList(target.KeyLibDirs))
+	sub.DefaultPutStrList(target.KeyJobDepends, b.JobDepends())
+}
+
+func (b *BuilderCLibrary) mksub1(subkey spec.Key) CommonCBuilder {
+	subtarget := b.SubTarget(subkey)
+	newbuilder := base.MakeBaseBuilder(subtarget, b.JobId()+"/"+string(subkey))
+	b.copySub(newbuilder)
 	return CommonCBuilder{newbuilder, &b.BaseCBuilder}
 }
 
-func (b *BuilderCLibrary) mkHdrSub(sub spec.Key, typ spec.Key) BuilderCLibraryHeaders {
-	newbuilder := base.MakeBaseBuilder(b.SubTarget(sub), b.JobId()+"/"+string(sub))
+func (b *BuilderCLibrary) mkHdrSub(subkey spec.Key, typ spec.Key) BuilderCLibraryHeaders {
+	newbuilder := base.MakeBaseBuilder(b.SubTarget(subkey), b.JobId()+"/"+string(subkey))
 	newbuilder.SetType(typ)
 	// needs to be explicitly initialized, since not yet known in post-configure phase
 	newbuilder.LoadTargetDefaults()
+	b.copySub(newbuilder)
 	return BuilderCLibraryHeaders{CommonCBuilder{newbuilder, &b.BaseCBuilder}}
 }
 

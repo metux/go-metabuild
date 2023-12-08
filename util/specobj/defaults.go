@@ -27,3 +27,7 @@ func (so SpecObj) DefaultPutStrMap(m map[Key]string) {
 		so.DefaultPutStr(k, v)
 	}
 }
+
+func (so SpecObj) DefaultPutStrList(k Key, s []string) error {
+	return magic.DefaultPutStrList(so.Spec, k, s)
+}
