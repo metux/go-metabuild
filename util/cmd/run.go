@@ -6,6 +6,8 @@ import (
 	"os"
 	"os/exec"
 	"strings"
+
+	"github.com/metux/go-metabuild/util/strs"
 )
 
 func RunOut(cmdline []string, logErr bool) (string, error) {
@@ -42,14 +44,6 @@ func RunGroup(cmdlines [][]string) ([]string, []error) {
 	return outs, errs
 }
 
-func splitNL(s string) []string {
-	s = strings.TrimSpace(s)
-	if s == "" {
-		return []string{}
-	}
-	return strings.Split(s, "\n")
-}
-
 func RunOutOne(cmdline []string, logErr bool) (string, error) {
 	out, err := RunOut(cmdline, logErr)
 	return strings.TrimSpace(out), err
@@ -57,7 +51,7 @@ func RunOutOne(cmdline []string, logErr bool) (string, error) {
 
 func RunOutLines(cmdline []string, logErr bool) ([]string, error) {
 	out, err := RunOutOne(cmdline, logErr)
-	return splitNL(out), err
+	return strs.SplitNL(out), err
 }
 
 func RunOutCmd(cmdline []string, logErr bool) ([]string, error) {
