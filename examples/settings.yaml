@@ -503,6 +503,7 @@ platform:
                 name:                 ${@@^::@id}
                 resource/name:        ${@@^::name}
                 resource/dir:         ${@@^::source/dir}
+                include/dir:          ${@@^::source/dir}
                 output/c/header:      ${@@^::resource/dir}/${@@^::resource/name}.h
                 output/c/source:      ${@@^::resource/dir}/${@@^::resource/name}.c
                 output/gresource:     ${@@^::resource/dir}/${@@^::resource/name}.gresource

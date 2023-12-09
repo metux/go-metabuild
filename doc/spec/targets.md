@@ -353,6 +353,7 @@ the `po/` subdirectory.
 |------------------|------------------------------------------------------|---------------------------|
 | source           |                                                      | XML source file           |
 | source/dir       | .                                                    | source subdir             |
+| include/dir      | ${@@^::source/dir}                                   | include directory         |
 | resource/dir     | ${@@^::source/dir}                                   | resource output directory |
 | resource/name    | ${@@^::name}                                         | resource name             |
 | output/c/header  | ${@@^::resource/dir}/${@@^::resource/name}.h         | c header output file      |
