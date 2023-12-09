@@ -1,6 +1,8 @@
 package global
 
 import (
+	"path/filepath"
+
 	"github.com/metux/go-magicdict/magic"
 
 	"github.com/metux/go-metabuild/spec/buildconf"
@@ -99,6 +101,22 @@ func (g Global) PostConfig() {
 func LoadGlobal(fn string, dflt string) (Global, error) {
 	md, err := magic.YamlLoad(fn, dflt)
 	g := Global{SpecObj: specobj.NewSpecObj(md)}
+
+	absfn, _ := filepath.Abs(fn)
+	g.DefaultPutStr(KeySysConfigPath, fn)
+	g.DefaultPutStr(KeySysConfigDir, filepath.Dir(fn))
+	g.DefaultPutStr(KeySysConfigAbsDir, filepath.Dir(absfn))
+	g.DefaultPutStr(KeySysConfigAbsPath, absfn)
+	g.DefaultPutStr(KeySysConfigBase, filepath.Base(fn))
+
+	absdflt, _ := filepath.Abs(dflt)
+	g.DefaultPutStr(KeySysSettingsPath, dflt)
+	g.DefaultPutStr(KeySysSettingsDir, filepath.Dir(dflt))
+	g.DefaultPutStr(KeySysSettingsAbsDir, filepath.Dir(absdflt))
+	g.DefaultPutStr(KeySysSettingsAbsPath, absdflt)
+	g.DefaultPutStr(KeySysSettingsBase, filepath.Base(dflt))
+
 	g.Init()
+
 	return g, err
 }
