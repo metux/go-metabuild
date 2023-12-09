@@ -9,6 +9,7 @@ import (
 	"github.com/metux/go-metabuild/util/cmd"
 	"github.com/metux/go-metabuild/util/fileutil"
 	"github.com/metux/go-metabuild/util/pkgmgr/base"
+	"github.com/metux/go-metabuild/util/strs"
 )
 
 type Dpkg struct {
@@ -28,13 +29,13 @@ func (dpkg Dpkg) SearchInstalledFile(fn string) []base.PkgFileEntry {
 	res := make([]base.PkgFileEntry, 0)
 
 	cmdline := append(dpkg.Command, "-S", fn)
-	out, err := cmd.RunOutLines(cmdline, true)
+	out, err := cmd.RunOut(cmdline, true)
 
 	if err != nil {
 		return res
 	}
 
-	for _, line := range out {
+	for _, line := range strs.SplitNL(out) {
 		a := strings.Split(line, ": ")
 		res = append(res, base.NewPkgFileEntry(a[0], a[1]))
 	}
@@ -114,7 +115,7 @@ func (dpkg Dpkg) ScanPlainFiles(rootdir string) []string {
 
 func (dpkg Dpkg) Build(pkgroot string, targetdir string) error {
 	cmdline := []string{"dpkg-deb", "-b", "--root-owner-group", pkgroot, targetdir}
-	_, err := cmd.RunOutLines(cmdline, true)
+	_, err := cmd.RunOut(cmdline, true)
 	if err != nil {
 		log.Println("DPKG: build error", err)
 		return err

@@ -6,6 +6,7 @@ import (
 
 	"github.com/metux/go-metabuild/util"
 	"github.com/metux/go-metabuild/util/cmd"
+	"github.com/metux/go-metabuild/util/strs"
 )
 
 const delim = " ||| "
@@ -13,9 +14,9 @@ const delim = " ||| "
 func Authors() ([]string, error) {
 	c := append(gitCmd, "log", `--pretty=format:%an`+delim+`%ae`)
 
-	if out, err := cmd.RunOutLines(c, true); err == nil {
+	if out, err := cmd.RunOut(c, true); err == nil {
 		m := make(map[string]string)
-		for _, l := range out {
+		for _, l := range strs.SplitNL(out) {
 			if name, email := util.StrSplitTwo(l, delim); email == "" {
 				if _, ok := m[name]; !ok {
 					m[name] = ""

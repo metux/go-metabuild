@@ -5,11 +5,12 @@ import (
 	"strings"
 
 	"github.com/metux/go-metabuild/util/cmd"
+	"github.com/metux/go-metabuild/util/strs"
 )
 
 func FindFile(dir string, name string) []string {
-	files, _ := cmd.RunOutLines([]string{"find", dir, "-name", name}, true)
-	return files
+	files, _ := cmd.RunOut([]string{"find", dir, "-name", name}, true)
+	return strs.SplitNL(files)
 }
 
 func ListDir(dir string, suffix string) ([]string, error) {

@@ -7,6 +7,7 @@ import (
 
 	"github.com/metux/go-metabuild/util/cmd"
 	"github.com/metux/go-metabuild/util/fileutil"
+	"github.com/metux/go-metabuild/util/strs"
 )
 
 // FIXME: how differenciate between static and dynamic ?
@@ -111,8 +112,8 @@ func PkgConfigQuery(pkgspec string, cmdline []string) (PkgConfigInfo, error) {
 		return info, err
 	}
 
-	if out, err := cmd.RunOutLines(append(cmdline, "--print-variables"), true); err == nil {
-		for _, name := range out {
+	if out, err := cmd.RunOut(append(cmdline, "--print-variables"), true); err == nil {
+		for _, name := range strs.SplitNL(out) {
 			// FIXME: need to escape
 			if value, err := cmd.RunOutOne(append(cmdline, "--variable="+shellwords.Quote(name)), true); err == nil {
 				info.Variables[name] = value
