@@ -140,7 +140,7 @@ targets:
     helper-dialog/helper-dialog{c/executable}:
         install/dir:        ${helperpath}
         source:             helper-dialog.c
-        source/dir:         ${@@PARENT::@dirname}
+        source/dir:         ${@@^::@dirname}
         c/defines:          ${c/defines}
         pkgconf/import:     [GTK, LIBXFCE4UTIL, X11]
 
@@ -154,20 +154,20 @@ targets:
     # FIXME: automatically substitue resource/name
     settings-dialogs/xfwm4-workspace-dialog{gen/xdt-csource}:
         resource/name:      workspace_dialog_ui
-        source:             ${@@PARENT::@id}.glade
-        output/c/header:    ${@@PARENT::@id}_ui.h
+        source:             ${@@^::@id}.glade
+        output/c/header:    ${@@^::@id}_ui.h
         install:            false
 
     settings-dialogs/xfwm4-tweaks-dialog{gen/xdt-csource}:
         resource/name:      tweaks_dialog_ui
-        source:             ${@@PARENT::@id}.glade
-        output/c/header:    ${@@PARENT::@id}_ui.h
+        source:             ${@@^::@id}.glade
+        output/c/header:    ${@@^::@id}_ui.h
         install:            false
 
     settings-dialogs/xfwm4-dialog{gen/xdt-csource}:
         resource/name:      xfwm4_dialog_ui
-        source:             ${@@PARENT::@id}.glade
-        output/c/header:    ${@@PARENT::@id}_ui.h
+        source:             ${@@^::@id}.glade
+        output/c/header:    ${@@^::@id}_ui.h
         install:            false
 
     xfwm-common{c/library}:
@@ -186,7 +186,7 @@ targets:
     settings-dialogs/xfwm4-settings{c/executable}:
         pkgconf/import:     [LIBXFCE4KBD_PRIVATE]
         source:             [xfwm4-settings.c, range-debouncer.c]
-        source/dir:         ${@@PARENT::@dirname}
+        source/dir:         ${@@^::@dirname}
         include/dir:        .
         c/defines:          ${c/defines}
         link/static:        xfwm-common
@@ -199,7 +199,7 @@ targets:
     settings-dialogs/xfwm4-tweaks-settings{c/executable}:
         pkgconf/import:     [LIBXFCE4KBD_PRIVATE]
         source:             [tweaks-settings.c, range-debouncer.c]
-        source/dir:         ${@@PARENT::@dirname}
+        source/dir:         ${@@^::@dirname}
         include/dir:        .
         c/defines:          ${c/defines}
         link/static:        xfwm-common
@@ -213,7 +213,7 @@ targets:
     settings-dialogs/xfwm4-workspace-settings{c/executable}:
         pkgconf/import:     [LIBXFCE4UI, LIBXFCONF, LIBWNCK]
         source:             [workspace-settings.c, workspace-resource.c]
-        source/dir:         ${@@PARENT::@dirname}
+        source/dir:         ${@@^::@dirname}
         include/dir:        .
         c/defines:          ${c/defines}
         link/static:        xfwm-common
@@ -295,32 +295,32 @@ targets:
         install/subdir:     themes/Daloa/xfwm4
         source:             [README, themerc, "*.xpm", "*.png"]
         source/dir:         icons/scalable
-        source/dir:         ${@@PARENT::@id}
+        source/dir:         ${@@^::@id}
 
     themes/default{data/misc}:
         install/subdir:     themes/Default/xfwm4
         source:             [README, themerc, "*.xpm", "*.png"]
-        source/dir:         ${@@PARENT::@id}
+        source/dir:         ${@@^::@id}
 
     themes/default-hdpi{data/misc}:
         install/subdir:     themes/Default-hdpi/xfwm4
         source:             [README, themerc, "*.xpm", "*.png"]
-        source/dir:         ${@@PARENT::@id}
+        source/dir:         ${@@^::@id}
 
     themes/default-xhdpi{data/misc}:
         install/subdir:     themes/Default-xhdpi/xfwm4
         source:             [README, themerc, "*.xpm", "*.png"]
-        source/dir:         ${@@PARENT::@id}
+        source/dir:         ${@@^::@id}
 
     themes/kokodi{data/misc}:
         install/subdir:     themes/Kokodi/xfwm4
         source:             [README, themerc, "*.xpm", "*.png"]
-        source/dir:         ${@@PARENT::@id}
+        source/dir:         ${@@^::@id}
 
     themes/moheli{data/misc}:
         install/subdir:     themes/Moheli/xfwm4
         source:             [README, themerc, "*.xpm", "*.png"]
-        source/dir:         ${@@PARENT::@id}
+        source/dir:         ${@@^::@id}
 
     xfwm-defaults{data/misc}:
         install/subdir:     xfwm4

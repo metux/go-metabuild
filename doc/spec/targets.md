@@ -52,17 +52,17 @@ For convenience, the target key (in the yaml struct) may encode the target type:
 | c/defines       |                                    | extra C-defines                   |
 | c/ldflags       |                                    | extra linker flags                |
 | compiler/lang   | C                                  | compiler language                 |
-| file            | ${@@PARENT::name}                  | file name                         |
+| file            | ${@@^::name}                       | file name                         |
 | headers         |                                    | map of header file bundles        |
 | include/dir     |                                    | extra include dirs                |
-| install         | ${@@PARENT::@@PARENT::install}     | whether to install                |
+| install         | ${@@^::@@^::install}               | whether to install                |
 | install/dir     | ${buildconf::install-dirs::bindir} | install directory                 |
 | install/package | prog                               | install package                   |
 | install/perm    | 0755                               | install permissions               |
 | install/subdir  |                                    | install subdirectory              |
 | link/shared     |                                    | dynamically link internal libs    |
 | link/static     |                                    | statically link internal libs     |
-| name            | ${@@PARENT::@id}                   | object name                       |
+| name            | ${@@^::@id}                        | object name                       |
 | pkgconf/import  |                                    | IDs of pkgconf-packages to import |
 | source          |                                    | source files *(globs)*            |
 | source/dir      |                                    | source subdir                     |
@@ -91,22 +91,22 @@ pkgconf _(`*.pc`)_, symbolic link _(`*.so`)_ for development, header files, etc.
 
 The attributes are those of `c/executable` plus some more:
 
-| Attribute      | Default            |Description                                                |
-|----------------|--------------------|-----------------------------------------------------------|
-| abi            | 1                  | shared object version                                     |
-| compiler/lang  | C                  | compiler language                                         |
-| description    | ${description}     | description _(for pkgconf)_                               |
-| install        | true               | whether to install                                        |
-| install/dir    |                    | installation dir                                          |
-| install/subdir |                    | installation subdir                                       |
-| libname        | ${@@PARENT::@id}   | library name _(as used in `-l...` flag)`                  |
-| mapfile        |                    | linker map file                                           |
-| pkgconf        |                    | map of pkg-config metadata _(`name:` and `description:`)_ |
-| skip/devlink   |                    | skip devlink _(to shared object)_                         |
-| skip/pkgconf   |                    | skip `.pc` file                                           |
-| skip/shared    |                    | skip shared object                                        |
-| skip/static    |                    | skip static archive                                       |
-| version        | ${version}         | version _(for pkgconf)_                                   |
+| Attribute      | Default        | Description                                               |
+|----------------|----------------|-----------------------------------------------------------|
+| abi            | 1              | shared object version                                     |
+| compiler/lang  | C              | compiler language                                         |
+| description    | ${description} | description _(for pkgconf)_                               |
+| install        | true           | whether to install                                        |
+| install/dir    |                | installation dir                                          |
+| install/subdir |                | installation subdir                                       |
+| libname        | ${@@^::@id}    | library name _(as used in `-l...` flag)`                  |
+| mapfile        |                | linker map file                                           |
+| pkgconf        |                | map of pkg-config metadata _(`name:` and `description:`)_ |
+| skip/devlink   |                | skip devlink _(to shared object)_                         |
+| skip/pkgconf   |                | skip `.pc` file                                           |
+| skip/shared    |                | skip shared object                                        |
+| skip/static    |                | skip static archive                                       |
+| version        | ${version}     | version _(for pkgconf)_                                   |
 
 #### Example:
 ```
@@ -128,7 +128,7 @@ The attributes are those of `c/executable` plus some more:
 
 | Attribute       | Default                             | Description                                           |
 |-----------------|-------------------------------------|-------------------------------------------------------|
-| install         | ${@@PARENT::@@PARENT::install}      | whether to install into distro package                |
+| install         | ${@@^::@@^::install}                | whether to install into distro package                |
 | install/dir     | ${buildconf::install-dirs::datadir} | install directory                                     |
 | install/package | data                                | install package                                       |
 | install/perm    | 0064                                | install permissions                                   |
@@ -153,7 +153,7 @@ Similar to data/misc, but putting it into arch-independent libdir and sets execu
 
 | Attribute       | Default                                              | Description                            |
 |-----------------|------------------------------------------------------|----------------------------------------|
-| install         | ${@@PARENT::@@PARENT::install}                       | whether to install into distro package |
+| install         | ${@@^::@@^::install}                                 | whether to install into distro package |
 | install/dir     | ${buildconf::install-dirs::libdir-noarch}/${package} | install directory                      |
 | install/package | data                                                 | install package                        |
 | install/perm    | 0775                                                 | install permissions                    |
@@ -175,12 +175,12 @@ Like data/lib-script, but taking `source/dir` from target id.
 
 | Attribute       | Default                                              | Description                            |
 |-----------------|------------------------------------------------------|----------------------------------------|
-| install         | ${@@PARENT::@@PARENT::install}                       | whether to install into distro package |
+| install         | ${@@^::@@^::install}                                 | whether to install into distro package |
 | install/dir     | ${buildconf::install-dirs::libdir-noarch}/${package} | install directory                      |
 | install/package | data                                                 | install package                        |
 | install/perm    | 0775                                                 | install permissions                    |
 | source          |                                                      | source files globs                     |
-| source/dir      | ${@@PARENT::@id}                                     | source subdirector                     |
+| source/dir      | ${@@^::@id}                                          | source subdirector                     |
 
 #### Example:
 ```
@@ -193,23 +193,23 @@ Like data/lib-script, but taking `source/dir` from target id.
 
 #### Attributes:
 
-| Attribute           | Default                                                         | Description                            |
-|---------------------|-----------------------------------------------------------------|----------------------------------------|
-| desktop/type        | Application                                                     | `Type=` field                          |
-| desktop/name        | ${shortname}                                                    | `Name=` field                          |
-| desktop/categories  |                                                                 | `Categories=` field                    |
-| desktop/genericname | ${name}                                                         | `GenericName=` field                   |
-| desktop/comment     | ${description}                                                  | `Comment=` field                       |
-| desktop/icon-file   | ${buildconf::install-dirs::pixmapdir}/${@@PARENT::desktop/icon} | `Icon=` field                          |
-| desktop/terminal    | false                                                           | `Terminal=` field                      |
-| desktop/exec        |                                                                 | `Exec=` field                          |
-| desktop/tryexec     |                                                                 | `TryExec=` field                       |
-| file                | ${@@PARENT::@id}                                                | output file name                       |
-| install             | ${@@PARENT::@@PARENT::install}                                  | whether to install into distro package |
-| install/dir         | ${buildconf::install-dirs::fdo-appdir}                          | install directory                      |
-| install/package     | data                                                            | install package                        |
-| install/perm        | 0064                                                            | install permissions                    |
-| install/subdir      |                                                                 | install subdir                         |
+| Attribute           | Default                                                    | Description                            |
+|---------------------|------------------------------------------------------------|----------------------------------------|
+| desktop/type        | Application                                                | `Type=` field                          |
+| desktop/name        | ${shortname}                                               | `Name=` field                          |
+| desktop/categories  |                                                            | `Categories=` field                    |
+| desktop/genericname | ${name}                                                    | `GenericName=` field                   |
+| desktop/comment     | ${description}                                             | `Comment=` field                       |
+| desktop/icon-file   | ${buildconf::install-dirs::pixmapdir}/${@@^::desktop/icon} | `Icon=` field                          |
+| desktop/terminal    | false                                                      | `Terminal=` field                      |
+| desktop/exec        |                                                            | `Exec=` field                          |
+| desktop/tryexec     |                                                            | `TryExec=` field                       |
+| file                | ${@@^::@id}                                                | output file name                       |
+| install             | ${@@^::@@^::install}                                       | whether to install into distro package |
+| install/dir         | ${buildconf::install-dirs::fdo-appdir}                     | install directory                      |
+| install/package     | data                                                       | install package                        |
+| install/perm        | 0064                                                       | install permissions                    |
+| install/subdir      |                                                            | install subdir                         |
 
 #### Example:
 ```
@@ -226,8 +226,8 @@ Like data/lib-script, but taking `source/dir` from target id.
 
 | Attribute           | Default                               | Description                            |
 |---------------------|---------------------------------------|----------------------------------------|
-| file                | ${@@PARENT::@id}                      | output file name                       |
-| install             | ${@@PARENT::@@PARENT::install}        | whether to install into distro package |
+| file                | ${@@^::@id}                           | output file name                       |
+| install             | ${@@^::@@^::install}                  | whether to install into distro package |
 | install/dir         | ${buildconf::install-dirs::pixmapdir} | install directory                      |
 | install/package     | data                                  | install package                        |
 | install/perm        | 0064                                  | install permissions                    |
@@ -248,7 +248,7 @@ Like data/lib-script, but taking `source/dir` from target id.
 | Attribute           | Default                            | Description                            |
 |---------------------|------------------------------------|----------------------------------------|
 | source              |                                    | source files _(globs)_                 |
-| install             | ${@@PARENT::@@PARENT::install}     | whether to install into distro package |
+| install             | ${@@^::@@^::install}               | whether to install into distro package |
 | install/dir         | ${buildconf::install-dirs::docdir} | install directory                      |
 | install/package     | doc                                | install package                        |
 | install/perm        | 0064                               | install permissions                    |
@@ -275,15 +275,15 @@ Like data/lib-script, but taking `source/dir` from target id.
 | Attribute           | Default                            | Description                            |
 |---------------------|------------------------------------|----------------------------------------|
 | source              |                                    | source file                            |
-| install             | ${@@PARENT::@@PARENT::install}     | whether to install into distro package |
+| install             | ${@@^::@@^::install}               | whether to install into distro package |
 | install/dir         | ${buildconf::install-dirs::mandir} | install directory                      |
 | install/package     | data                               | install package                        |
 | install/perm        | 0064                               | install permissions                    |
 | install/subdir      |                                    | install subdir                         |
 | man/alias           |                                    | manpage alias                          |
 | man/compress        | gz                                 | compression method                     |
-| man/section         | ${@@PARENT::@id/suffix}            | manual section                         |
-| source              | ${@@PARENT::@id}                   | manual page (nroff/troff) file         |
+| man/section         | ${@@^::@id/suffix}                 | manual section                         |
+| source              | ${@@^::@id}                        | manual page (nroff/troff) file         |
 
 #### Example:
 ```
@@ -311,7 +311,7 @@ the `po/` subdirectory.
 | i18n/category:  | LC_MESSAGES                           | locale category                                       |
 | i18n/domain:    | ${package}                            | locale domain                                         |
 | source/dir:     | po                                    | source subdirectory                                   |
-| name:           | ${@@PARENT::domain}.mo                | `*.mo` target file name                               |
+| name:           | ${@@^::domain}.mo                     | `*.mo` target file name                               |
 
 #### Example:
 ```
@@ -349,16 +349,16 @@ the `po/` subdirectory.
 
 #### Attributes:
 
-| Attribute        | Default                                                        | Description               |
-|------------------|----------------------------------------------------------------|---------------------------|
-| source           |                                                                | XML source file           |
-| source/dir       | .                                                              | source subdir             |
-| resource/dir     | ${@@PARENT::source/dir}                                        | resource output directory |
-| resource/name    | ${@@PARENT::name}                                              | resource name             |
-| output/c/header  | ${@@PARENT::resource/dir}/${@@PARENT::resource/name}.h         | c header output file      |
-| output/c/source  | ${@@PARENT::resource/dir}/${@@PARENT::resource/name}.c         | c source output file      |
-| output/gresource | ${@@PARENT::resource/dir}/${@@PARENT::resource/name}.gresource | `.gresource` output file  |
-| name             | ${@@PARENT::@id}                                               | target name               |
+| Attribute        | Default                                              | Description               |
+|------------------|------------------------------------------------------|---------------------------|
+| source           |                                                      | XML source file           |
+| source/dir       | .                                                    | source subdir             |
+| resource/dir     | ${@@^::source/dir}                                   | resource output directory |
+| resource/name    | ${@@^::name}                                         | resource name             |
+| output/c/header  | ${@@^::resource/dir}/${@@^::resource/name}.h         | c header output file      |
+| output/c/source  | ${@@^::resource/dir}/${@@^::resource/name}.c         | c source output file      |
+| output/gresource | ${@@^::resource/dir}/${@@^::resource/name}.gresource | `.gresource` output file  |
+| name             | ${@@^::@id}                                          | target name               |
 
 #### Example:
 ```
@@ -375,14 +375,14 @@ Generate Glib marshalling code from prototype definition file.
 
 #### Attributes:
 
-| Attribute       | Default                    | Description             |
-|-----------------|----------------------------|-------------------------|
-| source          | ${@@PARENT::@id}.list      | prototype list source   |
-| source/dir      | .                          | source subdir           |
-| resource/name   | ${@@PARENT::@id}           | resource name           |
-| output/name     | ${@@PARENT::@id}           | prefix for output files |
-| output/c/header | ${@@PARENT::output/name}.h | c header output file    |
-| output/c/source | ${@@PARENT::output/name}.c | c source output file    |
+| Attribute       | Default               | Description             |
+|-----------------|-----------------------|-------------------------|
+| source          | ${@@^::@id}.list      | prototype list source   |
+| source/dir      | .                     | source subdir           |
+| resource/name   | ${@@^::@id}           | resource name           |
+| output/name     | ${@@^::@id}           | prefix for output files |
+| output/c/header | ${@@^::output/name}.h | c header output file    |
+| output/c/source | ${@@^::output/name}.c | c source output file    |
 
 #### Example:
 ```
@@ -395,11 +395,11 @@ Generate Glib marshalling code from prototype definition file.
 
 #### Attributes:
 
-| Attribute        | Default                | Description                   |
-|------------------|------------------------|-------------------------------|
-| source           | ${@@PARENT::@id}.glade | XML source file               |
-| resource/name    |                        | name of resource _(C symbol)_ |
-| output/c/header  | ${@@PARENT::@id}_ui.h  | c header output file          |
+| Attribute       | Default           | Description                   |
+|-----------------|-------------------|-------------------------------|
+| source          | ${@@^::@id}.glade | XML source file               |
+| resource/name   |                   | name of resource _(C symbol)_ |
+| output/c/header | ${@@^::@id}_ui.h  | c header output file          |
 
 #### Example:
 ```
@@ -416,10 +416,10 @@ Generate code fragment (header) for compiling in binary data, like `xxd -i`.
 
 #### Attributes:
 
-| Attribute        | Default                | Description                   |
-|------------------|------------------------|-------------------------------|
-| source           |                        | binary input file             |
-| output/c/header  | ${@@PARENT::@id}       | c header output file          |
+| Attribute        | Default     | Description          |
+|------------------|-------------|----------------------|
+| source           |             | binary input file    |
+| output/c/header  | ${@@^::@id} | c header output file |
 
 #### Example:
 ```
