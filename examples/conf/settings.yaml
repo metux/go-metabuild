@@ -578,6 +578,51 @@ platform:
                                         "${@@^3::job/depends}" ]
                     library/pkgid:    ${@@^2::@id}
 
+            c/glib-resource:
+                builder/driver:       c/glib-resource
+
+                source:               ${@@^::name}.xml
+                source/dir:           .
+                name:                 ${@@^::@id}
+                resource/name:        ${@@^::name}
+                resource/dir:         ${@@^::source/dir}
+                output/dir:           ${@@^::resource/dir}
+                output/c/header:      ${@@^::output/dir}/${@@^::resource/name}.h
+                output/c/source:      ${@@^::output/dir}/${@@^::resource/name}.c
+                output/gresource:     ${@@^::output/dir}/${@@^::resource/name}.gresource
+                include/dir:          ${@@^::resource/dir}
+
+                library/name:         ${@@^::resource/name}
+                skip/pkgconf:         true
+                skip/shared:          true
+                install:              false
+                pkgconf/import:       GLIB
+
+                generate:
+                    type:             gen/glib-resource
+                    source:           ${@@^2::source}
+                    source/dir:       ${@@^2::source/dir}
+                    resource/dir:     ${@@^2::resource/dir}
+                    include/dir:      ${@@^2::include/dir}
+                    output/c/header:  ${@@^2::output/c/header}
+                    output/c/source:  ${@@^2::output/c/source}
+                    output/gresource: ${@@^2::output/gresource}
+                    job/depends:      ${@@^2::job/depends}
+
+                library:
+                    type:             c/library
+                    build:            ${@@^2::build}
+                    library/name:     ${@@^2::library/name}
+                    skip/pkgconf:     ${@@^2::skip/pkgconf}
+                    skip/shared:      ${@@^2::skip/shared}
+                    source:           ${@@^2::generate::output/c/source}
+                    pkgconf/import:   ${@@^2::pkgconf/import}
+                    install:          ${@@^2::install}
+                    job/depends:      [ "${@@^3::@id}/generate",
+                                        "${@@^3::job/depends}" ]
+                    library/pkgid:    ${@@^2::@id}
+                    library/link-whole:   true
+
 buildconf:
     install-dirs: # will be filled by configure stage
     version: ${version}

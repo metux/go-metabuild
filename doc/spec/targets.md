@@ -372,6 +372,34 @@ the `po/` subdirectory.
         source/dir:         settings-dialogs
 ```
 
+### c/glib-resource:
+
+Generate sources from Glib resources and compile it as static library.
+
+#### Attributes:
+
+| Attribute        | Default                                              | Description               |
+|------------------|------------------------------------------------------|---------------------------|
+| source           |                                                      | XML source file           |
+| source/dir       | .                                                    | source subdir             |
+| resource/dir     | ${@@^::source/dir}                                   | resource output directory |
+| resource/name    | ${@@^::name}                                         | resource name             |
+| output/c/header  | ${@@^::resource/dir}/${@@^::resource/name}.h         | c header output file      |
+| output/c/source  | ${@@^::resource/dir}/${@@^::resource/name}.c         | c source output file      |
+| output/gresource | ${@@^::resource/dir}/${@@^::resource/name}.gresource | `.gresource` output file  |
+| name             | ${@@^::@id}                                          | target name               |
+| library/name     | ${@@^::resource/name}                                | library name              |
+| install          | false                                                | install into packages     |
+
+#### Example:
+```
+    settings-dialogs/workspace-resource:
+        type:               gen/glib-resource
+        name:               workspace-resource
+        source:             workspace.gresource.xml
+        source/dir:         settings-dialogs
+```
+
 ### gen/glib-marshal:
 
 Generate Glib marshalling code from prototype definition file.

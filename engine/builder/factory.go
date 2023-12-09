@@ -60,6 +60,8 @@ func CreateBuilder(o target.TargetObject) (jobs.Job, error) {
 	/* composite */
 	case target.TypeCGlibMarshal:
 		return composite.MakeGlibMarshal(o, id), nil
+	case target.TypeCGlibResource:
+		return composite.MakeGlibResource(o, id), nil
 
 	default:
 		return nil, fmt.Errorf("unsupported builder driver: %s", t)
