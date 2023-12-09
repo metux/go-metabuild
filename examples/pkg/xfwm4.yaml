@@ -174,7 +174,7 @@ targets:
         source:             [xfwm-common.c, xfconf-util.c]
         source/dir:         common
         pkgconf/import:     [GTK, LIBXFCONF]
-        include-dirs:       .
+        include/dir:        .
         skip/pkgconf:       true
         skip/shared:        true
         c/ldflags:          -Wl,-no-undefined
@@ -186,7 +186,7 @@ targets:
         pkgconf/import:     [LIBXFCE4KBD_PRIVATE]
         source:             [xfwm4-settings.c, range-debouncer.c]
         source/dir:         settings-dialogs
-        include-dirs:       .
+        include/dir:        .
         c/defines:          ${c/defines}
         link/static:        xfwm-common
         job/depends:        settings-dialogs/xfwm4-dialog
@@ -199,7 +199,7 @@ targets:
         pkgconf/import:     [LIBXFCE4KBD_PRIVATE]
         source:             [tweaks-settings.c, range-debouncer.c]
         source/dir:         settings-dialogs
-        include-dirs:       .
+        include/dir:        .
         c/defines:          ${c/defines}
         link/static:        xfwm-common
         install/package:    main
@@ -213,7 +213,7 @@ targets:
         pkgconf/import:     [LIBXFCE4UI, LIBXFCONF, LIBWNCK]
         source:             [workspace-settings.c, workspace-resource.c]
         source/dir:         settings-dialogs
-        include-dirs:       .
+        include/dir:        .
         c/defines:          ${c/defines}
         link/static:        xfwm-common
         job/depends:        [settings-dialogs/xfwm4-workspace-dialog,
@@ -256,7 +256,7 @@ targets:
         pkgconf/import:     ["${fflags::pkg}", X11, XEXT, LIBXFCE4KBD_PRIVATE,
                              XINERAMA, libc/math]
         link/static:        xfwm-common
-        include-dirs:       .
+        include/dir:        .
         install/package:    main
 
     icons/128x128/apps{data/misc}:

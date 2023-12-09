@@ -73,7 +73,7 @@ targets:
         install:            false
         skip/shared:        true
         skip/pkgconf:       true
-        include-dirs:       [ ., ./modules ]
+        include/dir:        [ ., ./modules ]
         c/defines:          ${misc::c/defines}
         c/cflags:           ${misc::c/cflags}
         source/dir:         modules

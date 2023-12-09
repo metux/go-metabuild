@@ -53,7 +53,7 @@ For convenience, the target key (in the yaml struct) may encode the target type:
 | compiler/lang   | C                                  | compiler language                 |
 | file            | ${@@PARENT::name}                  | file name                         |
 | headers         |                                    | map of header file bundles        |
-| include-dirs    |                                    | extra include dirs                |
+| include/dir     |                                    | extra include dirs                |
 | install         | ${@@PARENT::@@PARENT::install}     | whether to install                |
 | install/dir     | ${buildconf::install-dirs::bindir} | install directory                 |
 | install/package | prog                               | install package                   |
@@ -73,7 +73,7 @@ For convenience, the target key (in the yaml struct) may encode the target type:
         pkgconf/import:     [LIBXFCE4KBD_PRIVATE]
         source:             [tweaks-settings.c, range-debouncer.c]
         source/dir:         settings-dialogs
-        include-dirs:       .
+        include/dir:        .
         c/defines:          ${c/defines}
         link/static:        xfwm-common
         install/package:    main

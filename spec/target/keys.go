@@ -43,8 +43,8 @@ const (
 	KeyFile       = Key("file")
 	KeyJobDepends = Key("job/depends")
 
-	KeyIncludeDirs = Key("include-dirs")
-	KeyLibDirs     = Key("lib-dirs")
+	KeyIncludeDir = Key("include/dir")
+	KeyLibDirs    = Key("lib-dirs")
 
 	KeyLinkStatic = Key("link/static")
 	KeyLinkShared = Key("link/shared")

@@ -41,7 +41,7 @@ func (b BuilderCLibrary) copySub(sub base.BaseBuilder) {
 	sub.DefaultPutStrList(target.KeyLinkShared, b.FeaturedStrList(target.KeyLinkShared))
 	sub.DefaultPutStrList(target.KeyLinkBoth, b.FeaturedStrList(target.KeyLinkBoth))
 	sub.DefaultPutStrList(target.KeyPkgconfImport, b.FeaturedStrList(target.KeyPkgconfImport))
-	sub.DefaultPutStrList(target.KeyIncludeDirs, b.FeaturedStrList(target.KeyIncludeDirs))
+	sub.DefaultPutStrList(target.KeyIncludeDir, b.FeaturedStrList(target.KeyIncludeDir))
 	sub.DefaultPutStrList(target.KeyLibDirs, b.FeaturedStrList(target.KeyLibDirs))
 	sub.DefaultPutStrList(target.KeyJobDepends, b.JobDepends())
 }
