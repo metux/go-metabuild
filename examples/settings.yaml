@@ -503,6 +503,7 @@ platform:
                 name:                 ${@@PARENT::@id}
                 resource/name:        ${@@PARENT::name}
                 resource/dir:         ${@@PARENT::source/dir}
+                include/dir:          ${@@PARENT::source/dir}
                 output/c/header:      ${@@PARENT::resource/dir}/${@@PARENT::resource/name}.h
                 output/c/source:      ${@@PARENT::resource/dir}/${@@PARENT::resource/name}.c
                 output/gresource:     ${@@PARENT::resource/dir}/${@@PARENT::resource/name}.gresource
@@ -554,6 +555,49 @@ platform:
                     skip/pkgconf:     ${@@PARENT::@@PARENT::skip/pkgconf}
                     skip/shared:      ${@@PARENT::@@PARENT::skip/shared}
                     source/dir:       ${@@PARENT::@@PARENT::source/dir}
+                    source:           ${@@PARENT::@@PARENT::generate::output/c/source}
+                    pkgconf/import:   ${@@PARENT::@@PARENT::pkgconf/import}
+                    install:          ${@@PARENT::@@PARENT::install}
+                    job/depends:      [ "${@@PARENT::@@PARENT::@@PARENT::@id}/generate",
+                                        "${@@PARENT::@@PARENT::@@PARENT::job/depends}" ]
+                    library/pkgid:    ${@@PARENT::@@PARENT::@id}
+
+            c/glib-resource:
+                builder/driver:       c/glib-resource
+
+                source:               ${@@PARENT::name}.xml
+                source/dir:           .
+                name:                 ${@@PARENT::@id}
+                resource/name:        ${@@PARENT::name}
+                resource/dir:         ${@@PARENT::source/dir}
+                output/dir:           ${@@PARENT::resource/dir}
+                output/c/header:      ${@@PARENT::output/dir}/${@@PARENT::resource/name}.h
+                output/c/source:      ${@@PARENT::output/dir}/${@@PARENT::resource/name}.c
+                output/gresource:     ${@@PARENT::output/dir}/${@@PARENT::resource/name}.gresource
+                include/dir:          ${@@PARENT::resource/dir}
+
+                library/name:         ${@@PARENT::resource/name}
+                skip/pkgconf:         true
+                skip/shared:          true
+                install:              false
+                pkgconf/import:       GLIB
+
+                generate:
+                    type:             gen/glib-resource
+                    source:           ${@@PARENT::@@PARENT::source}
+                    source/dir:       ${@@PARENT::@@PARENT::source/dir}
+                    resource/dir:     ${@@PARENT::@@PARENT::resource/dir}
+                    include/dir:      ${@@PARENT::@@PARENT::include/dir}
+                    output/c/header:  ${@@PARENT::@@PARENT::output/c/header}
+                    output/c/source:  ${@@PARENT::@@PARENT::output/c/source}
+                    output/gresource: ${@@PARENT::@@PARENT::output/gresource}
+
+                library:
+                    type:             c/library
+                    build:            ${@@PARENT::@@PARENT::build}
+                    libname:          ${@@PARENT::@@PARENT::library/name}
+                    skip/pkgconf:     ${@@PARENT::@@PARENT::skip/pkgconf}
+                    skip/shared:      ${@@PARENT::@@PARENT::skip/shared}
                     source:           ${@@PARENT::@@PARENT::generate::output/c/source}
                     pkgconf/import:   ${@@PARENT::@@PARENT::pkgconf/import}
                     install:          ${@@PARENT::@@PARENT::install}

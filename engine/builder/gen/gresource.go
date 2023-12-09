@@ -17,7 +17,7 @@ func (b GlibResource) JobRun() error {
 
 	c1 := append(b.BuilderCmd(), b.RequiredSourceAbs())
 
-	if srcdir := b.EntryStr(target.KeyResourceDir); srcdir != "" {
+	if srcdir := b.EntryStr(target.KeyIncludeDir); srcdir != "" {
 		c1 = append(c1, "--sourcedir="+srcdir)
 	}
 

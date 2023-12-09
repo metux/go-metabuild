@@ -354,12 +354,41 @@ the `po/` subdirectory.
 |------------------|----------------------------------------------------------------|---------------------------|
 | source           |                                                                | XML source file           |
 | source/dir       | .                                                              | source subdir             |
+| include/dir      | ${@@PARENT::source/dir}                                        | include directory         |
 | resource/dir     | ${@@PARENT::source/dir}                                        | resource output directory |
 | resource/name    | ${@@PARENT::name}                                              | resource name             |
 | output/c/header  | ${@@PARENT::resource/dir}/${@@PARENT::resource/name}.h         | c header output file      |
 | output/c/source  | ${@@PARENT::resource/dir}/${@@PARENT::resource/name}.c         | c source output file      |
 | output/gresource | ${@@PARENT::resource/dir}/${@@PARENT::resource/name}.gresource | `.gresource` output file  |
 | name             | ${@@PARENT::@id}                                               | target name               |
+
+#### Example:
+```
+    settings-dialogs/workspace-resource:
+        type:               gen/glib-resource
+        name:               workspace-resource
+        source:             workspace.gresource.xml
+        source/dir:         settings-dialogs
+```
+
+### c/glib-resource:
+
+Generate sources from Glib resources and compile it as static library.
+
+#### Attributes:
+
+| Attribute        | Default                                                        | Description               |
+|------------------|----------------------------------------------------------------|---------------------------|
+| source           |                                                                | XML source file           |
+| source/dir       | .                                                              | source subdir             |
+| resource/dir     | ${@@PARENT::source/dir}                                        | resource output directory |
+| resource/name    | ${@@PARENT::name}                                              | resource name             |
+| output/c/header  | ${@@PARENT::resource/dir}/${@@PARENT::resource/name}.h         | c header output file      |
+| output/c/source  | ${@@PARENT::resource/dir}/${@@PARENT::resource/name}.c         | c source output file      |
+| output/gresource | ${@@PARENT::resource/dir}/${@@PARENT::resource/name}.gresource | `.gresource` output file  |
+| name             | ${@@PARENT::@id}                                               | target name               |
+| library/name     | ${@@PARENT::resource/name}                                     | library name              |
+| install          | false                                                          | install into packages     |
 
 #### Example:
 ```

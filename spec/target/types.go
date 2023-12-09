@@ -12,7 +12,8 @@ const (
 	TypeCLibraryDevlink = Key("c/library/devlink")
 
 	/* generated C */
-	TypeCGlibMarshal = Key("c/glib-marshal")
+	TypeCGlibMarshal  = Key("c/glib-marshal")
+	TypeCGlibResource = Key("c/glib-resource")
 
 	/* C++ */
 	TypeCxxExecutable     = Key("c++/executable")

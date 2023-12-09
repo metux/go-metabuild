@@ -25,6 +25,7 @@ configure:
           yes/c/define: HAVE_XRES
 
         - pkgconf:
+            GLIB:                 glib-2.0 >= 2.66.0
             GTK:                  gtk+-3.0 >= 3.24.0
             LIBXFCE4UTIL:         libxfce4util-1.0 >= 4.8.0
             LIBXFCE4UI:           libxfce4ui-2 >= 4.12.0
@@ -144,7 +145,7 @@ targets:
         c/defines:          ${c/defines}
         pkgconf/import:     [GTK, LIBXFCE4UTIL, X11]
 
-    settings-dialogs/workspace-resource{gen/glib-resource}:
+    settings-dialogs/workspace-resource{c/glib-resource}:
         name:               workspace-resource
         source:             workspace.gresource.xml
         source/dir:         settings-dialogs
@@ -212,18 +213,17 @@ targets:
 
     settings-dialogs/xfwm4-workspace-settings{c/executable}:
         pkgconf/import:     [LIBXFCE4UI, LIBXFCONF, LIBWNCK]
-        source:             [workspace-settings.c, workspace-resource.c]
+        source:             [workspace-settings.c]
         source/dir:         ${@@PARENT::@dirname}
         include/dir:        .
         c/defines:          ${c/defines}
-        link/static:        xfwm-common
-        job/depends:        [settings-dialogs/xfwm4-workspace-dialog,
-                             settings-dialogs/workspace-resource]
+        link/static:        [xfwm-common, settings-dialogs/workspace-resource]
+        job/depends:        [settings-dialogs/xfwm4-workspace-dialog]
         install/package:    main
         headers:
             install:        false
             priv:
-                source:     [xfwm4-workspace-dialog_ui.h, workspace-resource.h]
+                source:     [xfwm4-workspace-dialog_ui.h]
 
     po{i18n/po}:
 
