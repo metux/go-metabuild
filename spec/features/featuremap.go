@@ -30,6 +30,6 @@ func (fm FeatureMap) Map() map[Key]string {
 
 func (fm FeatureMap) Init() {
 	for _, k := range fm.Keys() {
-		fm.DefaultPutStr(k.Append(KeyEnabled), "${@@PARENT::default}")
+		fm.DefaultPutStr(k.Append(KeyEnabled), "${@@^::default}")
 	}
 }

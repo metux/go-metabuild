@@ -238,214 +238,214 @@ platform:
 
                 ## defaults that may be overwritten
                 compiler/lang:        C
-                libname:              ${@@PARENT::@id}
-                library/pkgid:        ${@@PARENT::@id}
+                libname:              ${@@^::@id}
+                library/pkgid:        ${@@^::@id}
                 install:              true
                 abi:                  1
 
                 ## fixme: pkg-config needs this ... really the right place ?
-                name:                 ${@@PARENT::libname}
+                name:                 ${@@^::libname}
 
                 description:          ${description}
                 version:              ${buildconf::version}
 
                 pkgconf:
-                    build:                ${@@PARENT::@@PARENT::build}
-                    install:              ${@@PARENT::@@PARENT::install}
+                    build:                ${@@^::@@^::build}
+                    install:              ${@@^::@@^::install}
                     install/dir:          ${buildconf::install-dirs::pkgconfigdir}
                     install/package:      dev
                     install/perm:         0644
-                    file:                 ${@@PARENT::name}.pc
-                    version:              ${@@PARENT::@@PARENT::version}
-                    name:                 ${@@PARENT::@@PARENT::libname}
-                    libdir:               ${@@PARENT::@@PARENT::shared::install/dir}
-                    sharedlibdir:         ${@@PARENT::@@PARENT::shared::install/dir}
-                    description:          ${@@PARENT::@@PARENT::description}
+                    file:                 ${@@^::name}.pc
+                    version:              ${@@^::@@^::version}
+                    name:                 ${@@^::@@^::libname}
+                    libdir:               ${@@^::@@^::shared::install/dir}
+                    sharedlibdir:         ${@@^::@@^::shared::install/dir}
+                    description:          ${@@^::@@^::description}
                     prefix:               ${buildconf::install-dirs::prefix}
                     exec-prefix:          ${buildconf::install-dirs::exec-prefix}
                     includedir:           ${buildconf::install-dirs::includedir}
-                    archive:              ${@@PARENT::libdir}/${@@PARENT::@@PARENT::static::name}
-                    libname:              ${@@PARENT::@@PARENT::libname}
-                    source/dir:           ${@@PARENT::@@PARENT::source/dir}
+                    archive:              ${@@^::libdir}/${@@^::@@^::static::name}
+                    libname:              ${@@^::@@^::libname}
+                    source/dir:           ${@@^::@@^::source/dir}
 
                 shared:
-                    build:                ${@@PARENT::@@PARENT::build}
-                    compiler/lang:        ${@@PARENT::@@PARENT::compiler/lang}
-                    install:              ${@@PARENT::@@PARENT::install}
+                    build:                ${@@^::@@^::build}
+                    compiler/lang:        ${@@^::@@^::compiler/lang}
+                    install:              ${@@^::@@^::install}
                     install/dir:          ${buildconf::install-dirs::libdir}
                     install/package:      lib
                     install/perm:         0644
-                    name:                 lib${@@PARENT::@@PARENT::libname}.so.${@@PARENT::@@PARENT::abi}
-                    file:                 ${@@PARENT::name}
-                    source/dir:           ${@@PARENT::@@PARENT::source/dir}
+                    name:                 lib${@@^::@@^::libname}.so.${@@^::@@^::abi}
+                    file:                 ${@@^::name}
+                    source/dir:           ${@@^::@@^::source/dir}
 
                 devlink:
-                    build:                ${@@PARENT::@@PARENT::build}
-                    install:              ${@@PARENT::@@PARENT::install}
+                    build:                ${@@^::@@^::build}
+                    install:              ${@@^::@@^::install}
                     install/dir:          ${buildconf::install-dirs::libdir}
                     install/package:      dev
                     install/perm:         0644
-                    name:                 lib${@@PARENT::@@PARENT::libname}.so
-                    target:               ${@@PARENT::@@PARENT::shared::file}
-                    file:                 ${@@PARENT::name}
-                    source/dir:           ${@@PARENT::@@PARENT::source/dir}
+                    name:                 lib${@@^::@@^::libname}.so
+                    target:               ${@@^::@@^::shared::file}
+                    file:                 ${@@^::name}
+                    source/dir:           ${@@^::@@^::source/dir}
 
                 static:
-                    build:                ${@@PARENT::@@PARENT::build}
-                    compiler/lang:        ${@@PARENT::@@PARENT::compiler/lang}
-                    install:              ${@@PARENT::@@PARENT::install}
+                    build:                ${@@^::@@^::build}
+                    compiler/lang:        ${@@^::@@^::compiler/lang}
+                    install:              ${@@^::@@^::install}
                     install/dir:          ${buildconf::install-dirs::libdir}
                     install/package:      dev
                     install/perm:         0644
-                    name:                 lib${@@PARENT::@@PARENT::libname}.a
-                    file:                 ${@@PARENT::name}
-                    source/dir:           ${@@PARENT::@@PARENT::source/dir}
+                    name:                 lib${@@^::@@^::libname}.a
+                    file:                 ${@@^::name}
+                    source/dir:           ${@@^::@@^::source/dir}
 
             c/header:
                 builder/driver:       c/header
-                install:              ${@@PARENT::@@PARENT::@@PARENT::install}
+                install:              ${@@^::@@^::@@^::install}
                 install/dir:          ${buildconf::install-dirs::includedir}
                 install/package:      dev
                 install/perm:         0664
-                source/dir:           ${@@PARENT::@@PARENT::@@PARENT::source/dir}
+                source/dir:           ${@@^::@@^::@@^::source/dir}
 
             c/executable:
                 builder/driver:       c/executable
                 compiler/lang:        C
-                install:              ${@@PARENT::@@PARENT::install}
+                install:              ${@@^::@@^::install}
                 install/dir:          ${buildconf::install-dirs::bindir}
                 install/package:      prog
                 install/perm:         0755
 
-                name:                 ${@@PARENT::@id}
-                file:                 ${@@PARENT::name}
+                name:                 ${@@^::@id}
+                file:                 ${@@^::name}
 
             c++/library:
                 builder/driver:       c/library
 
                 ## defaults that may be overwritten
                 compiler/lang:        C++
-                libname:              ${@@PARENT::@id}
-                library/pkgid:        ${@@PARENT::@id}
+                libname:              ${@@^::@id}
+                library/pkgid:        ${@@^::@id}
                 install:              true
                 abi:                  1
 
                 ## fixme: pkg-config needs this ... really the right place ?
-                name:                 ${@@PARENT::libname}
+                name:                 ${@@^::libname}
 
                 description:          ${description}
                 version:              ${buildconf::version}
 
                 pkgconf:
-                    build:                ${@@PARENT::@@PARENT::build}
-                    install:              ${@@PARENT::@@PARENT::install}
+                    build:                ${@@^::@@^::build}
+                    install:              ${@@^::@@^::install}
                     install/dir:          ${buildconf::install-dirs::pkgconfigdir}
                     install/package:      dev
                     install/perm:         0644
-                    file:                 ${@@PARENT::name}.pc
-                    version:              ${@@PARENT::@@PARENT::version}
-                    name:                 ${@@PARENT::@@PARENT::libname}
-                    libdir:               ${@@PARENT::@@PARENT::shared::install/dir}
-                    sharedlibdir:         ${@@PARENT::@@PARENT::shared::install/dir}
-                    description:          ${@@PARENT::@@PARENT::description}
+                    file:                 ${@@^::name}.pc
+                    version:              ${@@^::@@^::version}
+                    name:                 ${@@^::@@^::libname}
+                    libdir:               ${@@^::@@^::shared::install/dir}
+                    sharedlibdir:         ${@@^::@@^::shared::install/dir}
+                    description:          ${@@^::@@^::description}
                     prefix:               ${buildconf::install-dirs::prefix}
                     exec-prefix:          ${buildconf::install-dirs::exec-prefix}
                     includedir:           ${buildconf::install-dirs::includedir}
-                    archive:              ${@@PARENT::libdir}/${@@PARENT::@@PARENT::static::name}
-                    libname:              ${@@PARENT::@@PARENT::libname}
-                    source/dir:           ${@@PARENT::@@PARENT::source/dir}
+                    archive:              ${@@^::libdir}/${@@^::@@^::static::name}
+                    libname:              ${@@^::@@^::libname}
+                    source/dir:           ${@@^::@@^::source/dir}
 
                 shared:
-                    build:                ${@@PARENT::@@PARENT::build}
-                    compiler/lang:        ${@@PARENT::@@PARENT::compiler/lang}
-                    install:              ${@@PARENT::@@PARENT::install}
+                    build:                ${@@^::@@^::build}
+                    compiler/lang:        ${@@^::@@^::compiler/lang}
+                    install:              ${@@^::@@^::install}
                     install/dir:          ${buildconf::install-dirs::libdir}
                     install/package:      lib
                     install/perm:         0644
-                    name:                 lib${@@PARENT::@@PARENT::libname}.so.${@@PARENT::@@PARENT::abi}
-                    file:                 ${@@PARENT::name}
-                    source/dir:           ${@@PARENT::@@PARENT::source/dir}
+                    name:                 lib${@@^::@@^::libname}.so.${@@^::@@^::abi}
+                    file:                 ${@@^::name}
+                    source/dir:           ${@@^::@@^::source/dir}
 
                 devlink:
-                    build:                ${@@PARENT::@@PARENT::build}
-                    install:              ${@@PARENT::@@PARENT::install}
+                    build:                ${@@^::@@^::build}
+                    install:              ${@@^::@@^::install}
                     install/dir:          ${buildconf::install-dirs::libdir}
                     install/package:      dev
                     install/perm:         0644
-                    name:                 lib${@@PARENT::@@PARENT::libname}.so
-                    target:               ${@@PARENT::@@PARENT::shared::file}
-                    file:                 ${@@PARENT::name}
-                    source/dir:           ${@@PARENT::@@PARENT::source/dir}
+                    name:                 lib${@@^::@@^::libname}.so
+                    target:               ${@@^::@@^::shared::file}
+                    file:                 ${@@^::name}
+                    source/dir:           ${@@^::@@^::source/dir}
 
                 static:
-                    build:                ${@@PARENT::@@PARENT::build}
-                    compiler/lang:        ${@@PARENT::@@PARENT::compiler/lang}
-                    install:              ${@@PARENT::@@PARENT::install}
+                    build:                ${@@^::@@^::build}
+                    compiler/lang:        ${@@^::@@^::compiler/lang}
+                    install:              ${@@^::@@^::install}
                     install/dir:          ${buildconf::install-dirs::libdir}
                     install/package:      dev
                     install/perm:         0644
-                    name:                 lib${@@PARENT::@@PARENT::libname}.a
-                    file:                 ${@@PARENT::name}
-                    source/dir:           ${@@PARENT::@@PARENT::source/dir}
+                    name:                 lib${@@^::@@^::libname}.a
+                    file:                 ${@@^::name}
+                    source/dir:           ${@@^::@@^::source/dir}
 
             c++/executable:
                 builder/driver:       c/executable
                 compiler/lang:        C++
-                install:              ${@@PARENT::@@PARENT::install}
+                install:              ${@@^::@@^::install}
                 install/dir:          ${buildconf::install-dirs::bindir}
                 install/package:      prog
                 install/perm:         0755
 
-                name:                 ${@@PARENT::@id}
-                file:                 ${@@PARENT::name}
+                name:                 ${@@^::@id}
+                file:                 ${@@^::name}
 
             data/misc:
                 builder/driver:       data/misc
-                install:              ${@@PARENT::@@PARENT::install}
+                install:              ${@@^::@@^::install}
                 install/dir:          ${buildconf::install-dirs::datadir}
                 install/package:      data
                 install/perm:         0664
 
             data/lib-script:
                 builder/driver:       data/misc
-                install:              ${@@PARENT::@@PARENT::install}
+                install:              ${@@^::@@^::install}
                 install/dir:          ${buildconf::install-dirs::libdir-noarch}/${package}
                 install/package:      data
                 install/perm:         0755
 
             data/lib-script-subdir:
                 builder/driver:       data/misc
-                install:              ${@@PARENT::@@PARENT::install}
+                install:              ${@@^::@@^::install}
                 install/dir:          ${buildconf::install-dirs::libdir-noarch}/${package}
                 install/package:      data
                 install/perm:         0755
-                source/dir:           ${@@PARENT::@id}
+                source/dir:           ${@@^::@id}
 
             data/pixmap:
                 builder/driver:       data/pixmap
-                install:              ${@@PARENT::@@PARENT::install}
+                install:              ${@@^::@@^::install}
                 install/dir:          ${buildconf::install-dirs::pixmapdir}
                 install/package:      data
                 install/perm:         0664
 
             data/desktop:
                 builder/driver:       data/desktop
-                install:              ${@@PARENT::@@PARENT::install}
+                install:              ${@@^::@@^::install}
                 install/dir:          ${buildconf::install-dirs::fdo-appdir}
                 install/package:      data
                 install/perm:         0664
-                file:                 ${@@PARENT::@id}
+                file:                 ${@@^::@id}
                 desktop/type:         Application
                 desktop/name:         ${shortname}
                 desktop/genericname:  ${name}
                 desktop/comment:      ${description}
-                desktop/icon-file:    ${buildconf::install-dirs::pixmapdir}/${@@PARENT::desktop/icon}
+                desktop/icon-file:    ${buildconf::install-dirs::pixmapdir}/${@@^::desktop/icon}
                 desktop/terminal:     false
 
             i18n/po:
                 builder/driver:       i18n/po
                 builder/command:      msgfmt
-                install:              ${@@PARENT::@@PARENT::install}
+                install:              ${@@^::@@^::install}
                 install/dir:          ${buildconf::install-dirs::localedir}
                 install/package:      data
                 install/perm:         0664
@@ -453,7 +453,7 @@ platform:
                 i18n/category:        LC_MESSAGES
                 i18n/domain:          ${package}
                 source/dir:           po
-                name:                 ${@@PARENT::domain}.mo
+                name:                 ${@@^::domain}.mo
 
             i18n/desktop:
                 builder/driver:       i18n/desktop
@@ -469,17 +469,17 @@ platform:
 
             doc/man:
                 builder/driver:       doc/man
-                install:              ${@@PARENT::@@PARENT::install}
+                install:              ${@@^::@@^::install}
                 install/dir:          ${buildconf::install-dirs::mandir}
                 install/package:      doc
                 install/perm:         0664
                 man/compress:         gz
-                man/section:          ${@@PARENT::@id/suffix}
-                source:               ${@@PARENT::@id}
+                man/section:          ${@@^::@id/suffix}
+                source:               ${@@^::@id}
 
             doc/misc:
                 builder/driver:       doc/misc
-                install:              ${@@PARENT::@@PARENT::install}
+                install:              ${@@^::@@^::install}
                 install/dir:          ${buildconf::install-dirs::docdir}
                 install/package:      doc
                 install/perm:         0664
@@ -489,7 +489,7 @@ platform:
             doc/yelp:
                 builder/driver:       doc/yelp
                 builder/command:      yelp-build
-                install:              ${@@PARENT::@@PARENT::install}
+                install:              ${@@^::@@^::install}
                 install/dir:          ${buildconf::install-dirs::docdir}
                 install/package:      doc
                 install/perm:         0664
@@ -499,40 +499,40 @@ platform:
             gen/glib-resource:
                 builder/driver:       gen/glib-resource
                 builder/command:      glib-compile-resources
-                source:               ${@@PARENT::@id}.xml
-                name:                 ${@@PARENT::@id}
-                resource/name:        ${@@PARENT::name}
-                resource/dir:         ${@@PARENT::source/dir}
-                include/dir:          ${@@PARENT::source/dir}
-                output/c/header:      ${@@PARENT::resource/dir}/${@@PARENT::resource/name}.h
-                output/c/source:      ${@@PARENT::resource/dir}/${@@PARENT::resource/name}.c
-                output/gresource:     ${@@PARENT::resource/dir}/${@@PARENT::resource/name}.gresource
+                source:               ${@@^::@id}.xml
+                name:                 ${@@^::@id}
+                resource/name:        ${@@^::name}
+                resource/dir:         ${@@^::source/dir}
+                include/dir:          ${@@^::source/dir}
+                output/c/header:      ${@@^::resource/dir}/${@@^::resource/name}.h
+                output/c/source:      ${@@^::resource/dir}/${@@^::resource/name}.c
+                output/gresource:     ${@@^::resource/dir}/${@@^::resource/name}.gresource
 
             gen/glib-marshal:
                 builder/driver:       gen/glib-marshal
                 builder/command:      glib-genmarshal
-                source:               ${@@PARENT::@id}.list
-                resource/name:        ${@@PARENT::@id}
-                output/name:          ${@@PARENT::@id}
-                output/c/source:      ${@@PARENT::output/name}.c
-                output/c/header:      ${@@PARENT::output/name}.h
+                source:               ${@@^::@id}.list
+                resource/name:        ${@@^::@id}
+                output/name:          ${@@^::@id}
+                output/c/source:      ${@@^::output/name}.c
+                output/c/header:      ${@@^::output/name}.h
 
             gen/xdt-csource:
                 builder/driver:       gen/xdt-csource
 
             gen/xxd-csource:
                 builder/driver:       gen/xxd-csource
-                output/c/header:      ${@@PARENT::@id}
+                output/c/header:      ${@@^::@id}
 
             c/glib-marshal:
                 builder/driver:       c/glib-marshal
 
-                source:               ${@@PARENT::@id}.list
-                output/name:          ${@@PARENT::@id}
-                output/c/source:      ${@@PARENT::output/name}.c
-                output/c/header:      ${@@PARENT::output/name}.h
-                resource/name:        ${@@PARENT::@id}
-                library/name:         ${@@PARENT::resource/name}
+                source:               ${@@^::@id}.list
+                output/name:          ${@@^::@id}
+                output/c/source:      ${@@^::output/name}.c
+                output/c/header:      ${@@^::output/name}.h
+                resource/name:        ${@@^::@id}
+                library/name:         ${@@^::resource/name}
                 pkgconf/import:       GLIB
                 skip/pkgconf:         true
                 skip/shared:          true
@@ -540,43 +540,43 @@ platform:
 
                 generate:
                     type:             gen/glib-marshal
-                    resource/name:    ${@@PARENT::@@PARENT::resource/name}
-                    output/name:      ${@@PARENT::@@PARENT::output/name}
-                    output/c/header:  ${@@PARENT::@@PARENT::output/c/header}
-                    output/c/source:  ${@@PARENT::@@PARENT::output/c/source}
-                    source:           ${@@PARENT::@@PARENT::source}
-                    source/dir:       ${@@PARENT::@@PARENT::source/dir}
-                    job/depends:      ${@@PARENT::@@PARENT::job/depends}
+                    resource/name:    ${@@^::@@^::resource/name}
+                    output/name:      ${@@^::@@^::output/name}
+                    output/c/header:  ${@@^::@@^::output/c/header}
+                    output/c/source:  ${@@^::@@^::output/c/source}
+                    source:           ${@@^::@@^::source}
+                    source/dir:       ${@@^::@@^::source/dir}
+                    job/depends:      ${@@^::@@^::job/depends}
 
                 library:
                     type:             c/library
-                    build:            ${@@PARENT::@@PARENT::build}
-                    libname:          ${@@PARENT::@@PARENT::library/name}
-                    skip/pkgconf:     ${@@PARENT::@@PARENT::skip/pkgconf}
-                    skip/shared:      ${@@PARENT::@@PARENT::skip/shared}
-                    source/dir:       ${@@PARENT::@@PARENT::source/dir}
-                    source:           ${@@PARENT::@@PARENT::generate::output/c/source}
-                    pkgconf/import:   ${@@PARENT::@@PARENT::pkgconf/import}
-                    install:          ${@@PARENT::@@PARENT::install}
-                    job/depends:      [ "${@@PARENT::@@PARENT::@@PARENT::@id}/generate",
-                                        "${@@PARENT::@@PARENT::@@PARENT::job/depends}" ]
-                    library/pkgid:    ${@@PARENT::@@PARENT::@id}
+                    build:            ${@@^::@@^::build}
+                    libname:          ${@@^::@@^::library/name}
+                    skip/pkgconf:     ${@@^::@@^::skip/pkgconf}
+                    skip/shared:      ${@@^::@@^::skip/shared}
+                    source/dir:       ${@@^::@@^::source/dir}
+                    source:           ${@@^::@@^::generate::output/c/source}
+                    pkgconf/import:   ${@@^::@@^::pkgconf/import}
+                    install:          ${@@^::@@^::install}
+                    job/depends:      [ "${@@^::@@^::@@^::@id}/generate",
+                                        "${@@^::@@^::@@^::job/depends}" ]
+                    library/pkgid:    ${@@^::@@^::@id}
 
             c/glib-resource:
                 builder/driver:       c/glib-resource
 
-                source:               ${@@PARENT::name}.xml
+                source:               ${@@^::name}.xml
                 source/dir:           .
-                name:                 ${@@PARENT::@id}
-                resource/name:        ${@@PARENT::name}
-                resource/dir:         ${@@PARENT::source/dir}
-                output/dir:           ${@@PARENT::resource/dir}
-                output/c/header:      ${@@PARENT::output/dir}/${@@PARENT::resource/name}.h
-                output/c/source:      ${@@PARENT::output/dir}/${@@PARENT::resource/name}.c
-                output/gresource:     ${@@PARENT::output/dir}/${@@PARENT::resource/name}.gresource
-                include/dir:          ${@@PARENT::resource/dir}
+                name:                 ${@@^::@id}
+                resource/name:        ${@@^::name}
+                resource/dir:         ${@@^::source/dir}
+                output/dir:           ${@@^::resource/dir}
+                output/c/header:      ${@@^::output/dir}/${@@^::resource/name}.h
+                output/c/source:      ${@@^::output/dir}/${@@^::resource/name}.c
+                output/gresource:     ${@@^::output/dir}/${@@^::resource/name}.gresource
+                include/dir:          ${@@^::resource/dir}
 
-                library/name:         ${@@PARENT::resource/name}
+                library/name:         ${@@^::resource/name}
                 skip/pkgconf:         true
                 skip/shared:          true
                 install:              false
@@ -584,26 +584,26 @@ platform:
 
                 generate:
                     type:             gen/glib-resource
-                    source:           ${@@PARENT::@@PARENT::source}
-                    source/dir:       ${@@PARENT::@@PARENT::source/dir}
-                    resource/dir:     ${@@PARENT::@@PARENT::resource/dir}
-                    include/dir:      ${@@PARENT::@@PARENT::include/dir}
-                    output/c/header:  ${@@PARENT::@@PARENT::output/c/header}
-                    output/c/source:  ${@@PARENT::@@PARENT::output/c/source}
-                    output/gresource: ${@@PARENT::@@PARENT::output/gresource}
+                    source:           ${@@^::@@^::source}
+                    source/dir:       ${@@^::@@^::source/dir}
+                    resource/dir:     ${@@^::@@^::resource/dir}
+                    include/dir:      ${@@^::@@^::include/dir}
+                    output/c/header:  ${@@^::@@^::output/c/header}
+                    output/c/source:  ${@@^::@@^::output/c/source}
+                    output/gresource: ${@@^::@@^::output/gresource}
 
                 library:
                     type:             c/library
-                    build:            ${@@PARENT::@@PARENT::build}
-                    libname:          ${@@PARENT::@@PARENT::library/name}
-                    skip/pkgconf:     ${@@PARENT::@@PARENT::skip/pkgconf}
-                    skip/shared:      ${@@PARENT::@@PARENT::skip/shared}
-                    source:           ${@@PARENT::@@PARENT::generate::output/c/source}
-                    pkgconf/import:   ${@@PARENT::@@PARENT::pkgconf/import}
-                    install:          ${@@PARENT::@@PARENT::install}
-                    job/depends:      [ "${@@PARENT::@@PARENT::@@PARENT::@id}/generate",
-                                        "${@@PARENT::@@PARENT::@@PARENT::job/depends}" ]
-                    library/pkgid:    ${@@PARENT::@@PARENT::@id}
+                    build:            ${@@^::@@^::build}
+                    libname:          ${@@^::@@^::library/name}
+                    skip/pkgconf:     ${@@^::@@^::skip/pkgconf}
+                    skip/shared:      ${@@^::@@^::skip/shared}
+                    source:           ${@@^::@@^::generate::output/c/source}
+                    pkgconf/import:   ${@@^::@@^::pkgconf/import}
+                    install:          ${@@^::@@^::install}
+                    job/depends:      [ "${@@^::@@^::@@^::@id}/generate",
+                                        "${@@^::@@^::@@^::job/depends}" ]
+                    library/pkgid:    ${@@^::@@^::@id}
 
 buildconf:
     install-dirs:

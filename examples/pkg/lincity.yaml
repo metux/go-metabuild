@@ -145,27 +145,27 @@ targets:
         source:             colour.pal
 
     opening{data/misc}:
-        install/subdir:     ${package}/${@@PARENT::@id}
+        install/subdir:     ${package}/${@@^::@id}
         source:             "*"
-        source/dir:         ${@@PARENT::@id}
+        source/dir:         ${@@^::@id}
 
     messages{data/misc}:
-        install/subdir:     ${package}/${@@PARENT::@id}
+        install/subdir:     ${package}/${@@^::@id}
         source:             "*.mes"
-        source/dir:         ${@@PARENT::@id}
+        source/dir:         ${@@^::@id}
 
     icons{data/misc}:
-        install/subdir:     ${package}/${@@PARENT::@id}
+        install/subdir:     ${package}/${@@^::@id}
         source:             "*.csi"
-        source/dir:         ${@@PARENT::@id}
+        source/dir:         ${@@^::@id}
 
     lincity.xpm{data/pixmap}:
-        source:             ${@@PARENT::@id}
+        source:             ${@@^::@id}
 
     help{data/misc}:
-        install/subdir:     ${package}/${@@PARENT::@id}
+        install/subdir:     ${package}/${@@^::@id}
         source:             "*.hlp"
-        source/dir:         ${@@PARENT::@id}
+        source/dir:         ${@@^::@id}
 
     po{i18n/po}:
 
