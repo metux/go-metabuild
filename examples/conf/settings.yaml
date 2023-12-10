@@ -441,6 +441,7 @@ platform:
                 install/dir:          ${buildconf::install-dirs::pixmapdir}
                 install/package:      data
                 install/perm:         0664
+                source:               ${@@^::@id}
 
             data/desktop:
                 builder/driver:       data/desktop

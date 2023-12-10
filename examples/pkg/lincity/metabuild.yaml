@@ -160,7 +160,6 @@ targets:
         source/dir:         ${@@^::@id}
 
     lincity.xpm{data/pixmap}:
-        source:             ${@@^::@id}
 
     help{data/misc}:
         install/subdir:     ${package}/${@@^::@id}

@@ -233,7 +233,7 @@ Like data/lib-script, but taking `source/dir` from target id.
 | install/package     | data                                  | install package                        |
 | install/perm        | 0064                                  | install permissions                    |
 | install/subdir      |                                       | install subdir                         |
-| source              |                                       | source file                            |
+| source              | ${@@^::@id}                           | source file                            |
 
 #### Example:
 ```
