@@ -484,6 +484,19 @@ platform:
                 source/suffix:        .desktop.in
                 output/suffix:        .desktop
 
+            i18n/appdata:
+                builder/driver:       i18n/msgfmt
+                builder/command:      msgfmt
+                install:              true
+                install/dir:          ${buildconf::install-dirs::metainfodir}
+                install/package:      data
+                install/perm:         0664
+                i18n/linguas:         ${i18n::linguas}
+                i18n/po/dir:          po
+                i18n/type:            xml
+                source/suffix:        .appdata.xml.in
+                output/suffix:        .appdata.xml
+
             doc/man:
                 builder/driver:       doc/man
                 install:              ${@@^2::install}
