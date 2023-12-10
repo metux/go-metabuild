@@ -24,7 +24,7 @@ func LoadTestingEngine(t *testing.T) {
 	}
 
 	engine := Engine{}
-	if err := engine.Load("examples/pkg/zlib.yaml", "examples/settings.yaml"); err != nil {
+	if err := engine.Load("examples/pkg/zlib/metabuild.yaml", "examples/conf/settings.yaml"); err != nil {
 		t.Fatalf("yaml load failed: %s", err)
 	}
 

@@ -12,7 +12,7 @@ func t1(t *testing.T, ent magic.Entry) {
 }
 
 func TestSpecObj(t *testing.T) {
-	so, err := magic.YamlLoad("../../examples/pkg/zlib.yaml", "../../examples/settings.yaml")
+	so, err := magic.YamlLoad("../../examples/pkg/zlib/metabuild.yaml", "../../examples/conf/settings.yaml")
 	if err != nil {
 		t.Fatalf("failed loading yaml: %s", err)
 	}

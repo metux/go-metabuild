@@ -5,6 +5,9 @@ test_zlib_path    := ../zlib
 test_lincity_path := ../lincity
 test_xfwm4_path   := ../xfwm4
 
+metabuild := $(my_path)/bin/metabuild
+conf := $(my_path)/examples/conf/settings.yaml
+
 all: test test-zlib
 
 vet:
@@ -25,7 +28,7 @@ test-autoconf:
 	@go test -timeout 10s -v ./engine/autoconf/...  || (echo "======= TEST FAILED =======" ; false)
 
 define RUNTEST
-	cd $(1) && $(my_path)/bin/metabuild -conf $(my_path)/examples/pkg/$(strip $(2)).yaml -global $(my_path)/examples/settings.yaml build
+	cd $(1) && $(metabuild) -conf $(my_path)/examples/pkg/$(strip $(2))/metabuild.yaml -global $(conf) build
 endef
 
 test-zlib: build

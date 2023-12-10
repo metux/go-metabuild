@@ -19,7 +19,7 @@ func LoadTestSpec(t *testing.T) {
 	if GlobalTestSpec != nil {
 		return
 	}
-	if gs, err := global.LoadGlobal("pkg/zlib.yaml", "settings.xml"); err == nil {
+	if gs, err := global.LoadGlobal("pkg/zlib/metabuild.yaml", "conf/settings.xml"); err == nil {
 		GlobalTestSpec = &gs
 	} else {
 		t.Fatalf("yaml load failed: %s", err)

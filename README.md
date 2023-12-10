@@ -14,9 +14,9 @@ Experimental model based build system with packaging
    customized by platform maintainer/operator, w/o
    having to touch per package build scripts.
 
-See [examples/pkg/zlib.yaml](examples/pkg/zlib.yaml) or
-[examples/pkg/lincity.yaml](examples/pkg/lincity.yaml) for
-an examples of the per package configuration.
+See [examples/pkg/zlib/metabuild.yaml](examples/pkg/zlib/metabuild.yaml)
+or [examples/pkg/lincity/metabuild.yaml](examples/pkg/lincity/metabuild.yaml)
+for an examples of the per package configuration.
 
 Features
 --------
