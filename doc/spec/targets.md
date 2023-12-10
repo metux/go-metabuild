@@ -226,7 +226,6 @@ Like data/lib-script, but taking `source/dir` from target id.
 
 | Attribute           | Default                               | Description                            |
 |---------------------|---------------------------------------|----------------------------------------|
-| file                | ${@@^::@id}                           | output file name                       |
 | install             | ${@@^2::install}                      | whether to install into distro package |
 | install/dir         | ${buildconf::install-dirs::pixmapdir} | install directory                      |
 | install/package     | data                                  | install package                        |
