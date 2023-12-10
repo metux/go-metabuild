@@ -240,7 +240,7 @@ platform:
                 compiler/lang:        C
                 library/name:         ${@@^::@id}
                 library/pkgid:        ${@@^::@id}
-                library/dir:          .
+                library/dir:          ${buildconf::@builddir/tmp}
                 install:              true
                 abi:                  1
 
@@ -331,7 +331,7 @@ platform:
                 compiler/lang:        C++
                 library/name:         ${@@^::@id}
                 library/pkgid:        ${@@^::@id}
-                library/dir:          .
+                library/dir:          ${buildconf::@builddir/tmp}
                 install:              true
                 abi:                  1
 
