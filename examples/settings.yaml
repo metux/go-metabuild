@@ -250,69 +250,69 @@ platform:
                 version:              ${buildconf::version}
 
                 pkgconf:
-                    build:                ${@@^::@@^::build}
-                    install:              ${@@^::@@^::install}
+                    build:                ${@@^2::build}
+                    install:              ${@@^2::install}
                     install/dir:          ${buildconf::install-dirs::pkgconfigdir}
                     install/package:      dev
                     install/perm:         0644
                     file:                 ${@@^::name}.pc
-                    version:              ${@@^::@@^::version}
-                    name:                 ${@@^::@@^::libname}
-                    libdir:               ${@@^::@@^::shared::install/dir}
-                    sharedlibdir:         ${@@^::@@^::shared::install/dir}
-                    description:          ${@@^::@@^::description}
+                    version:              ${@@^2::version}
+                    name:                 ${@@^2::libname}
+                    libdir:               ${@@^2::shared::install/dir}
+                    sharedlibdir:         ${@@^2::shared::install/dir}
+                    description:          ${@@^2::description}
                     prefix:               ${buildconf::install-dirs::prefix}
                     exec-prefix:          ${buildconf::install-dirs::exec-prefix}
                     includedir:           ${buildconf::install-dirs::includedir}
-                    archive:              ${@@^::libdir}/${@@^::@@^::static::name}
-                    libname:              ${@@^::@@^::libname}
-                    source/dir:           ${@@^::@@^::source/dir}
+                    archive:              ${@@^::libdir}/${@@^2::static::name}
+                    libname:              ${@@^2::libname}
+                    source/dir:           ${@@^2::source/dir}
 
                 shared:
-                    build:                ${@@^::@@^::build}
-                    compiler/lang:        ${@@^::@@^::compiler/lang}
-                    install:              ${@@^::@@^::install}
+                    build:                ${@@^2::build}
+                    compiler/lang:        ${@@^2::compiler/lang}
+                    install:              ${@@^2::install}
                     install/dir:          ${buildconf::install-dirs::libdir}
                     install/package:      lib
                     install/perm:         0644
-                    name:                 lib${@@^::@@^::libname}.so.${@@^::@@^::abi}
+                    name:                 lib${@@^2::libname}.so.${@@^2::abi}
                     file:                 ${@@^::name}
-                    source/dir:           ${@@^::@@^::source/dir}
+                    source/dir:           ${@@^2::source/dir}
 
                 devlink:
-                    build:                ${@@^::@@^::build}
-                    install:              ${@@^::@@^::install}
+                    build:                ${@@^2::build}
+                    install:              ${@@^2::install}
                     install/dir:          ${buildconf::install-dirs::libdir}
                     install/package:      dev
                     install/perm:         0644
-                    name:                 lib${@@^::@@^::libname}.so
-                    target:               ${@@^::@@^::shared::file}
+                    name:                 lib${@@^2::libname}.so
+                    target:               ${@@^2::shared::file}
                     file:                 ${@@^::name}
-                    source/dir:           ${@@^::@@^::source/dir}
+                    source/dir:           ${@@^2::source/dir}
 
                 static:
-                    build:                ${@@^::@@^::build}
-                    compiler/lang:        ${@@^::@@^::compiler/lang}
-                    install:              ${@@^::@@^::install}
+                    build:                ${@@^2::build}
+                    compiler/lang:        ${@@^2::compiler/lang}
+                    install:              ${@@^2::install}
                     install/dir:          ${buildconf::install-dirs::libdir}
                     install/package:      dev
                     install/perm:         0644
-                    name:                 lib${@@^::@@^::libname}.a
+                    name:                 lib${@@^2::libname}.a
                     file:                 ${@@^::name}
-                    source/dir:           ${@@^::@@^::source/dir}
+                    source/dir:           ${@@^2::source/dir}
 
             c/header:
                 builder/driver:       c/header
-                install:              ${@@^::@@^::@@^::install}
+                install:              ${@@^3::install}
                 install/dir:          ${buildconf::install-dirs::includedir}
                 install/package:      dev
                 install/perm:         0664
-                source/dir:           ${@@^::@@^::@@^::source/dir}
+                source/dir:           ${@@^3::source/dir}
 
             c/executable:
                 builder/driver:       c/executable
                 compiler/lang:        C
-                install:              ${@@^::@@^::install}
+                install:              ${@@^2::install}
                 install/dir:          ${buildconf::install-dirs::bindir}
                 install/package:      prog
                 install/perm:         0755
@@ -337,61 +337,61 @@ platform:
                 version:              ${buildconf::version}
 
                 pkgconf:
-                    build:                ${@@^::@@^::build}
-                    install:              ${@@^::@@^::install}
+                    build:                ${@@^2::build}
+                    install:              ${@@^2::install}
                     install/dir:          ${buildconf::install-dirs::pkgconfigdir}
                     install/package:      dev
                     install/perm:         0644
                     file:                 ${@@^::name}.pc
-                    version:              ${@@^::@@^::version}
-                    name:                 ${@@^::@@^::libname}
-                    libdir:               ${@@^::@@^::shared::install/dir}
-                    sharedlibdir:         ${@@^::@@^::shared::install/dir}
-                    description:          ${@@^::@@^::description}
+                    version:              ${@@^2::version}
+                    name:                 ${@@^2::libname}
+                    libdir:               ${@@^2::shared::install/dir}
+                    sharedlibdir:         ${@@^2::shared::install/dir}
+                    description:          ${@@^2::description}
                     prefix:               ${buildconf::install-dirs::prefix}
                     exec-prefix:          ${buildconf::install-dirs::exec-prefix}
                     includedir:           ${buildconf::install-dirs::includedir}
-                    archive:              ${@@^::libdir}/${@@^::@@^::static::name}
-                    libname:              ${@@^::@@^::libname}
-                    source/dir:           ${@@^::@@^::source/dir}
+                    archive:              ${@@^::libdir}/${@@^2::static::name}
+                    libname:              ${@@^2::libname}
+                    source/dir:           ${@@^2::source/dir}
 
                 shared:
-                    build:                ${@@^::@@^::build}
-                    compiler/lang:        ${@@^::@@^::compiler/lang}
-                    install:              ${@@^::@@^::install}
+                    build:                ${@@^2::build}
+                    compiler/lang:        ${@@^2::compiler/lang}
+                    install:              ${@@^2::install}
                     install/dir:          ${buildconf::install-dirs::libdir}
                     install/package:      lib
                     install/perm:         0644
-                    name:                 lib${@@^::@@^::libname}.so.${@@^::@@^::abi}
+                    name:                 lib${@@^2::libname}.so.${@@^2::abi}
                     file:                 ${@@^::name}
-                    source/dir:           ${@@^::@@^::source/dir}
+                    source/dir:           ${@@^2::source/dir}
 
                 devlink:
-                    build:                ${@@^::@@^::build}
-                    install:              ${@@^::@@^::install}
+                    build:                ${@@^2::build}
+                    install:              ${@@^2::install}
                     install/dir:          ${buildconf::install-dirs::libdir}
                     install/package:      dev
                     install/perm:         0644
-                    name:                 lib${@@^::@@^::libname}.so
-                    target:               ${@@^::@@^::shared::file}
+                    name:                 lib${@@^2::libname}.so
+                    target:               ${@@^2::shared::file}
                     file:                 ${@@^::name}
-                    source/dir:           ${@@^::@@^::source/dir}
+                    source/dir:           ${@@^2::source/dir}
 
                 static:
-                    build:                ${@@^::@@^::build}
-                    compiler/lang:        ${@@^::@@^::compiler/lang}
-                    install:              ${@@^::@@^::install}
+                    build:                ${@@^2::build}
+                    compiler/lang:        ${@@^2::compiler/lang}
+                    install:              ${@@^2::install}
                     install/dir:          ${buildconf::install-dirs::libdir}
                     install/package:      dev
                     install/perm:         0644
-                    name:                 lib${@@^::@@^::libname}.a
+                    name:                 lib${@@^2::libname}.a
                     file:                 ${@@^::name}
-                    source/dir:           ${@@^::@@^::source/dir}
+                    source/dir:           ${@@^2::source/dir}
 
             c++/executable:
                 builder/driver:       c/executable
                 compiler/lang:        C++
-                install:              ${@@^::@@^::install}
+                install:              ${@@^2::install}
                 install/dir:          ${buildconf::install-dirs::bindir}
                 install/package:      prog
                 install/perm:         0755
@@ -401,21 +401,21 @@ platform:
 
             data/misc:
                 builder/driver:       data/misc
-                install:              ${@@^::@@^::install}
+                install:              ${@@^2::install}
                 install/dir:          ${buildconf::install-dirs::datadir}
                 install/package:      data
                 install/perm:         0664
 
             data/lib-script:
                 builder/driver:       data/misc
-                install:              ${@@^::@@^::install}
+                install:              ${@@^2::install}
                 install/dir:          ${buildconf::install-dirs::libdir-noarch}/${package}
                 install/package:      data
                 install/perm:         0755
 
             data/lib-script-subdir:
                 builder/driver:       data/misc
-                install:              ${@@^::@@^::install}
+                install:              ${@@^2::install}
                 install/dir:          ${buildconf::install-dirs::libdir-noarch}/${package}
                 install/package:      data
                 install/perm:         0755
@@ -423,14 +423,14 @@ platform:
 
             data/pixmap:
                 builder/driver:       data/pixmap
-                install:              ${@@^::@@^::install}
+                install:              ${@@^2::install}
                 install/dir:          ${buildconf::install-dirs::pixmapdir}
                 install/package:      data
                 install/perm:         0664
 
             data/desktop:
                 builder/driver:       data/desktop
-                install:              ${@@^::@@^::install}
+                install:              ${@@^2::install}
                 install/dir:          ${buildconf::install-dirs::fdo-appdir}
                 install/package:      data
                 install/perm:         0664
@@ -445,7 +445,7 @@ platform:
             i18n/po:
                 builder/driver:       i18n/po
                 builder/command:      msgfmt
-                install:              ${@@^::@@^::install}
+                install:              ${@@^2::install}
                 install/dir:          ${buildconf::install-dirs::localedir}
                 install/package:      data
                 install/perm:         0664
@@ -469,7 +469,7 @@ platform:
 
             doc/man:
                 builder/driver:       doc/man
-                install:              ${@@^::@@^::install}
+                install:              ${@@^2::install}
                 install/dir:          ${buildconf::install-dirs::mandir}
                 install/package:      doc
                 install/perm:         0664
@@ -479,7 +479,7 @@ platform:
 
             doc/misc:
                 builder/driver:       doc/misc
-                install:              ${@@^::@@^::install}
+                install:              ${@@^2::install}
                 install/dir:          ${buildconf::install-dirs::docdir}
                 install/package:      doc
                 install/perm:         0664
@@ -489,7 +489,7 @@ platform:
             doc/yelp:
                 builder/driver:       doc/yelp
                 builder/command:      yelp-build
-                install:              ${@@^::@@^::install}
+                install:              ${@@^2::install}
                 install/dir:          ${buildconf::install-dirs::docdir}
                 install/package:      doc
                 install/perm:         0664

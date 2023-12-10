@@ -55,7 +55,7 @@ For convenience, the target key (in the yaml struct) may encode the target type:
 | file            | ${@@^::name}                       | file name                         |
 | headers         |                                    | map of header file bundles        |
 | include/dir     |                                    | extra include dirs                |
-| install         | ${@@^::@@^::install}               | whether to install                |
+| install         | ${@@^2::install}                   | whether to install                |
 | install/dir     | ${buildconf::install-dirs::bindir} | install directory                 |
 | install/package | prog                               | install package                   |
 | install/perm    | 0755                               | install permissions               |
@@ -128,7 +128,7 @@ The attributes are those of `c/executable` plus some more:
 
 | Attribute       | Default                             | Description                                           |
 |-----------------|-------------------------------------|-------------------------------------------------------|
-| install         | ${@@^::@@^::install}                | whether to install into distro package                |
+| install         | ${@@^2::install}                    | whether to install into distro package                |
 | install/dir     | ${buildconf::install-dirs::datadir} | install directory                                     |
 | install/package | data                                | install package                                       |
 | install/perm    | 0064                                | install permissions                                   |
@@ -153,7 +153,7 @@ Similar to data/misc, but putting it into arch-independent libdir and sets execu
 
 | Attribute       | Default                                              | Description                            |
 |-----------------|------------------------------------------------------|----------------------------------------|
-| install         | ${@@^::@@^::install}                                 | whether to install into distro package |
+| install         | ${@@^2::install}                                     | whether to install into distro package |
 | install/dir     | ${buildconf::install-dirs::libdir-noarch}/${package} | install directory                      |
 | install/package | data                                                 | install package                        |
 | install/perm    | 0775                                                 | install permissions                    |
@@ -175,7 +175,7 @@ Like data/lib-script, but taking `source/dir` from target id.
 
 | Attribute       | Default                                              | Description                            |
 |-----------------|------------------------------------------------------|----------------------------------------|
-| install         | ${@@^::@@^::install}                                 | whether to install into distro package |
+| install         | ${@@^2::install}                                     | whether to install into distro package |
 | install/dir     | ${buildconf::install-dirs::libdir-noarch}/${package} | install directory                      |
 | install/package | data                                                 | install package                        |
 | install/perm    | 0775                                                 | install permissions                    |
@@ -205,7 +205,7 @@ Like data/lib-script, but taking `source/dir` from target id.
 | desktop/exec        |                                                            | `Exec=` field                          |
 | desktop/tryexec     |                                                            | `TryExec=` field                       |
 | file                | ${@@^::@id}                                                | output file name                       |
-| install             | ${@@^::@@^::install}                                       | whether to install into distro package |
+| install             | ${@@^2::install}                                           | whether to install into distro package |
 | install/dir         | ${buildconf::install-dirs::fdo-appdir}                     | install directory                      |
 | install/package     | data                                                       | install package                        |
 | install/perm        | 0064                                                       | install permissions                    |
@@ -227,7 +227,7 @@ Like data/lib-script, but taking `source/dir` from target id.
 | Attribute           | Default                               | Description                            |
 |---------------------|---------------------------------------|----------------------------------------|
 | file                | ${@@^::@id}                           | output file name                       |
-| install             | ${@@^::@@^::install}                  | whether to install into distro package |
+| install             | ${@@^2::install}                      | whether to install into distro package |
 | install/dir         | ${buildconf::install-dirs::pixmapdir} | install directory                      |
 | install/package     | data                                  | install package                        |
 | install/perm        | 0064                                  | install permissions                    |
@@ -248,7 +248,7 @@ Like data/lib-script, but taking `source/dir` from target id.
 | Attribute           | Default                            | Description                            |
 |---------------------|------------------------------------|----------------------------------------|
 | source              |                                    | source files _(globs)_                 |
-| install             | ${@@^::@@^::install}               | whether to install into distro package |
+| install             | ${@@^2::install}                   | whether to install into distro package |
 | install/dir         | ${buildconf::install-dirs::docdir} | install directory                      |
 | install/package     | doc                                | install package                        |
 | install/perm        | 0064                               | install permissions                    |
@@ -275,7 +275,7 @@ Like data/lib-script, but taking `source/dir` from target id.
 | Attribute           | Default                            | Description                            |
 |---------------------|------------------------------------|----------------------------------------|
 | source              |                                    | source file                            |
-| install             | ${@@^::@@^::install}               | whether to install into distro package |
+| install             | ${@@^2::install}                   | whether to install into distro package |
 | install/dir         | ${buildconf::install-dirs::mandir} | install directory                      |
 | install/package     | data                               | install package                        |
 | install/perm        | 0064                               | install permissions                    |
