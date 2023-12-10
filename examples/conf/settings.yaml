@@ -480,6 +480,7 @@ platform:
                 install/perm:         0664
                 i18n/linguas:         ${i18n::linguas}
                 i18n/po/dir:          po
+                i18n/type:            desktop
                 source/suffix:        .desktop.in
                 output/suffix:        .desktop
 

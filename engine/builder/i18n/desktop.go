@@ -20,6 +20,7 @@ func (b I18nDesktop) JobRun() error {
 	inSuffix := b.RequiredEntryStr(target.KeySourceSuffix)
 	outSuffix := b.RequiredEntryStr(target.KeyOutputSuffix)
 	installdir := b.InstallDir()
+	typ := "--" + b.RequiredEntryStr(target.KeyI18nType)
 
 	perm := b.InstallPerm()
 
@@ -43,7 +44,7 @@ func (b I18nDesktop) JobRun() error {
 
 		fileutil.WriteFileLines(tmpfile, lines)
 
-		b.ExecAbort(append(b.BuilderCmd(), "--desktop", "-d", podir, "--template", tmpfile, "-o", outfile), "")
+		b.ExecAbort(append(b.BuilderCmd(), typ, "-d", podir, "--template", tmpfile, "-o", outfile), "")
 
 		b.InstallPkgFile(outfile, installdir, perm)
 	}

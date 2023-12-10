@@ -76,6 +76,7 @@ const (
 	KeyI18nCategory = Key("i18n/category")
 	KeyI18nDomain   = Key("i18n/domain")
 	KeyI18nPoDir    = Key("i18n/po/dir")
+	KeyI18nType     = Key("i18n/type")
 )
 
 // generators
