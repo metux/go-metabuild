@@ -29,10 +29,10 @@ const (
 	KeyInstallPerm    = Key("install/perm")
 
 	// library main
-	KeyHeaders   = Key("headers")
-	KeyMapfile   = Key("mapfile")
-	KeyLibName   = Key("libname")
-	KeyStaticLib = Key("static::file")
+	KeyHeaders     = Key("headers")
+	KeyMapfile     = Key("mapfile")
+	KeyLibraryName = Key("library/name")
+	KeyStaticLib   = Key("static::file")
 
 	// library devlink
 	KeyLinkTarget = Key("target")

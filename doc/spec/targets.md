@@ -99,7 +99,7 @@ The attributes are those of `c/executable` plus some more:
 | install        | true           | whether to install                                        |
 | install/dir    |                | installation dir                                          |
 | install/subdir |                | installation subdir                                       |
-| libname        | ${@@^::@id}    | library name _(as used in `-l...` flag)`                  |
+| library/name   | ${@@^::@id}    | library name _(as used in `-l...` flag)`                  |
 | mapfile        |                | linker map file                                           |
 | pkgconf        |                | map of pkg-config metadata _(`name:` and `description:`)_ |
 | skip/devlink   |                | skip devlink _(to shared object)_                         |
@@ -114,7 +114,7 @@ The attributes are those of `c/executable` plus some more:
         type:           c/library
         mapfile:        zlib.map
         version:        1
-        libname:        z
+        library/name:   z
         c/defines:      ${buildconf::host::flags::c/defines}
         pkgconf:
             name:        zlib

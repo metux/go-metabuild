@@ -15,7 +15,7 @@ type BuilderCLibrary struct {
 func (b *BuilderCLibrary) JobPrepare(id jobs.JobId) error {
 	cflags := b.CFlags()
 
-	libname := b.RequiredEntryStr(target.KeyLibName)
+	libname := b.RequiredEntryStr(target.KeyLibraryName)
 	pkgname := b.RequiredEntryStr(target.KeyPkgName)
 	pkgid := b.RequiredEntryStr(target.KeyLibraryPkgId)
 

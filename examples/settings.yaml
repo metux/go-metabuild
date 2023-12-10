@@ -238,13 +238,13 @@ platform:
 
                 ## defaults that may be overwritten
                 compiler/lang:        C
-                libname:              ${@@^::@id}
+                library/name:         ${@@^::@id}
                 library/pkgid:        ${@@^::@id}
                 install:              true
                 abi:                  1
 
                 ## fixme: pkg-config needs this ... really the right place ?
-                name:                 ${@@^::libname}
+                name:                 ${@@^::library/name}
 
                 description:          ${description}
                 version:              ${buildconf::version}
@@ -257,7 +257,7 @@ platform:
                     install/perm:         0644
                     file:                 ${@@^::name}.pc
                     version:              ${@@^2::version}
-                    name:                 ${@@^2::libname}
+                    name:                 ${@@^2::library/name}
                     libdir:               ${@@^2::shared::install/dir}
                     sharedlibdir:         ${@@^2::shared::install/dir}
                     description:          ${@@^2::description}
@@ -265,7 +265,7 @@ platform:
                     exec-prefix:          ${buildconf::install-dirs::exec-prefix}
                     includedir:           ${buildconf::install-dirs::includedir}
                     archive:              ${@@^::libdir}/${@@^2::static::name}
-                    libname:              ${@@^2::libname}
+                    libname:              ${@@^2::library/name}
                     source/dir:           ${@@^2::source/dir}
 
                 shared:
@@ -275,7 +275,7 @@ platform:
                     install/dir:          ${buildconf::install-dirs::libdir}
                     install/package:      lib
                     install/perm:         0644
-                    name:                 lib${@@^2::libname}.so.${@@^2::abi}
+                    name:                 lib${@@^2::library/name}.so.${@@^2::abi}
                     file:                 ${@@^::name}
                     source/dir:           ${@@^2::source/dir}
 
@@ -285,7 +285,7 @@ platform:
                     install/dir:          ${buildconf::install-dirs::libdir}
                     install/package:      dev
                     install/perm:         0644
-                    name:                 lib${@@^2::libname}.so
+                    name:                 lib${@@^2::library/name}.so
                     target:               ${@@^2::shared::file}
                     file:                 ${@@^::name}
                     source/dir:           ${@@^2::source/dir}
@@ -297,7 +297,7 @@ platform:
                     install/dir:          ${buildconf::install-dirs::libdir}
                     install/package:      dev
                     install/perm:         0644
-                    name:                 lib${@@^2::libname}.a
+                    name:                 lib${@@^2::library/name}.a
                     file:                 ${@@^::name}
                     source/dir:           ${@@^2::source/dir}
 
@@ -325,13 +325,13 @@ platform:
 
                 ## defaults that may be overwritten
                 compiler/lang:        C++
-                libname:              ${@@^::@id}
+                library/name:         ${@@^::@id}
                 library/pkgid:        ${@@^::@id}
                 install:              true
                 abi:                  1
 
                 ## fixme: pkg-config needs this ... really the right place ?
-                name:                 ${@@^::libname}
+                name:                 ${@@^::library/name}
 
                 description:          ${description}
                 version:              ${buildconf::version}
@@ -344,7 +344,7 @@ platform:
                     install/perm:         0644
                     file:                 ${@@^::name}.pc
                     version:              ${@@^2::version}
-                    name:                 ${@@^2::libname}
+                    name:                 ${@@^2::library/name}
                     libdir:               ${@@^2::shared::install/dir}
                     sharedlibdir:         ${@@^2::shared::install/dir}
                     description:          ${@@^2::description}
@@ -352,7 +352,7 @@ platform:
                     exec-prefix:          ${buildconf::install-dirs::exec-prefix}
                     includedir:           ${buildconf::install-dirs::includedir}
                     archive:              ${@@^::libdir}/${@@^2::static::name}
-                    libname:              ${@@^2::libname}
+                    library/name:         ${@@^2::library/name}
                     source/dir:           ${@@^2::source/dir}
 
                 shared:
@@ -362,7 +362,7 @@ platform:
                     install/dir:          ${buildconf::install-dirs::libdir}
                     install/package:      lib
                     install/perm:         0644
-                    name:                 lib${@@^2::libname}.so.${@@^2::abi}
+                    name:                 lib${@@^2::library/name}.so.${@@^2::abi}
                     file:                 ${@@^::name}
                     source/dir:           ${@@^2::source/dir}
 
@@ -372,7 +372,7 @@ platform:
                     install/dir:          ${buildconf::install-dirs::libdir}
                     install/package:      dev
                     install/perm:         0644
-                    name:                 lib${@@^2::libname}.so
+                    name:                 lib${@@^2::library/name}.so
                     target:               ${@@^2::shared::file}
                     file:                 ${@@^::name}
                     source/dir:           ${@@^2::source/dir}
@@ -384,7 +384,7 @@ platform:
                     install/dir:          ${buildconf::install-dirs::libdir}
                     install/package:      dev
                     install/perm:         0644
-                    name:                 lib${@@^2::libname}.a
+                    name:                 lib${@@^2::library/name}.a
                     file:                 ${@@^::name}
                     source/dir:           ${@@^2::source/dir}
 

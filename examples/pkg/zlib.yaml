@@ -45,7 +45,7 @@ targets:
     zlib{c/library}:
         mapfile:        zlib.map
         version:        1
-        libname:        z
+        library/name:   z
         c/defines:      ${buildconf::host::flags::c/defines}
         pkgconf:
             name:        zlib
