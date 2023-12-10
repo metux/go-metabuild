@@ -240,6 +240,7 @@ platform:
                 compiler/lang:        C
                 library/name:         ${@@^::@id}
                 library/pkgid:        ${@@^::@id}
+                library/dir:          .
                 install:              true
                 abi:                  1
 
@@ -276,8 +277,9 @@ platform:
                     install/package:      lib
                     install/perm:         0644
                     name:                 lib${@@^2::library/name}.so.${@@^2::abi}
-                    file:                 ${@@^::name}
+                    file:                 ${@@^::library/dir}/${@@^::name}
                     source/dir:           ${@@^2::source/dir}
+                    library/dir:          ${@@^2::library/dir}
 
                 devlink:
                     build:                ${@@^2::build}
@@ -287,8 +289,9 @@ platform:
                     install/perm:         0644
                     name:                 lib${@@^2::library/name}.so
                     target:               ${@@^2::shared::file}
-                    file:                 ${@@^::name}
+                    file:                 ${@@^::library/dir}/${@@^::name}
                     source/dir:           ${@@^2::source/dir}
+                    library/dir:          .
 
                 static:
                     build:                ${@@^2::build}
@@ -298,8 +301,9 @@ platform:
                     install/package:      dev
                     install/perm:         0644
                     name:                 lib${@@^2::library/name}.a
-                    file:                 ${@@^::name}
+                    file:                 ${@@^::library/dir}/${@@^::name}
                     source/dir:           ${@@^2::source/dir}
+                    library/dir:          ${@@^2::library/dir}
 
             c/header:
                 builder/driver:       c/header
@@ -327,6 +331,7 @@ platform:
                 compiler/lang:        C++
                 library/name:         ${@@^::@id}
                 library/pkgid:        ${@@^::@id}
+                library/dir:          .
                 install:              true
                 abi:                  1
 
@@ -363,8 +368,9 @@ platform:
                     install/package:      lib
                     install/perm:         0644
                     name:                 lib${@@^2::library/name}.so.${@@^2::abi}
-                    file:                 ${@@^::name}
+                    file:                 ${@@^::library/dir}/${@@^::name}
                     source/dir:           ${@@^2::source/dir}
+                    library/dir:          ${@@^2::library/dir}
 
                 devlink:
                     build:                ${@@^2::build}
@@ -374,8 +380,9 @@ platform:
                     install/perm:         0644
                     name:                 lib${@@^2::library/name}.so
                     target:               ${@@^2::shared::file}
-                    file:                 ${@@^::name}
+                    file:                 ${@@^::library/dir}/${@@^::name}
                     source/dir:           ${@@^2::source/dir}
+                    library/dir:          ${@@^2::library/dir}
 
                 static:
                     build:                ${@@^2::build}
@@ -385,8 +392,9 @@ platform:
                     install/package:      dev
                     install/perm:         0644
                     name:                 lib${@@^2::library/name}.a
-                    file:                 ${@@^::name}
+                    file:                 ${@@^::library/dir}/${@@^::name}
                     source/dir:           ${@@^2::source/dir}
+                    library/dir:          ${@@^2::library/dir}
 
             c++/executable:
                 builder/driver:       c/executable

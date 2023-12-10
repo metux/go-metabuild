@@ -52,6 +52,7 @@ const (
 	KeyHeaders        = Key("headers")
 	KeyLibraryName    = Key("library/name")
 	KeyStaticLib      = Key("static::file")
+	KeyLibraryDir     = Key("library/dir")
 
 	// static / archives
 	KeyLibraryLinkWhole = Key("library/link-whole")
