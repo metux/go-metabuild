@@ -623,6 +623,10 @@ platform:
                     library/pkgid:    ${@@^2::@id}
                     library/link-whole:   true
 
+            exec/basic:
+                builder/driver:           exec/basic
+                exec/log:                 true
+
 buildconf:
     install-dirs: # will be filled by configure stage
     version: ${version}

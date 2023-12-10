@@ -7,6 +7,7 @@ import (
 	"github.com/metux/go-metabuild/engine/builder/composite"
 	"github.com/metux/go-metabuild/engine/builder/data"
 	"github.com/metux/go-metabuild/engine/builder/doc"
+	"github.com/metux/go-metabuild/engine/builder/exec"
 	"github.com/metux/go-metabuild/engine/builder/gen"
 	"github.com/metux/go-metabuild/engine/builder/i18n"
 	"github.com/metux/go-metabuild/spec"
@@ -62,6 +63,10 @@ func CreateBuilder(o target.TargetObject) (jobs.Job, error) {
 		return composite.MakeGlibMarshal(o, id), nil
 	case target.TypeCGlibResource:
 		return composite.MakeGlibResource(o, id), nil
+
+	/* exec */
+	case target.TypeExecBasic:
+		return exec.MakeExecBasic(o, id), nil
 
 	default:
 		return nil, fmt.Errorf("unsupported builder driver: %s", t)

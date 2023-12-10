@@ -484,3 +484,24 @@ Generate code fragment (header) for compiling in binary data, like `xxd -i`.
         type:               gen/xxd-csource
         source:             src/ClayRGB1998.icc
 ```
+
+### exec/basic:
+
+Simple command executor (no shell)
+
+#### Attributes:
+
+| Attribute        | Default | Description          |
+|------------------|---------|----------------------|
+| exec/command     |         | command line (list)  |
+| exec/workdir     |         | working directory    |
+| exec/log         |         | log output           |
+
+#### Example:
+```
+    foo:
+        type:               exec/basic
+        exec/command:       ["uptime"]
+        exec/log:           true
+
+```

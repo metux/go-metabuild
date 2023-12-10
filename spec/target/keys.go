@@ -113,3 +113,10 @@ const (
 	KeyManpageAlias    = Key("man/alias")
 	KeyManpageCompress = Key("man/compress")
 )
+
+// command execution
+const (
+	KeyExecCommand = Key("exec/command")
+	KeyExecWorkDir = Key("exec/workdir")
+	KeyExecLog     = Key("exec/log")
+)

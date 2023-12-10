@@ -43,4 +43,7 @@ const (
 	TypeGenGlibMarshal  = Key("gen/glib-marshal")
 	TypeXdtCSource      = Key("gen/xdt-csource")
 	TypeXxdCSource      = Key("gen/xxd-csource")
+
+	/* shell exec */
+	TypeExecBasic = Key("exec/basic")
 )
