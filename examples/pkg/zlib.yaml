@@ -43,10 +43,10 @@ configure:
 
 targets:
     zlib{c/library}:
-        mapfile:        zlib.map
-        version:        1
-        library/name:   z
-        c/defines:      ${buildconf::host::flags::c/defines}
+        version:          1
+        library/name:     z
+        library/mapfile:  zlib.map
+        c/defines:        ${buildconf::host::flags::c/defines}
         pkgconf:
             name:        zlib
             description: ZLib compression library

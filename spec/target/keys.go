@@ -30,7 +30,6 @@ const (
 
 	// library main
 	KeyHeaders     = Key("headers")
-	KeyMapfile     = Key("mapfile")
 	KeyLibraryName = Key("library/name")
 	KeyStaticLib   = Key("static::file")
 
@@ -56,7 +55,8 @@ const (
 // libraries
 const (
 	// pkgconf ID for internal libs
-	KeyLibraryPkgId = Key("library/pkgid")
+	KeyLibraryPkgId   = Key("library/pkgid")
+	KeyLibraryMapFile = Key("library/mapfile")
 )
 
 // internal builder configuration

@@ -91,31 +91,31 @@ pkgconf _(`*.pc`)_, symbolic link _(`*.so`)_ for development, header files, etc.
 
 The attributes are those of `c/executable` plus some more:
 
-| Attribute      | Default        | Description                                               |
-|----------------|----------------|-----------------------------------------------------------|
-| abi            | 1              | shared object version                                     |
-| compiler/lang  | C              | compiler language                                         |
-| description    | ${description} | description _(for pkgconf)_                               |
-| install        | true           | whether to install                                        |
-| install/dir    |                | installation dir                                          |
-| install/subdir |                | installation subdir                                       |
-| library/name   | ${@@^::@id}    | library name _(as used in `-l...` flag)`                  |
-| mapfile        |                | linker map file                                           |
-| pkgconf        |                | map of pkg-config metadata _(`name:` and `description:`)_ |
-| skip/devlink   |                | skip devlink _(to shared object)_                         |
-| skip/pkgconf   |                | skip `.pc` file                                           |
-| skip/shared    |                | skip shared object                                        |
-| skip/static    |                | skip static archive                                       |
-| version        | ${version}     | version _(for pkgconf)_                                   |
+| Attribute       | Default        | Description                                               |
+|-----------------|----------------|-----------------------------------------------------------|
+| abi             | 1              | shared object version                                     |
+| compiler/lang   | C              | compiler language                                         |
+| description     | ${description} | description _(for pkgconf)_                               |
+| install         | true           | whether to install                                        |
+| install/dir     |                | installation dir                                          |
+| install/subdir  |                | installation subdir                                       |
+| library/name    | ${@@^::@id}    | library name _(as used in `-l...` flag)`                  |
+| library/mapfile |                | linker map file                                           |
+| pkgconf         |                | map of pkg-config metadata _(`name:` and `description:`)_ |
+| skip/devlink    |                | skip devlink _(to shared object)_                         |
+| skip/pkgconf    |                | skip `.pc` file                                           |
+| skip/shared     |                | skip shared object                                        |
+| skip/static     |                | skip static archive                                       |
+| version         | ${version}     | version _(for pkgconf)_                                   |
 
 #### Example:
 ```
     zlib:
-        type:           c/library
-        mapfile:        zlib.map
-        version:        1
-        library/name:   z
-        c/defines:      ${buildconf::host::flags::c/defines}
+        type:             c/library
+        version:          1
+        library/mapfile:  zlib.map
+        library/name:     z
+        c/defines:        ${buildconf::host::flags::c/defines}
         pkgconf:
             name:        zlib
             description: ZLib compression library
