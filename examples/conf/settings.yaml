@@ -244,7 +244,7 @@ platform:
 
                 ## defaults that may be overwritten
                 compiler/lang:        C
-                library/name:         ${@@^::@id}
+                library/name:         ${@@^::@basename}
                 library/pkgid:        ${@@^::@id}
                 library/dir:          ${buildconf::@builddir/tmp}
                 install:              true
@@ -335,7 +335,7 @@ platform:
 
                 ## defaults that may be overwritten
                 compiler/lang:        C++
-                library/name:         ${@@^::@id}
+                library/name:         ${@@^::@basename}
                 library/pkgid:        ${@@^::@id}
                 library/dir:          ${buildconf::@builddir/tmp}
                 install:              true
