@@ -4,6 +4,7 @@ import (
 	"github.com/metux/go-metabuild/engine/builder/base"
 	"github.com/metux/go-metabuild/spec"
 	"github.com/metux/go-metabuild/spec/target"
+	"github.com/metux/go-metabuild/util"
 	"github.com/metux/go-metabuild/util/compiler"
 	"github.com/metux/go-metabuild/util/jobs"
 )
@@ -18,6 +19,7 @@ func (b *BuilderCLibrary) JobPrepare(id jobs.JobId) error {
 	libname := b.RequiredEntryStr(target.KeyLibraryName)
 	pkgname := b.RequiredEntryStr(target.KeyPkgName)
 	pkgid := b.RequiredEntryStr(target.KeyLibraryPkgId)
+	archive := "-l:" + b.RequiredEntryStr(target.KeyStaticLib)
 
 	cflags = []string{"-I."}
 
@@ -26,8 +28,10 @@ func (b *BuilderCLibrary) JobPrepare(id jobs.JobId) error {
 		PkgSpec:       pkgname,
 		SharedLdflags: []string{"-L.", "-l" + libname},
 		SharedCflags:  cflags,
-		StaticLdflags: []string{"-L.", "-l:" + b.RequiredEntryStr(target.KeyStaticLib)},
-		StaticCflags:  cflags,
+		StaticLdflags: util.ValIf(b.EntryBoolDef(target.KeyLibraryLinkWhole, false),
+			[]string{"-L.", "-Wl,--whole-archive", archive, "-Wl,--no-whole-archive"},
+			[]string{"-L.", archive}),
+		StaticCflags: cflags,
 	}
 
 	return b.BuildConf.SetPkgConfig(b.ForBuild(), pkgid, pi)

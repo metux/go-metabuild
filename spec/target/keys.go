@@ -53,6 +53,9 @@ const (
 	KeyLibraryName    = Key("library/name")
 	KeyStaticLib      = Key("static::file")
 
+	// static / archives
+	KeyLibraryLinkWhole = Key("library/link-whole")
+
 	// library devlink
 	KeyLinkTarget = Key("target")
 )
