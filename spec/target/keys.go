@@ -28,14 +28,6 @@ const (
 	KeyInstallPackage = Key("install/package")
 	KeyInstallPerm    = Key("install/perm")
 
-	// library main
-	KeyHeaders     = Key("headers")
-	KeyLibraryName = Key("library/name")
-	KeyStaticLib   = Key("static::file")
-
-	// library devlink
-	KeyLinkTarget = Key("target")
-
 	KeySource       = Key("source")
 	KeySourceDir    = Key("source/dir")
 	KeySourceSuffix = Key("source/suffix")
@@ -52,11 +44,17 @@ const (
 	KeyLinkBoth   = Key("link/both")
 )
 
-// libraries
+// libraries (main)
 const (
 	// pkgconf ID for internal libs
 	KeyLibraryPkgId   = Key("library/pkgid")
 	KeyLibraryMapFile = Key("library/mapfile")
+	KeyHeaders        = Key("headers")
+	KeyLibraryName    = Key("library/name")
+	KeyStaticLib      = Key("static::file")
+
+	// library devlink
+	KeyLinkTarget = Key("target")
 )
 
 // internal builder configuration
