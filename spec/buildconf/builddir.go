@@ -11,6 +11,12 @@ const (
 	BuildDirDist = BuildDir + "dist/"
 )
 
+const (
+	KeyBuildDir     = "@builddir"
+	KeyBuildDirTmp  = "@builddir/tmp"
+	KeyBuildDirDist = "@builddir/dist"
+)
+
 func xmkdir(d string) string {
 	os.MkdirAll(d, 0755)
 	d, _ = filepath.Abs(filepath.Clean(d))

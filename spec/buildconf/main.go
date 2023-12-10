@@ -45,6 +45,9 @@ func (bc BuildConf) PkgNameTrans(id string) string {
 
 func (bc BuildConf) Init() {
 	bc.DefaultPutStr("@features", "${features}")
+	bc.DefaultPutStr(KeyBuildDir, BuildDir)
+	bc.DefaultPutStr(KeyBuildDirTmp, BuildDirTmp)
+	bc.DefaultPutStr(KeyBuildDirDist, BuildDirDist)
 }
 
 func (bc BuildConf) Flags(build bool) SpecObj {
