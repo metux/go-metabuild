@@ -25,6 +25,17 @@ attribute set.
 | i18n/desktop           | multilingual FreeDesktop.org `*.desktop` file                           |
 | i18n/po                | gettext translation files *(building `*.mo` files)*                     |
 
+## Common attributes
+
+| Attribute   | Type    | Description                                           |
+|-------------|---------|-------------------------------------------------------|
+| build       | bool    | true if compiled for `build` system instead of `host` |
+| install     | bool    | true if output should be installed in package         |
+| job/depends | list    | additional job dependencies                           |
+| optional    | string  | only build if given feature/option is enabled         |
+| skip        | bool    | skip building this target                             |
+| type        | string  | target type                                           |
+
 ## Automatic attributes
 
 Some attributes are automatically set in the post-load phase.

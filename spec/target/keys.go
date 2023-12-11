@@ -19,6 +19,9 @@ const (
 	// build host vs target host
 	KeyBuild = Key("build")
 
+	KeyOptional = Key("optional")
+	KeySkip     = Key("skip")
+
 	KeyCompilerLang = Key("compiler/lang")
 
 	// all targets: installation

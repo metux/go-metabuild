@@ -15,9 +15,13 @@ func (fm FeatureMap) IDs() []Key {
 func (fm FeatureMap) All() []Feature {
 	f := []Feature{}
 	for _, k := range fm.Keys() {
-		f = append(f, Feature{fm.EntrySpec(k), k})
+		f = append(f, fm.Get(k))
 	}
 	return f
+}
+
+func (fm FeatureMap) Get(k Key) Feature {
+	return Feature{fm.EntrySpec(k), k}
 }
 
 func (fm FeatureMap) Map() map[Key]string {

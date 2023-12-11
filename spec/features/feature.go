@@ -24,6 +24,16 @@ func (f Feature) ValueYN() string {
 	}
 }
 
+func (f Feature) IsOn() bool {
+	switch v := f.Value(); v {
+	case "y", "true", "yes", "1":
+		return true
+	case "n", "false", "no", "0", "":
+		return false
+	}
+	return false
+}
+
 func (f Feature) Set(v string) {
 	f.EntryPutStr(KeyEnabled, v)
 }

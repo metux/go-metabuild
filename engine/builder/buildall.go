@@ -14,7 +14,9 @@ func (b BuildAll) JobSub() ([]jobs.Job, error) {
 	jobs := []jobs.Job{}
 	for _, t := range b.GetTargetObjects() {
 		if b, err := CreateBuilder(t); err == nil {
-			jobs = append(jobs, b)
+			if !t.Skipped() {
+				jobs = append(jobs, b)
+			}
 		} else {
 			return jobs, err
 		}

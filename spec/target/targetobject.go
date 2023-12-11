@@ -171,6 +171,21 @@ func (b TargetObject) EntryPathList(k Key) []string {
 	return list
 }
 
+func (o TargetObject) Skipped() bool {
+	if o.EntryBoolDef(KeySkip, false) {
+		return true
+	}
+
+	for _, opt := range o.EntryStrList(KeyOptional) {
+		f := o.BuildConf.Features.Get(Key(opt))
+		if !f.IsOn() {
+			return true
+		}
+	}
+
+	return false
+}
+
 func MakeTargetObject(spec specobj.SpecObj, k Key, bc buildconf.BuildConf, c cache.Cache) TargetObject {
 	obj := TargetObject{
 		SpecObj:   spec,
