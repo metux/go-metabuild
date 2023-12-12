@@ -4,6 +4,7 @@ my_path := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 test_zlib_path    := ../zlib
 test_lincity_path := ../lincity
 test_xfwm4_path   := ../xfwm4
+test_dvdinfo_path  := ../dvd_info
 
 metabuild := $(my_path)/bin/metabuild
 conf := $(my_path)/examples/conf/settings.yaml
@@ -39,6 +40,9 @@ test-lincity: build
 
 test-xfwm4: build
 	$(call RUNTEST, $(test_xfwm4_path), xfwm4)
+
+test-dvd_info: build
+	$(call RUNTEST, $(test_dvdinfo_path), dvd_info)
 
 build:
 	@rm -Rf bin
