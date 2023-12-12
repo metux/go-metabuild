@@ -1,0 +1,124 @@
+package:      dvd-info
+version:      1.15.0.1
+maintainer:   Steve Dibb <steve.dibb@gmail.com>
+homepage:     https://github.com/beandog/dvd_info
+section:      media
+name:         DVD utilities
+description:  |
+
+configure:
+    checks:
+        - type:           target-distro
+        - type:           c/compiler
+          mandatory:      true
+        - pkgconf:
+            DVDREAD: dvdread >= 4.2.1
+          mandatory: true
+        - pkgconf:
+            MPV:     mpv
+        - c/header:       math.h
+          mandatory:      true
+        - c/header:       sys/ioctl.h
+          mandatory:      true
+
+    # dont really use it, but needs to be present since it's included
+    generate:
+        - config.h: config.h
+
+features:
+    dvd-player:
+        type:    bool
+        default: y
+        description: enable DVD player
+
+    # only enable enabled on Linux
+    dvd-drive-status:
+        type:    bool
+        default: y
+
+    dvd-ripper:
+        type:    bool
+        default: y
+
+c/defines:
+    - PACKAGE_VERSION="${version}"
+
+targets:
+    base{c/library}:
+        source:         [dvd_open.c, dvd_drive.c, dvd_vmg_ifo.c, dvd_vts.c]
+        skip/pkgconf:   true
+        skip/shared:    true
+        c/defines:      ${c/defines}
+
+    dvd_info{c/executable}:
+        source:         [dvd_info.c, dvd_track.c, dvd_cell.c, dvd_video.c,
+                         dvd_audio.c, dvd_subtitles.c, dvd_time.c, dvd_json.c,
+                         dvd_chapter.c, dvd_xchap.c, dvd_init.c]
+        pkgconf/import: [DVDREAD, libc/math]
+        link/static:    base
+        c/defines:      ${c/defines}
+
+    dvd_info.1{doc/man}:
+
+    dvd_copy{c/executable}:
+        source:         [dvd_copy.c, dvd_track.c, dvd_cell.c, dvd_vob.c,
+                         dvd_audio.c, dvd_subtitles.c, dvd_time.c, dvd_chapter.c]
+        pkgconf/import: [DVDREAD, libc/math]
+        link/static:    base
+        c/defines:      ${c/defines}
+
+    dvd_copy.1{doc/man}:
+
+    dvd_backup{c/executable}:
+        source:         [dvd_backup.c, dvd_vob.c]
+        pkgconf/import: [DVDREAD]
+        link/static:    base
+        c/defines:      ${c/defines}
+
+    dvd_backup.1{doc/man}:
+
+    dvd_debug{c/executable}:
+        source:         dvd_debug.c
+        pkgconf/import: [DVDREAD]
+        c/defines:      ${c/defines}
+
+    dvd_drive_status{c/executable}:
+        optional:       dvd-drive-status
+        source:         dvd_drive_status.c
+        c/defines:      ${c/defines}
+
+    dvd_drive_status.1{doc/man}:
+        optional:       dvd-drive-status
+
+    dvd_player{c/executable}:
+        optional:       dvd-player
+        source:         [dvd_player.c, dvd_track.c, dvd_cell.c, dvd_audio.c,
+                         dvd_subtitles.c, dvd_time.c, dvd_chapter.c, dvd_video.c]
+        pkgconf/import: [DVDREAD, MPV, libc/math]
+        link/static:    base
+        c/defines:      ${c/defines}
+
+    dvd_player.1{doc/man}:
+        optional:       dvd-player
+
+    dvd_rip{c/executable}:
+        optonal:        dvd-ripper
+        source:         [dvd_rip.c, dvd_track.c, dvd_cell.c, dvd_vob.c,
+                         dvd_audio.c, dvd_subtitles.c, dvd_time.c,
+                         dvd_chapter.c, dvd_video.c]
+        pkgconf/import: [DVDREAD, MPV, libc/math]
+        link/static:    base
+        c/defines:      ${c/defines}
+
+    dvd_trip.1{doc/man}:
+        optional:       dvd-ripper
+
+distro:
+    _default_:
+        packages:
+            dev:
+                skip: true
+            lib:
+                skip: true
+            data:
+                skip: true
