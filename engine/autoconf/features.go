@@ -50,7 +50,12 @@ func featuresProcess(cf global.Global, fm features.FeatureMap) error {
 				}
 			}
 		}
+		if ac := f.AutoconfArg(); ac != "" {
+			subBuild.EntryStrListAppend(features.KeyAutoconfArgs, ac)
+			subHost.EntryStrListAppend(features.KeyAutoconfArgs, ac)
+		}
 	}
+
 	return nil
 }
 

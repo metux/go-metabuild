@@ -3,6 +3,7 @@ package builder
 import (
 	"fmt"
 
+	"github.com/metux/go-metabuild/engine/builder/buildsys"
 	"github.com/metux/go-metabuild/engine/builder/c"
 	"github.com/metux/go-metabuild/engine/builder/composite"
 	"github.com/metux/go-metabuild/engine/builder/data"
@@ -67,6 +68,10 @@ func CreateBuilder(o target.TargetObject) (jobs.Job, error) {
 	/* exec */
 	case target.TypeExecBasic:
 		return exec.MakeExecBasic(o, id), nil
+
+	/* build systems */
+	case target.TypeBuildsysAutotools:
+		return buildsys.MakeAutotools(o, id), nil
 
 	default:
 		return nil, fmt.Errorf("unsupported builder driver: %s", t)

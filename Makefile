@@ -39,6 +39,9 @@ test-zlib: build
 test-lincity: build
 	$(call RUNTEST, $(test_lincity_path), lincity)
 
+test-lincity-2: build
+	$(call RUNTEST, $(test_lincity_path), lincity-2)
+
 test-xfwm4: build
 	$(call RUNTEST, $(test_xfwm4_path), xfwm4)
 

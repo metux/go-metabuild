@@ -46,4 +46,7 @@ const (
 
 	/* shell exec */
 	TypeExecBasic = Key("exec/basic")
+
+	/* other build systems */
+	TypeBuildsysAutotools = Key("buildsys/autotools")
 )

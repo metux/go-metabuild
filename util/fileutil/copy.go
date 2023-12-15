@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"os/exec"
 )
 
 func CopyFile(src, dst string, mode os.FileMode) error {
@@ -30,4 +31,9 @@ func CopyFile(src, dst string, mode os.FileMode) error {
 
 	_, err = io.Copy(destination, source)
 	return err
+}
+
+func Copy(src, dst string) error {
+	cmd := exec.Command("cp", "-p", src, dst)
+	return cmd.Run()
 }
