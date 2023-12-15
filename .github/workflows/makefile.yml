@@ -65,6 +65,27 @@ jobs:
       run: make test-lincity
       working-directory: go-metabuild
 
+  lincity-autoconf:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - uses: ./.github/actions/setup
+
+    - name: install packages
+      run: sudo apt-get install -y gettext
+
+    - name: clone lincity
+      uses: actions/checkout@v3
+      with:
+        repository: oss-qm/lincity
+        path:       lincity
+        ref:        master
+
+    - name: test lincity (autoconf)
+      run: make test-lincity-autoconf
+      working-directory: go-metabuild
+
   xfwm4:
     runs-on: ubuntu-latest
     steps:

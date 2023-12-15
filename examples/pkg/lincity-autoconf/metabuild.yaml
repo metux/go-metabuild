@@ -1,0 +1,48 @@
+package:      lincity
+version:      1.13.1
+maintainer:   Enrico Weigelt, metux IT consult <info@metux.net>
+homepage:     http://lincity.sourceforge.net
+shortname:    Lincity
+name:         City simulation game
+license:      GPLv2
+description:  |
+ Clone of the classic SimCity
+
+configure:
+    checks:
+        - type:         target-distro
+          mandatory:    true
+        - type:         c/compiler
+          mandatory:    true
+
+targets:
+    ac{buildsys/autotools}:
+        install/glob:
+            prog: ${buildconf::install-dirs::bindir}/*
+            doc:
+                - ${buildconf::install-dirs::mandir}/*/*
+                - ${buildconf::install-dirs::docdir}/*
+            data:
+                - ${buildconf::install-dirs::datadir}/${package}/*
+                - ${buildconf::install-dirs::datadir}/${package}/*/*
+                - ${buildconf::install-dirs::localedir}/*
+                - ${buildconf::install-dirs::pixmapdir}/*
+
+options:
+    gzip:
+        type:             bool
+        default:          y
+        autoconf/with:    gzip
+
+    nls:
+        type:             bool
+        default:          y
+        autoconf/enable:  nls
+
+distro:
+    _default_:
+        packages:
+            dev:
+                skip: true
+            lib:
+                skip: true

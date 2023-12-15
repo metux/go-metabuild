@@ -190,6 +190,10 @@ func (o TargetObject) Skipped() bool {
 	return false
 }
 
+func (o TargetObject) BuildFlags() specobj.SpecObj {
+	return o.BuildConf.SubForBuild(o.ForBuild(), "flags")
+}
+
 func MakeTargetObject(spec specobj.SpecObj, k Key, bc buildconf.BuildConf, c cache.Cache) TargetObject {
 	obj := TargetObject{
 		SpecObj:   spec,

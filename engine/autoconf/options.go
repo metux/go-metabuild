@@ -50,7 +50,12 @@ func optionsProcess(cf global.Global, fm options.OptionMap) error {
 				}
 			}
 		}
+		if ac := f.AutoconfArg(); ac != "" {
+			subBuild.EntryStrListAppend(options.KeyAutoconfArgs, ac)
+			subHost.EntryStrListAppend(options.KeyAutoconfArgs, ac)
+		}
 	}
+
 	return nil
 }
 

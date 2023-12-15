@@ -641,6 +641,39 @@ platform:
                 builder/driver:           exec/basic
                 exec/log:                 true
 
+            # FIXME toolchain opts, options
+            buildsys/autotools:
+                builder/driver:           buildsys/autotools
+                autoreconf:               true
+                autoreconf/command:       [autoreconf, -fi]
+                configure:                true
+                configure/command:        ["./configure", "${@@^^::autoconf/diropts}"]
+                clean:                    true
+                clean/command:            [make, clean]
+                build:                    true
+                build/command:            make
+                install:                  true
+                install/command:
+                    - "make"
+                    - "DESTDIR=${buildconf::@builddir/dist}/root"
+                    - "install"
+                install/destdir:          ${buildconf::@builddir/dist}/root
+                autoconf/diropts:
+                    - "--bindir=${buildconf::install-dirs::bindir}"
+                    - "--sbindir=${buildconf::install-dirs::sbindir}"
+                    - "--libexecdir=${buildconf::install-dirs::libexecdir}"
+                    - "--sysconfdir=${buildconf::install-dirs::sysconfdir}"
+                    - "--sharedstatedir=${buildconf::install-dirs::sharedstatedir}"
+                    - "--localstatedir=${buildconf::install-dirs::localstatedir}"
+                    - "--runstatedir=${buildconf::install-dirs::runstatedir}"
+                    - "--libdir=${buildconf::install-dirs::libdir}"
+                    - "--includedir=${buildconf::install-dirs::includedir}"
+                    - "--datadir=${buildconf::install-dirs::datadir}"
+                    - "--infodir=${buildconf::install-dirs::infodir}"
+                    - "--localedir=${buildconf::install-dirs::localedir}"
+                    - "--mandir=${buildconf::install-dirs::mandir}"
+                    - "--docdir=${buildconf::install-dirs::docdir}"
+
 buildconf:
     install-dirs: # will be filled by configure stage
     version: ${version}

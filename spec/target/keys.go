@@ -30,6 +30,7 @@ const (
 	KeyInstallSubdir  = Key("install/subdir")
 	KeyInstallPackage = Key("install/package")
 	KeyInstallPerm    = Key("install/perm")
+	KeyInstallGlob    = Key("install/glob")
 
 	KeySource       = Key("source")
 	KeySourceDir    = Key("source/dir")
@@ -123,4 +124,32 @@ const (
 	KeyExecCommand = Key("exec/command")
 	KeyExecWorkDir = Key("exec/workdir")
 	KeyExecLog     = Key("exec/log")
+)
+
+// autotools
+const (
+	KeyAutotoolsAutogen        = Key("autoreconf")
+	KeyAutotoolsAutogenCommand = Key("autoreconf/command")
+	KeyAutotoolsAutogenWorkDir = Key("autoreconf/workdir")
+	KeyAutotoolsAutogenLog     = Key("autoreconf/log")
+
+	KeyAutotoolsConfigure        = Key("configure")
+	KeyAutotoolsConfigureCommand = Key("configure/command")
+	KeyAutotoolsConfigureWorkDir = Key("configure/workdir")
+	KeyAutotoolsConfigureLog     = Key("configure/log")
+
+	KeyAutotoolsClean        = Key("clean")
+	KeyAutotoolsCleanCommand = Key("clean/command")
+	KeyAutotoolsCleanWorkDir = Key("clean/workdir")
+	KeyAutotoolsCleanLog     = Key("clean/log")
+
+	KeyAutotoolsBuild        = Key("build")
+	KeyAutotoolsBuildCommand = Key("build/command")
+	KeyAutotoolsBuildWorkDir = Key("build/workdir")
+	KeyAutotoolsBuildLog     = Key("build/log")
+
+	KeyAutotoolsInstall        = Key("install")
+	KeyAutotoolsInstallCommand = Key("install/command")
+	KeyAutotoolsInstallWorkDir = Key("install/workdir")
+	KeyAutotoolsInstallLog     = Key("install/log")
 )

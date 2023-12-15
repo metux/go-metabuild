@@ -1,6 +1,7 @@
 package options
 
 import (
+	"github.com/metux/go-metabuild/util"
 	"github.com/metux/go-metabuild/util/specobj"
 )
 
@@ -22,6 +23,30 @@ func (f Feature) ValueYN() string {
 	default:
 		return v
 	}
+}
+
+func (f Feature) IsBool() bool {
+	return f.EntryStr("type") == "bool"
+}
+
+func (f Feature) acArg1(arg string, on string, off string) string {
+	if f.IsBool() {
+		return util.ValIf(f.IsOn(), on, off) + arg
+	}
+	if v := f.Value(); v != "" {
+		return on + arg + "=" + v
+	}
+	return ""
+}
+
+func (f Feature) AutoconfArg() string {
+	if arg := f.EntryStr(KeyAutoconfWith); arg != "" {
+		return f.acArg1(arg, "--with-", "--without-")
+	}
+	if arg := f.EntryStr(KeyAutoconfEnable); arg != "" {
+		return f.acArg1(arg, "--enable-", "--disable-")
+	}
+	return ""
 }
 
 func (f Feature) IsOn() bool {
