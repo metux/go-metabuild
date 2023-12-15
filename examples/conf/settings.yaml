@@ -100,9 +100,11 @@ distro:
             localstatedir:  /var
             sysconfdir:     /etc
             bindir:         ${buildconf::@targetdist::install-dirs::prefix}/bin
+            sbindir:        ${buildconf::@targetdist::install-dirs::prefix}/sbin
             bootbindir:     /bin
             libdir:         ${buildconf::@targetdist::install-dirs::prefix}/lib/${buildconf::@targetdist::targetsys}
             libdir-noarch:  ${buildconf::@targetdist::install-dirs::prefix}/lib/
+            libexecdir:     ${buildconf::@targetdist::install-dirs::prefix}/libexec/
             bootlibdir:     /lib/${buildconf::@targetdist::targetsys}
             pkgconfigdir:   ${buildconf::@targetdist::install-dirs::libdir}/pkgconfig
             datadir:        ${buildconf::@targetdist::install-dirs::prefix}/share
@@ -113,6 +115,10 @@ distro:
             pixmapdir:      ${buildconf::@targetdist::install-dirs::datadir}/pixmaps
             includedir:     ${buildconf::@targetdist::install-dirs::prefix}/include
             fdo-appdir:     ${buildconf::@targetdist::install-dirs::datadir}/applications
+            metainfodir:    ${buildconf::@targetdist::install-dirs::datadir}/metainfo
+            infodir:        ${buildconf::@targetdist::install-dirs::datadir}/info
+            sharedstatedir: ${buildconf::@targetdist::install-dirs::prefix}/com
+            runstatedir:    ${buildconf::@targetdist::install-dirs::localstatedir}/run
 
         depends:
             libc-dev: libc6-dev | libc-dev
@@ -535,12 +541,15 @@ platform:
 buildconf:
     install-dirs:
         prefix:         ${buildconf::@targetdist::install-dirs::prefix}
+        sbindir:        ${buildconf::@targetdist::install-dirs::sbindir}
         exec-prefix:    ${buildconf::@targetdist::install-dirs::exec-prefix}
         localstatedir:  ${buildconf::@targetdist::install-dirs::localstatedir}
+        runstatedir:    ${buildconf::@targetdist::install-dirs::runstatedir}
         sysconfdir:     ${buildconf::@targetdist::install-dirs::sysconfdir}
         bindir:         ${buildconf::@targetdist::install-dirs::bindir}
         bootbindir:     ${buildconf::@targetdist::install-dirs::bootbindir}
         libdir:         ${buildconf::@targetdist::install-dirs::libdir}
+        libexecdir:     ${buildconf::@targetdist::install-dirs::libexecdir}
         libdir-noarch:  ${buildconf::@targetdist::install-dirs::libdir-noarch}
         sharedlibdir:   ${buildconf::@targetdist::install-dirs::sharedlibdir}
         bootlibdir:     ${buildconf::@targetdist::install-dirs::bootlibdir}
@@ -552,6 +561,9 @@ buildconf:
         includedir:     ${buildconf::@targetdist::install-dirs::includedir}
         pixmapdir:      ${buildconf::@targetdist::install-dirs::pixmapdir}
         fdo-appdir:     ${buildconf::@targetdist::install-dirs::fdo-appdir}
+        metainfodir:    ${buildconf::@targetdist::install-dirs::metainfodir}
+        infodir:        ${buildconf::@targetdist::install-dirs::infodir}
+        sharedstatedir: ${buildconf::@targetdist::install-dirs::sharedstatedir}
     version: ${version}
 
 i18n:
