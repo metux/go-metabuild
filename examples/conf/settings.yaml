@@ -94,31 +94,32 @@ distro:
         pkg-format:   deb
         platform:     ${platform::linux}
 
+        # copied over to buildconf, so we can use @@^ references
         install-dirs:
             prefix:         /usr
-            exec-prefix:    ${buildconf::@targetdist::install-dirs::prefix}
+            exec-prefix:    ${@@^::prefix}
             localstatedir:  /var
             sysconfdir:     /etc
-            bindir:         ${buildconf::@targetdist::install-dirs::prefix}/bin
-            sbindir:        ${buildconf::@targetdist::install-dirs::prefix}/sbin
+            bindir:         ${@@^::prefix}/bin
+            sbindir:        ${@@^::prefix}/sbin
             bootbindir:     /bin
-            libdir:         ${buildconf::@targetdist::install-dirs::prefix}/lib/${buildconf::@targetdist::targetsys}
-            libdir-noarch:  ${buildconf::@targetdist::install-dirs::prefix}/lib/
-            libexecdir:     ${buildconf::@targetdist::install-dirs::prefix}/libexec/
-            bootlibdir:     /lib/${buildconf::@targetdist::targetsys}
-            pkgconfigdir:   ${buildconf::@targetdist::install-dirs::libdir}/pkgconfig
-            datadir:        ${buildconf::@targetdist::install-dirs::prefix}/share
-            localedir:      ${buildconf::@targetdist::install-dirs::datadir}/locale
-            sharedlibdir:   ${buildconf::@targetdist::install-dirs::sharedlibdir}
-            mandir:         ${buildconf::@targetdist::install-dirs::datadir}/man
-            docdir:         ${buildconf::@targetdist::install-dirs::datadir}/doc
-            pixmapdir:      ${buildconf::@targetdist::install-dirs::datadir}/pixmaps
-            includedir:     ${buildconf::@targetdist::install-dirs::prefix}/include
-            fdo-appdir:     ${buildconf::@targetdist::install-dirs::datadir}/applications
-            metainfodir:    ${buildconf::@targetdist::install-dirs::datadir}/metainfo
-            infodir:        ${buildconf::@targetdist::install-dirs::datadir}/info
-            sharedstatedir: ${buildconf::@targetdist::install-dirs::prefix}/com
-            runstatedir:    ${buildconf::@targetdist::install-dirs::localstatedir}/run
+            libdir:         ${@@^::prefix}/lib/${buildconf::@targetdist::targetsys}
+            libdir-noarch:  ${@@^::prefix}/lib/
+            libexecdir:     ${@@^::prefix}/libexec/
+            bootlibdir:     /lib/${buildconf::targetsys}
+            pkgconfigdir:   ${@@^::libdir}/pkgconfig
+            datadir:        ${@@^::prefix}/share
+            localedir:      ${@@^::datadir}/locale
+            sharedlibdir:   ${@@^::sharedlibdir}
+            mandir:         ${@@^::datadir}/man
+            docdir:         ${@@^::datadir}/doc
+            pixmapdir:      ${@@^::datadir}/pixmaps
+            includedir:     ${@@^::prefix}/include
+            fdo-appdir:     ${@@^::datadir}/applications
+            metainfodir:    ${@@^::datadir}/metainfo
+            infodir:        ${@@^::datadir}/info
+            sharedstatedir: ${@@^::prefix}/com
+            runstatedir:    ${@@^::localstatedir}/run
 
         depends:
             libc-dev: libc6-dev | libc-dev
@@ -540,31 +541,7 @@ platform:
                 output/c/header:      ${@@^::@id}
 
 buildconf:
-    install-dirs:
-        prefix:         ${buildconf::@targetdist::install-dirs::prefix}
-        sbindir:        ${buildconf::@targetdist::install-dirs::sbindir}
-        exec-prefix:    ${buildconf::@targetdist::install-dirs::exec-prefix}
-        localstatedir:  ${buildconf::@targetdist::install-dirs::localstatedir}
-        runstatedir:    ${buildconf::@targetdist::install-dirs::runstatedir}
-        sysconfdir:     ${buildconf::@targetdist::install-dirs::sysconfdir}
-        bindir:         ${buildconf::@targetdist::install-dirs::bindir}
-        bootbindir:     ${buildconf::@targetdist::install-dirs::bootbindir}
-        libdir:         ${buildconf::@targetdist::install-dirs::libdir}
-        libexecdir:     ${buildconf::@targetdist::install-dirs::libexecdir}
-        libdir-noarch:  ${buildconf::@targetdist::install-dirs::libdir-noarch}
-        sharedlibdir:   ${buildconf::@targetdist::install-dirs::sharedlibdir}
-        bootlibdir:     ${buildconf::@targetdist::install-dirs::bootlibdir}
-        pkgconfigdir:   ${buildconf::@targetdist::install-dirs::pkgconfigdir}
-        datadir:        ${buildconf::@targetdist::install-dirs::datadir}
-        localedir:      ${buildconf::@targetdist::install-dirs::localedir}
-        mandir:         ${buildconf::@targetdist::install-dirs::mandir}
-        docdir:         ${buildconf::@targetdist::install-dirs::docdir}
-        includedir:     ${buildconf::@targetdist::install-dirs::includedir}
-        pixmapdir:      ${buildconf::@targetdist::install-dirs::pixmapdir}
-        fdo-appdir:     ${buildconf::@targetdist::install-dirs::fdo-appdir}
-        metainfodir:    ${buildconf::@targetdist::install-dirs::metainfodir}
-        infodir:        ${buildconf::@targetdist::install-dirs::infodir}
-        sharedstatedir: ${buildconf::@targetdist::install-dirs::sharedstatedir}
+    install-dirs: # will be filled by configure stage
     version: ${version}
 
 i18n:

@@ -18,6 +18,10 @@ func (bc BuildConf) SetTargetDist(dist string) {
 	bc.EntryPutStr(KeyTargetDistName, dist)
 	bc.EntryPutStr(KeyTargetDist, "${distro::"+dist+"}")
 	bc.EntryPutStr(KeyTargetPlatform, "${distro::"+dist+"::platform}")
+
+	// copy over install dirs
+	id := bc.EntrySpec(KeyInstallDirs)
+	id.CopyDefaultsFrom(bc.EntrySpec(KeyTargetDist.Append(KeyInstallDirs).MagicLiteralPost()))
 }
 
 func (bc BuildConf) SetTargetDistArch(arch string) {
