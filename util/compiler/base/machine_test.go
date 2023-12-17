@@ -54,6 +54,7 @@ var testdata = map[string]Machine{
 
 func TestMachine(t *testing.T) {
 	for str, ent := range testdata {
+		ent.Valid = true
 		mach := ParseMachine(str)
 		if ent.Arch != mach.Arch {
 			t.Errorf("[%s] arch mismatch: have %s <-> want %s\n", str, ent.Arch, mach.Arch)
