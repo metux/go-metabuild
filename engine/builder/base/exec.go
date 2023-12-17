@@ -5,10 +5,14 @@ import (
 	"os/exec"
 	"strings"
 
+	"github.com/metux/go-metabuild/spec/target"
 	"github.com/metux/go-metabuild/util"
 )
 
 func (b BaseBuilder) Exec(cmdline []string, wd string) (string, error) {
+	if b.EntryBoolDef(target.KeyExecLog, true) {
+		b.Logf("Exec: %s", cmdline)
+	}
 	cmd := exec.Command(cmdline[0], cmdline[1:]...)
 	cmd.Dir = wd
 	out, err := cmd.CombinedOutput()
