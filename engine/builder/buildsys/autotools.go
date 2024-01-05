@@ -40,10 +40,8 @@ func addPar(list []string, name string, val []string) []string {
 }
 
 func (b Autotools) JobRun() error {
-	log.Println("autotools")
 
 	destdir := filepath.Clean(b.EntryStr("install/destdir"))
-	log.Println("destdir=", destdir)
 
 	infCHost := b.BuildConf.CompilerInfo(true, compiler.LangC)
 	infCBuild := b.BuildConf.CompilerInfo(false, compiler.LangC)
@@ -66,8 +64,6 @@ func (b Autotools) JobRun() error {
 	args = addPar(args, "HOST_AR", infCBuild.Archiver)
 	args = addPar(args, "HOST_LD", infCBuild.Linker)
 	args = addPar(args, "HOST_CXX", infCxxBuild.Command)
-
-	log.Println("ARGS:", args)
 
 	if err := b.stage("autogen",
 		target.KeyAutotoolsAutogen,
@@ -118,16 +114,17 @@ func (b Autotools) JobRun() error {
 	destFS := os.DirFS(destdir)
 	installed := make(map[string]string)
 
-	globs := b.EntrySpec("install/files")
+	// FIXME: check if glob finds nothing
+	globs := b.EntrySpec(target.KeyInstallGlob)
 	for _, pname := range globs.Keys() {
 		pkgpath := b.PkgPath(string(pname), "/")
 		for _, ent := range globs.EntryStrList(pname) {
-			found, _ := fs.Glob(destFS, ent[1:])
+			found, _ := fs.Glob(destFS, fileutil.StripAbs(ent))
 			for _, fn := range found {
 				if _, ok := installed[fn]; ok {
 					return fmt.Errorf("already installed in <%s>: %s", pname, fn)
 				}
-				idir := pkgpath + "/" + filepath.Dir(fn)
+				idir := pkgpath+"/"+filepath.Dir(fn)
 				os.MkdirAll(idir, 0755)
 				fileutil.Copy(destdir+"/"+fn, idir)
 				installed[fn] = string(pname)
@@ -135,8 +132,19 @@ func (b Autotools) JobRun() error {
 		}
 	}
 
-	l := len(destdir) + 1
+	// mark ignored
+	for _, ent := range b.EntryStrList("install/ignore") {
+		log.Println("ignore glob", ent)
+		found, _ := fs.Glob(destFS, fileutil.StripAbs(ent))
+		for _, fn := range found {
+			if pname, ok := installed[fn]; ok {
+				return fmt.Errorf("already installed in <%s>: %s", pname, fn)
+			}
+			installed[fn] = ""
+		}
+	}
 
+	l := len(destdir) + 1
 	err := filepath.Walk(destdir,
 		func(path string, info os.FileInfo, err error) error {
 			if err == nil {
@@ -144,6 +152,8 @@ func (b Autotools) JobRun() error {
 					path = path[l:]
 					if _, ok := installed[path]; !ok {
 						log.Println("missing: ", path)
+					} else {
+						log.Println("got: ", path)
 					}
 				}
 			}
