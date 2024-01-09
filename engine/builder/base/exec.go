@@ -1,30 +1,24 @@
 package base
 
 import (
-	"fmt"
 	"os/exec"
-	"strings"
 
 	"github.com/metux/go-metabuild/spec/target"
 	"github.com/metux/go-metabuild/util"
 )
 
-func (b BaseBuilder) Exec(cmdline []string, wd string) (string, error) {
+func (b BaseBuilder) Exec(cmdline []string, wd string) error {
 	if b.EntryBoolDef(target.KeyExecLog, true) {
 		b.Logf("Exec: %s", cmdline)
 	}
 	cmd := exec.Command(cmdline[0], cmdline[1:]...)
 	cmd.Dir = wd
-	out, err := cmd.CombinedOutput()
-	if err != nil {
-		b.Logf("Command error for: %s\n", cmdline)
-		b.Logf(">> %s\n", out)
-	}
-	return strings.TrimSpace(fmt.Sprintf("%s", out)), err
+	cmd.Stdout = logWriter{Prefix: "out", Builder: &b}
+	cmd.Stderr = logWriter{Prefix: "err", Builder: &b}
+	return cmd.Run()
 }
 
-func (b BaseBuilder) ExecAbort(cmdline []string, wd string) string {
-	out, err := b.Exec(cmdline, wd)
+func (b BaseBuilder) ExecAbort(cmdline []string, wd string) {
+	err := b.Exec(cmdline, wd)
 	util.ErrPanicf(err, "exec failed: %s in %s", cmdline, wd)
-	return out
 }
