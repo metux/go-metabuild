@@ -11,14 +11,8 @@ type ExecBasic struct {
 }
 
 func (b ExecBasic) JobRun() error {
-	out, err := b.Exec(b.RequiredEntryStrList(target.KeyExecCommand),
+	return b.Exec(b.RequiredEntryStrList(target.KeyExecCommand),
 		b.EntryStr(target.KeyExecWorkDir))
-
-	if b.EntryBoolDef(target.KeyExecLog, true) {
-		b.Logf("%s", out)
-	}
-
-	return err
 }
 
 func MakeExecBasic(o spec.TargetObject, id string) ExecBasic {
