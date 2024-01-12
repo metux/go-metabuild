@@ -90,6 +90,11 @@ func (g Global) Init() {
 	// init features
 	fm := g.GetFeatureMap()
 	fm.Init()
+
+	// init targets
+	for _, t := range g.GetTargetObjects() {
+		t.Init()
+	}
 }
 
 func (g Global) PostConfig() {

@@ -104,6 +104,10 @@ func (o TargetObject) LoadTargetDefaults() {
 	o.loadTargetType(o.Type())
 }
 
+func (o TargetObject) Init() {
+	o.LoadTargetDefaults()
+}
+
 func (o TargetObject) CDefines() []string {
 	return o.FeaturedStrList(KeyCDefines)
 }
