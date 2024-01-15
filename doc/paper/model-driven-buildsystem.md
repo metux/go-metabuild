@@ -258,3 +258,10 @@ from the project's `metabuild.yml` and the _(potentially platform specific)_ def
 From here, all sub-nodes _(e.g. targets, probing, etc)_ can be retrieved.
 
 
+Runtime build configuration _(eg. probing results)_ is stored under the `buildconf::` key,
+which can be accessed via `Buildconf` struct - in most cases, values are automatically filled
+in here, not given in the `metabuild.yaml`
+
+
+The actual target objects _(eg. executables, libraries, ...)_ are found under the `targets`
+key, and each of them represented by a `TargetObject` struct. 
