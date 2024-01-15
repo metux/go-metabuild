@@ -29,7 +29,7 @@ func (b I18nMsgfmt) JobRun() error {
 
 	tmpdir := b.BuildConf.BuildTempDir(string(b.Type()))
 
-	for _, item := range b.FeaturedStrList(target.KeySource) {
+	for _, item := range b.OptionStrList(target.KeySource) {
 		infile := fileutil.MkPath(subdir, item+inSuffix)
 		tmpfile := fileutil.MkPath(tmpdir, item+inSuffix)
 		outfile := fileutil.MkPath(tmpdir, item+outSuffix)

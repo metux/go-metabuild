@@ -16,7 +16,7 @@ func RunConfigure(cf global.Global) error {
 			return err
 		}
 	}
-	if err := RunConfigureFeatures(cf); err != nil {
+	if err := RunConfigureOptions(cf); err != nil {
 		return err
 	}
 

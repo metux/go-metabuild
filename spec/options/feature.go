@@ -1,4 +1,4 @@
-package features
+package options
 
 import (
 	"github.com/metux/go-metabuild/util/specobj"

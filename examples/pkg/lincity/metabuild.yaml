@@ -180,7 +180,7 @@ targets:
     lincity.6{doc/man}:
         man/alias:          xlincity
 
-features:
+options:
     gzip:
         type:     bool
         default:  y

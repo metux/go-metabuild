@@ -38,15 +38,15 @@ func (b *BuilderCLibrary) JobPrepare(id jobs.JobId) error {
 }
 
 func (b BuilderCLibrary) copySub(sub base.BaseBuilder) {
-	sub.DefaultPutStrList(target.KeySource, b.FeaturedStrList(target.KeySource))
-	sub.DefaultPutStrList(target.KeyCDefines, b.FeaturedStrList(target.KeyCDefines))
-	sub.DefaultPutStrList(target.KeyCCflags, b.FeaturedStrList(target.KeyCCflags))
-	sub.DefaultPutStrList(target.KeyLinkStatic, b.FeaturedStrList(target.KeyLinkStatic))
-	sub.DefaultPutStrList(target.KeyLinkShared, b.FeaturedStrList(target.KeyLinkShared))
-	sub.DefaultPutStrList(target.KeyLinkBoth, b.FeaturedStrList(target.KeyLinkBoth))
-	sub.DefaultPutStrList(target.KeyPkgconfImport, b.FeaturedStrList(target.KeyPkgconfImport))
-	sub.DefaultPutStrList(target.KeyIncludeDir, b.FeaturedStrList(target.KeyIncludeDir))
-	sub.DefaultPutStrList(target.KeyLibDirs, b.FeaturedStrList(target.KeyLibDirs))
+	sub.DefaultPutStrList(target.KeySource, b.OptionStrList(target.KeySource))
+	sub.DefaultPutStrList(target.KeyCDefines, b.OptionStrList(target.KeyCDefines))
+	sub.DefaultPutStrList(target.KeyCCflags, b.OptionStrList(target.KeyCCflags))
+	sub.DefaultPutStrList(target.KeyLinkStatic, b.OptionStrList(target.KeyLinkStatic))
+	sub.DefaultPutStrList(target.KeyLinkShared, b.OptionStrList(target.KeyLinkShared))
+	sub.DefaultPutStrList(target.KeyLinkBoth, b.OptionStrList(target.KeyLinkBoth))
+	sub.DefaultPutStrList(target.KeyPkgconfImport, b.OptionStrList(target.KeyPkgconfImport))
+	sub.DefaultPutStrList(target.KeyIncludeDir, b.OptionStrList(target.KeyIncludeDir))
+	sub.DefaultPutStrList(target.KeyLibDirs, b.OptionStrList(target.KeyLibDirs))
 	sub.DefaultPutStrList(target.KeyJobDepends, b.JobDepends())
 }
 

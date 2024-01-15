@@ -1,18 +1,18 @@
-package features
+package options
 
 import (
 	"github.com/metux/go-metabuild/util/specobj"
 )
 
-type FeatureMap struct {
+type OptionMap struct {
 	specobj.SpecObj
 }
 
-func (fm FeatureMap) IDs() []Key {
+func (fm OptionMap) IDs() []Key {
 	return fm.Keys()
 }
 
-func (fm FeatureMap) All() []Feature {
+func (fm OptionMap) All() []Feature {
 	f := []Feature{}
 	for _, k := range fm.Keys() {
 		f = append(f, fm.Get(k))
@@ -20,11 +20,11 @@ func (fm FeatureMap) All() []Feature {
 	return f
 }
 
-func (fm FeatureMap) Get(k Key) Feature {
+func (fm OptionMap) Get(k Key) Feature {
 	return Feature{fm.EntrySpec(k), k}
 }
 
-func (fm FeatureMap) Map() map[Key]string {
+func (fm OptionMap) Map() map[Key]string {
 	m := make(map[Key]string)
 	for _, k := range fm.Keys() {
 		m[k] = fm.EntryStr(k.Append(KeyEnabled))
@@ -32,7 +32,7 @@ func (fm FeatureMap) Map() map[Key]string {
 	return m
 }
 
-func (fm FeatureMap) Init() {
+func (fm OptionMap) Init() {
 	for _, k := range fm.Keys() {
 		fm.DefaultPutStr(k.Append(KeyEnabled), "${@@PARENT::default}")
 	}

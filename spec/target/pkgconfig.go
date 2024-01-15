@@ -34,7 +34,7 @@ func (o TargetObject) tryImport(id string) compiler.PkgConfigInfo {
 }
 
 func (o TargetObject) PkgImports() []compiler.PkgConfigInfo {
-	imports := o.FeaturedStrList(KeyPkgconfImport)
+	imports := o.OptionStrList(KeyPkgconfImport)
 	pkgs := make([]compiler.PkgConfigInfo, len(imports))
 	for idx, i := range imports {
 		pkgs[idx] = o.tryImport(i)

@@ -8,8 +8,8 @@ import (
 	"github.com/metux/go-metabuild/spec/buildconf"
 	"github.com/metux/go-metabuild/spec/cache"
 	"github.com/metux/go-metabuild/spec/check"
-	"github.com/metux/go-metabuild/spec/features"
 	"github.com/metux/go-metabuild/spec/generate"
+	"github.com/metux/go-metabuild/spec/options"
 	"github.com/metux/go-metabuild/spec/target"
 	"github.com/metux/go-metabuild/util/specobj"
 )
@@ -56,15 +56,15 @@ func (g Global) GetTargetObjects() map[string]target.TargetObject {
 }
 
 func (g Global) BuildConf() buildconf.BuildConf {
-	return buildconf.BuildConf{SpecObj: g.EntrySpec(KeyBuildConf), Features: g.GetFeatureMap()}
+	return buildconf.BuildConf{SpecObj: g.EntrySpec(KeyBuildConf), Options: g.GetOptionMap()}
 }
 
 func (g Global) GetCache() cache.Cache {
 	return cache.NewCache(g.EntrySpec(KeyCache))
 }
 
-func (g Global) GetFeatureMap() features.FeatureMap {
-	return features.FeatureMap{g.EntrySpec(KeyFeatures)}
+func (g Global) GetOptionMap() options.OptionMap {
+	return options.OptionMap{g.EntrySpec(KeyOptions)}
 }
 
 func (g Global) Init() {
@@ -87,8 +87,8 @@ func (g Global) Init() {
 		g.Init()
 	}
 
-	// init features
-	fm := g.GetFeatureMap()
+	// init options
+	fm := g.GetOptionMap()
 	fm.Init()
 
 	// init targets

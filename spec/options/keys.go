@@ -1,4 +1,4 @@
-package features
+package options
 
 import (
 	"github.com/metux/go-magicdict/api"
@@ -6,7 +6,7 @@ import (
 
 type Key = api.Key
 
-// per feature attributes
+// per option attributes
 const (
 	KeyEnabled        = Key("enabled")
 	KeyPkgconfRequire = Key("pkgconf/require")

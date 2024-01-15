@@ -30,8 +30,8 @@ func (b BaseCBuilder) ImportInternalLib(id string, wantShared bool, wantStatic b
 }
 
 func (b BaseCBuilder) ImportSrcdir() compiler.PkgConfigInfo {
-	cflags := append(b.FeaturedStrList(target.KeyCCflags), util.StrPrefix("-I", b.EntryStrList(target.KeyIncludeDir))...)
-	ldflags := append(b.FeaturedStrList(target.KeyCLdflags), util.StrPrefix("-L", b.EntryStrList(target.KeyLibDirs))...)
+	cflags := append(b.OptionStrList(target.KeyCCflags), util.StrPrefix("-I", b.EntryStrList(target.KeyIncludeDir))...)
+	ldflags := append(b.OptionStrList(target.KeyCLdflags), util.StrPrefix("-L", b.EntryStrList(target.KeyLibDirs))...)
 
 	return compiler.PkgConfigInfo{
 		Private:       true,

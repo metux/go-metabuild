@@ -32,7 +32,7 @@ attribute set.
 | build       | bool    | true if compiled for `build` system instead of `host` |
 | install     | bool    | true if output should be installed in package         |
 | job/depends | list    | additional job dependencies                           |
-| optional    | string  | only build if given feature/option is enabled         |
+| optional    | string  | only build if given option is enabled                 |
 | skip        | bool    | skip building this target                             |
 | type        | string  | target type                                           |
 

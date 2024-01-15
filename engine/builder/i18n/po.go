@@ -24,7 +24,7 @@ func (b I18nPo) JobRun() error {
 	fn := b.RequiredEntryStr(target.KeyI18nDomain) + SuffixMo
 	prog := b.BuilderCmd()
 
-	for _, l := range b.FeaturedStrList(target.KeyI18nLinguas) {
+	for _, l := range b.OptionStrList(target.KeyI18nLinguas) {
 		subdir := fileutil.MkPath(l, catdir)
 		outfile := fileutil.MkPath(b.BuildConf.BuildTempDir("po/"+subdir), fn)
 		infile := fileutil.MkPath(srcdir, l+SuffixPo)

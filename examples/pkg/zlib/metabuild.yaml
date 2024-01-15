@@ -1,6 +1,6 @@
 # TODO
 # --> the current one will be linked to a fixed place, where it can be referenced anywhere else
-# --> add c/defines@host / c/defines@build (FeaturedStrList ?)
+# --> add c/defines@host / c/defines@build (OptionStrList ?)
 # --> target: cflags, ldflags, ... automatically load for host/build
 
 package:      zlib1g
@@ -62,7 +62,7 @@ targets:
             - trees.c
             - zutil.c
 
-        source@feature/gz=y:
+        source@option/gz=y:
             - compress.c
             - uncompr.c
             - gzclose.c
@@ -142,7 +142,7 @@ targets:
         c/defines:      ["${buildconf::host::flags::c/defines}", _FILE_OFFSET_BITS=64]
         link/shared:    zlib
 
-features:
+options:
     pedantic:
         type:    bool
         description: be very pedantic (eg. make many things const)

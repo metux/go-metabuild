@@ -18,7 +18,7 @@ const (
 	KeyTargetObjects = Key("targets")
 	KeyBuildConf     = Key("buildconf")
 	KeyCache         = Key("cache")
-	KeyFeatures      = Key("features")
+	KeyOptions       = Key("options")
 	KeyPackage       = Key("package")
 	KeyVersion       = Key("version")
 	KeyMaintainer    = Key("maintainer")

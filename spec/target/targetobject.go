@@ -22,10 +22,10 @@ type TargetObject struct {
 	Cache     cache.Cache
 }
 
-func (o TargetObject) FeaturedStrList(k Key) []string {
+func (o TargetObject) OptionStrList(k Key) []string {
 	ret := o.EntryStrList(k)
-	for _, f := range o.BuildConf.Features.All() {
-		k2 := Key(string(k) + "@feature/" + string(f.Id) + "=" + f.ValueYN())
+	for _, f := range o.BuildConf.Options.All() {
+		k2 := Key(string(k) + "@option/" + string(f.Id) + "=" + f.ValueYN())
 		ret = append(ret, o.EntryStrList(k2)...)
 	}
 	return ret
@@ -33,7 +33,7 @@ func (o TargetObject) FeaturedStrList(k Key) []string {
 
 func (o TargetObject) Sources() []string {
 	res := []string{}
-	for _, f := range util.StrDirPrefix(o.EntryStr(KeySourceDir), o.FeaturedStrList(KeySource)) {
+	for _, f := range util.StrDirPrefix(o.EntryStr(KeySourceDir), o.OptionStrList(KeySource)) {
 		files, err := filepath.Glob(f)
 		util.ErrPanicf(err, "file glob error")
 		if len(files) == 0 {
@@ -45,7 +45,7 @@ func (o TargetObject) Sources() []string {
 }
 
 func (o TargetObject) RequiredSources() []string {
-	s := util.StrDirPrefix(o.EntryStr(KeySourceDir), o.FeaturedStrList(KeySource))
+	s := util.StrDirPrefix(o.EntryStr(KeySourceDir), o.OptionStrList(KeySource))
 	if len(s) == 0 {
 		panic("source attribute required")
 	}
@@ -109,11 +109,11 @@ func (o TargetObject) Init() {
 }
 
 func (o TargetObject) CDefines() []string {
-	return o.FeaturedStrList(KeyCDefines)
+	return o.OptionStrList(KeyCDefines)
 }
 
 func (o TargetObject) CFlags() []string {
-	return o.FeaturedStrList(KeyCCflags)
+	return o.OptionStrList(KeyCCflags)
 }
 
 func (o TargetObject) GetFMode(k Key) os.FileMode {
@@ -181,7 +181,7 @@ func (o TargetObject) Skipped() bool {
 	}
 
 	for _, opt := range o.EntryStrList(KeyOptional) {
-		f := o.BuildConf.Features.Get(Key(opt))
+		f := o.BuildConf.Options.Get(Key(opt))
 		if !f.IsOn() {
 			return true
 		}

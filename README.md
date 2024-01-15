@@ -18,7 +18,7 @@ See [examples/pkg/zlib/metabuild.yaml](examples/pkg/zlib/metabuild.yaml)
 or [examples/pkg/lincity/metabuild.yaml](examples/pkg/lincity/metabuild.yaml)
 for an examples of the per package configuration.
 
-Features
+Options
 --------
 
 * purely declarative description of SW structure instead of rules for actual build process

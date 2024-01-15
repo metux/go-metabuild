@@ -3,7 +3,7 @@ package buildconf
 import (
 	"strings"
 
-	"github.com/metux/go-metabuild/spec/features"
+	"github.com/metux/go-metabuild/spec/options"
 	"github.com/metux/go-metabuild/util/specobj"
 )
 
@@ -21,7 +21,7 @@ const (
 
 type BuildConf struct {
 	specobj.SpecObj
-	Features features.FeatureMap
+	Options options.OptionMap
 }
 
 // define a conditional/switch symbol
@@ -44,7 +44,7 @@ func (bc BuildConf) PkgNameTrans(id string) string {
 }
 
 func (bc BuildConf) Init() {
-	bc.DefaultPutStr("@features", "${features}")
+	bc.DefaultPutStr("@options", "${options}")
 	bc.DefaultPutStr(KeyBuildDir, BuildDir)
 	bc.DefaultPutStr(KeyBuildDirTmp, BuildDirTmp)
 	bc.DefaultPutStr(KeyBuildDirDist, BuildDirDist)
