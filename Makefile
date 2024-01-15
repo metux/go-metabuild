@@ -8,7 +8,7 @@ test_xfwm4_path   := ../xfwm4
 metabuild := $(my_path)/bin/metabuild
 conf := $(my_path)/examples/conf/settings.yaml
 
-all: test test-zlib
+all: test
 
 vet:
 	@go vet ./...
